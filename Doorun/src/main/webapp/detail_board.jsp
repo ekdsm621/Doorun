@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
-    <title>Board</title>
+    <title>DetailBoard</title>
     <%@include file="/common_jsp/head_settings.jsp" %>
-    </head>
-
+	</head>
+	
     <body>
 	<%@include file="/common_jsp/header.jsp" %>
     <!-- ======= Sidebar ======= -->
@@ -23,12 +22,12 @@
             <!-- 개인 -->
             <!-- class="active" 추가하면 활성화-->
             <li class="nav-item">
-                <a class="nav-link " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-person-fill"></i><span>개인</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#" class="active">
+                    <a href="#">
                     <i class="bi bi-circle"></i><span>프로필</span>
                     </a>
                 </li>
@@ -59,12 +58,12 @@
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
+                        <a href="/find_team.html">
                         <i class="bi bi-circle"></i><span>모임 찾기</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/join_team.html">
                         <i class="bi bi-circle"></i><span>진행 중인 모임</span>
                         </a>
                     </li>
@@ -104,7 +103,7 @@
             <!-- 크루 가입 -->
             <!-- 전체 게시판 -->
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="/free_board.html">
                 <i class="bi bi-journal-text"></i><span>전체 게시판</span>
                 </a>
             </li>
@@ -118,43 +117,55 @@
             <h1 style="font-size: 30px;">전체 게시판</h1>
         </div>
         <hr style="margin-top:50px; margin-bottom: 50px;">
-
-        <section class="section">
-            <div class="row" style="float: none; margin:100 auto;">
-                <div class="col-lg-10"  style="float: none; margin:0 auto;">
-            
-                <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
+        
+        <div class="row align-items-top">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
     
-                    <!-- Default Table -->
-                    <table class="table datatable">
-                    <thead>
-                        <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">writer</th>
-                        <th scope="col">title</th>
-                        <th scope="col">date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<c:forEach items="${boardList }" var="board">
-                        <tr>
-	                        <th scope="row">${board.id }</th>
-	                        <td>${board.writer }</td>
-	                        <td><a href="detailBoard.do?id=${board.id }" style="color:black">${board.title }</a></td>
-	                        <td>${board.reg_date }</td>
-                        </tr>
-                    	</c:forEach>
-                    </tbody>
-                    </table>
-					<a href="insert_board.jsp"><button class="btn btn-outline-dark" style="float:right; width:10%">글쓰기</button></a>
+                <div class="card"  height="auto">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">${board.title }</h5>
+                        <img src="assets/img/지도사진.png" height="400px" style="display: block;">
+                        <div>
+                        	${board.content }
+                        </div>
+                        <br>
+                        <a href="/deleteBoard.do?id=${board.id }"><button class="btn btn-danger" style="float: right; margin-left: 5px;">삭제</button></a>
+                        <a href="/updateBoardView.do?id=${board.id }"><button class="btn btn-secondary" style="float: right;">수정</button></a>
+                    </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">댓글</h5>
+                        <div class="row mb-3" style="padding: 10px;">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">ID: </label>
+                            <div class="col-sm-10">
+                                <span type="text">
+                                    Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
+                                    Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem num
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Horizontal Form -->
+                        <form>
+                            <div class="row mb-3" style="padding: 10px;">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">댓글 입력: </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="inputText">
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-outline-primary col-sm-5" style="float: left; width:45%">입력</button>
+                                    <span class="col-sm-2"></span>
+                                    <button type="reset" class="btn btn-outline-dark col-sm-5" style="float: right; width:45%">취소</button>
+                                </div>
+                            </div>
+                        </form><!-- End Horizontal Form -->
+                    </div>
                 </div>
-        </section>
-
+            </div>
+        </div>
     </main>
     
-    <%@include file="/common_jsp/footer.jsp" %>
+	<%@include file="/common_jsp/footer.jsp" %>
 </body>
 </html>
