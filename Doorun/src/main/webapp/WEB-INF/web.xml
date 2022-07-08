@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<!-- DispatcherServlet 설정 -->
+	  <servlet>
+	    <servlet-name>action</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <init-param>
+	    	<param-name>contextConfigLocation</param-name>
+	    	<param-value>/WEB-INF/config/presentation-layer.xml</param-value>  
+	    </init-param>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>action</servlet-name>
+	    <url-pattern>*.do</url-pattern>
+	  </servlet-mapping>
+	  
+	<!-- applicationContext -> presentation-layer 순으로 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+</web-app>

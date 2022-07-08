@@ -1,0 +1,22 @@
+- JDK 11, Tomcat 9.0 
+
+1. web.xml
+	- SpringFramework 에서 제공하는 DispatcherServlet 사용 설정
+	- Mybatis 이용 위해 ContextLoaderListener 설정
+
+2. application.xml
+	- annotation 사용 설정
+	- Mybatis 사용 설정
+
+3. presentation-layer.xml
+	- annotation 사용 설정
+
+4. sql-map-config.xml
+	- 게시판 구현 위한 설정
+
+5.  pom.xml
+	- Oracle DB
+	- Mybatis
+	- JSON
+	- 파일 업로드
+	- AOP
