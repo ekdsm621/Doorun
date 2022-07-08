@@ -3,26 +3,8 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 
-	<resultMap id="boardResult" type="post">
-		<id property="id" column="ID" />
-		<result property="title" column="TITLE" />
-		<result property="content" column="CONTENT" />
-		<result property="writer" column="WRITER" />
-		<result property="image_file" column="IMAGE_FILE" />
-		<result property="reg_date" column="REG_DATE" />
-		<result property="board_id" column="BOARD_ID" />
-	</resultMap>
-	
-	<select id="getBoardList" resultType="post">
-		<![CDATA[
-			SELECT *
-			FROM POST
-			WHERE BOARD_ID = #{board_id}
-		]]>
-	</select>
-
 <!-- Instant -->
-<!-- 
+
 	<resultMap id="boardResult" type="instantbrd">
 		<id property="id" column="ID" />
 		<result property="writer" column="WRITER" />
@@ -73,12 +55,10 @@
 		ORDER BY ID DESC
 		]]>
 	</select>
- -->	
-
 	<!-- InstantBoard End -->
 	
 	<!-- CrewBoard -->
-	<!-- 
+	
 	<resultMap id="crewBrdResult" type="crewbrd">
 		<id property="id" column="ID" />
 		<result property="writer" column="WRITER" />
@@ -129,13 +109,13 @@
 		ORDER BY ID DESC
 		]]>
 	</select>
-	 -->
+	
 	<!-- CrewBoard End -->
 	
 	
 	
 	<!-- FreeBoard -->
-	<!-- 
+	
 	<resultMap id="freeBrdResult" type="freebrd">
 		<id property="id" column="ID" />
 		<result property="writer" column="WRITER" />
@@ -187,11 +167,11 @@
 		ORDER BY ID DESC
 		]]>
 	</select>
-	 -->
+	
 	<!-- FreeBoard End -->
 	
 	<!-- EventBoard -->
-	<!-- 
+	
 	<resultMap id="freeEventResult" type="eventbrd">
 		<id property="id" column="ID" />
 		<result property="category" column="CATEGORY" />
@@ -242,8 +222,7 @@
 		ORDER BY ID DESC
 		]]>
 	</select>
-	 -->
 	<!-- EventBoard End -->
-	 
+	
 
 </mapper>
