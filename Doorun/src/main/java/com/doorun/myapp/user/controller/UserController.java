@@ -1,6 +1,7 @@
 package com.doorun.myapp.user.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,6 @@ public class UserController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(UserVO vo, HttpSession session , Model model) {
 		
-		System.out.println(vo.getEmail());
-		System.out.println(vo.getPassword());
 		
 		if (vo.getLogin() == null || vo.getLogin().equals("")) {
 			throw new IllegalArgumentException("�α��� ����");
@@ -32,6 +31,8 @@ public class UserController {
 		
 		UserVO user = userService.getUser(vo);
 		if (user != null) {			
+			session.setAttribute("name", user.getName());
+			session.setAttribute("password", user.getPassword());
 			model.addAttribute("user", user);
 			return "updateUser.jsp";  
 		} else
@@ -47,11 +48,6 @@ public class UserController {
 	@RequestMapping("/insertUser.do")
 	public String insertUser(UserVO vo) {
 		
-		System.out.println(vo.getId());
-		System.out.println(vo.getName());
-		System.out.println(vo.getPassword());
-		System.out.println(vo.getEmail());
-		
 		userService.insert(vo);
 		return "login.jsp";
 	}
@@ -61,6 +57,38 @@ public class UserController {
 		
 		userService.update(vo);
 		return "updateUser.jsp";
+	}
+	
+	@RequestMapping("/updatepw.do")
+	public String updatePw(UserVO vo, HttpServletRequest req, HttpSession session) {
+		
+		String currentPassword =req.getParameter("currentPassword");
+		if(currentPassword.equals(session.getAttribute("password"))) {
+			userService.updatePassword(vo);
+			return "updateUser.jsp";
+		}else {
+			System.out.println("실패");
+			return "updateUser.jsp";
+		}
+	}
+	
+	@RequestMapping(value="/findpw.do", method=RequestMethod.GET)
+	public String findPw(UserVO vo,Model model,HttpSession session) throws Exception{
+		
+		
+		System.out.println("1");
+		if(userService.findPwCheck(vo)==0) {
+			System.out.println("1");
+			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
+			
+			return "";
+		}else {
+			System.out.println("2");
+			userService.sendEmail(vo.getEmail(),session);
+			model.addAttribute("member", vo.getEmail());
+		
+		return"";
+		}
 	}
 	
 	@RequestMapping("/deleteUser.do")

@@ -30,6 +30,13 @@
 	  ]]>		
 	</update>
 	
+	<update id="updatePassword">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET PASSWORD =#{password}
+	  ]]>		
+	</update>
+	
 	<delete id="deleteUser">
 	<![CDATA[
 	 
@@ -48,6 +55,18 @@
 	<![CDATA[
 	  SELECT * FROM MEMBER
 	  ORDER BY ID DESC
+	]]>
+	</select>
+	
+	<update id="findPw" >
+	<![CDATA[
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}
+	]]>
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email}
 	]]>
 	</select>
 	

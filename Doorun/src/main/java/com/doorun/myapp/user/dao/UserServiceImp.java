@@ -2,6 +2,8 @@ package com.doorun.myapp.user.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class UserServiceImp implements UserService {
 	public void update(UserVO vo) {
 		userDAO.update(vo);
 	}
+	
+	@Override
+	public void updatePassword(UserVO vo) {
+		userDAO.updatePassword(vo);
+	}
 
 	@Override
 	public void delete(UserVO vo) {
@@ -38,5 +45,22 @@ public class UserServiceImp implements UserService {
 	public List<UserVO> getUserList(UserVO vo) {
 		return userDAO.getUserList(vo);
 	}
+
+	@Override
+	public int findPwCheck(UserVO vo) throws Exception {
+		return userDAO.findPwCheck(vo);
+	}
+
+	@Override
+	public int findPw(String memberPw, String memberEmail) throws Exception {
+		return userDAO.findPw(memberEmail, memberPw);
+	}
+
+	@Override
+	public void sendEmail(String memberEmail, HttpSession session) throws Exception {
+		userDAO.sendEmail(memberEmail , session);
+	}
+
+
 
 }
