@@ -42,6 +42,10 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
+	public String passwordCheck(String id) {
+		return userDAO.passwordCheck(id);
+	}
+	@Override
 	public List<UserVO> getUserList(UserVO vo) {
 		return userDAO.getUserList(vo);
 	}
@@ -60,6 +64,7 @@ public class UserServiceImp implements UserService {
 	public void sendEmail(String memberEmail, HttpSession session) throws Exception {
 		userDAO.sendEmail(memberEmail , session);
 	}
+
 
 
 

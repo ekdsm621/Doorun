@@ -17,8 +17,8 @@
 
 	<insert id ="insertUser">
 	  <![CDATA[
-	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL )	  
-	  	VALUES ( #{id} , #{name} , #{password} , #{email} )	
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, NICKNAME )	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{nickname} )	
 	  ]]>	
 	</insert>
 	
@@ -46,7 +46,15 @@
 	<select id="getUser" resultType="user">
 	<![CDATA[	
 	  SELECT * FROM MEMBER
-	  WHERE ( ID = #{login} OR EMAIL = #{login} )   AND PASSWORD = #{password}
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
+	  
+	]]>	
+	</select>
+	
+	<select id="passwordCheck" resultType="String">
+	<![CDATA[	
+	  SELECT PASSWORD FROM MEMBER
+	  WHERE ID = #{id}
 	  
 	]]>	
 	</select>

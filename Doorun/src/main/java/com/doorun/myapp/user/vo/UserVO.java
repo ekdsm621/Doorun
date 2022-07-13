@@ -15,6 +15,7 @@ public class UserVO {
 	private String profile_image;
 	private String introduce;
 	private String address;
+	private String nickname;
 	
 	
 	public String getLogin() {
@@ -81,6 +82,13 @@ public class UserVO {
 		this.address = address;
 	}
 	
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [name=" + name + ", id=" + id + ", password=" + password + ", email=" + email

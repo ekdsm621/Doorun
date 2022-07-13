@@ -18,6 +18,8 @@ public interface UserService {
 	
 	public UserVO getUser(UserVO vo);
 	
+	public String passwordCheck(String id);
+	
 	public List<UserVO> getUserList(UserVO vo);
 	
 	public int findPwCheck(UserVO vo)throws Exception; 

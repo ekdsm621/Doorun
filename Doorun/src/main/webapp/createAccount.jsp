@@ -80,6 +80,10 @@
                       <input type="text" name="name" class="form-control" id="name" placeholder="이름" required>
                       <div class="invalid-feedback">이름을 입력해주세요</div>
                     </div>
+                    <div class="col-12">
+                      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" required>
+                      <div class="invalid-feedback">닉네임을 입력해주세요</div>
+                    </div>
 
 
                     <div class="col-12">
