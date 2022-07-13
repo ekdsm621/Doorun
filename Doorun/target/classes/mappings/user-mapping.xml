@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+
+	<resultMap type="user" id="userResult">
+		<id property ="id" column="ID"/>
+		<result property = "name" column="NAME"/>
+		<result property = "password" column="PASSWORD"/>
+		<result property = "email" column="EMAIL"/>
+		<result property = "totaldistance" column="TOTALDISTANCE"/>
+		<result property = "totalduration" column="TOTALDURATION"/>
+		<result property = "profile_image" column="PROFILE_IMAGE"/>
+		<result property = "introduce" column="INTRODUCE"/>
+		<result property = "address" column="ADDRESS"/>
+	</resultMap>
+
+	<insert id ="insertUser">
+	  <![CDATA[
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL )	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email} )	
+	  ]]>	
+	</insert>
+	
+	<update id="updateUser">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , ADDRESS = #{address}
+	  	WHERE  EMAIL = #{email}
+	  ]]>		
+	</update>
+	
+	<update id="updatePassword">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET PASSWORD =#{password}
+	  ]]>		
+	</update>
+	
+	<delete id="deleteUser">
+	<![CDATA[
+	 
+	]]>	
+	</delete>
+	
+	<select id="getUser" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )   AND PASSWORD = #{password}
+	  
+	]]>	
+	</select>
+	
+	<select id="getUserList" resultMap ="userResult">
+	<![CDATA[
+	  SELECT * FROM MEMBER
+	  ORDER BY ID DESC
+	]]>
+	</select>
+	
+	<update id="findPw" >
+	<![CDATA[
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}
+	]]>
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email}
+	]]>
+	</select>
+	
+
+
+</mapper>

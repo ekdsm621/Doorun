@@ -1,47 +1,41 @@
 CREATE TABLE CREW(
     ID NUMBER PRIMARY KEY,
     NAME VARCHAR2(20) NOT NULL UNIQUE,
-    MASTER VARCHAR2(20) NOT NULL
+    MASTER VARCHAR2(20) NOT NULL,
+    image_file VA
 );
 
 INSERT INTO CREW VALUES(2, 'DOORUN', 'DOORUN');
 
-CREATE TABLE BOARD(
-    ID NUMBER PRIMARY KEY, -- 0: ÀÌº¥Æ® / 1: ÀÚÀ¯ / 2~: Å©·ç(Å©·çid »ç¿ë)
-    NAME VARCHAR2(20) NOT NULL UNIQUE 
-);
-
-INSERT INTO BOARD VALUES(0, 'EVENT_BOARD');
-INSERT INTO BOARD VALUES(1, 'FREE_BOARD');
-INSERT INTO BOARD VALUES(2, 'DOORUN');
-
-CREATE TABLE POST( -- Á¶È¸¼ö Ãß°¡, Ã·ºÎÆÄÀÏ Ãß°¡
+CREATE TABLE BOARD( -- ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ß°ï¿½, Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     ID NUMBER PRIMARY KEY,
     TITLE VARCHAR2(100) NOT NULL,
     CONTENT VARCHAR2(2000),
-    WRITER VARCHAR2(20) NOT NULL, -- ÈÄ¿¡ USER Å×ÀÌºí FK Ãß°¡ÇÏ±â
+    WRITER VARCHAR2(20) NOT NULL, -- ï¿½Ä¿ï¿½ USER ï¿½ï¿½ï¿½Ìºï¿½ FK ï¿½ß°ï¿½ï¿½Ï±ï¿½
     IMAGE_FILE VARCHAR2(100),
     REG_DATE DATE DEFAULT SYSDATE NOT NULL,
     BOARD_ID NUMBER NOT NULL,
     CONSTRAINT FK_BOARD_ID FOREIGN KEY(BOARD_ID) REFERENCES BOARD(ID) ON DELETE CASCADE
 );
 
-INSERT INTO POST(ID, TITLE, CONTENT, WRITER, BOARD_ID)
-VALUES(1, '¾È³çÇÏ¼¼¿ä', '¾È³çÇÏ¼¼¿ä~ Ã³À½ ºË°Ú½À´Ï´Ù', 'DOORUN', 0);
 
-INSERT INTO POST(ID, TITLE, CONTENT, WRITER, BOARD_ID)
-VALUES((SELECT NVL(MAX(ID),1) FROM POST)+1, '¾È³çÇÏ¼¼¿ä', '¾È³çÇÏ¼¼¿ä~ Ã³À½ ºË°Ú½À´Ï´Ù', 'DOORUN', 1);
 
-INSERT INTO POST(ID, TITLE, CONTENT, WRITER, BOARD_ID)
-VALUES((SELECT NVL(MAX(ID),1) FROM POST)+1, '¾È³çÇÏ¼¼¿ä', '¾È³çÇÏ¼¼¿ä~ Ã³À½ ºË°Ú½À´Ï´Ù', 'DOORUN', 2);
+INSERT INTO BOARD(ID, TITLE, CONTENT, WRITER, BOARD_ID)
+VALUES(1, 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½', 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½~ Ã³ï¿½ï¿½ ï¿½Ë°Ú½ï¿½ï¿½Ï´ï¿½', 'DOORUN', 0);
+
+INSERT INTO BOARD(ID, TITLE, CONTENT, WRITER, BOARD_ID)
+VALUES((SELECT NVL(MAX(ID),1) FROM POST)+1, 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½', 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½~ Ã³ï¿½ï¿½ ï¿½Ë°Ú½ï¿½ï¿½Ï´ï¿½', 'DOORUN', 1);
+
+INSERT INTO BOARD(ID, TITLE, CONTENT, WRITER, BOARD_ID)
+VALUES((SELECT NVL(MAX(ID),1) FROM POST)+1, 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½', 'ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½~ Ã³ï¿½ï¿½ ï¿½Ë°Ú½ï¿½ï¿½Ï´ï¿½', 'DOORUN', 2);
 
 CREATE TABLE REPLY(
     ID NUMBER PRIMARY KEY,
-    WRITER VARCHAR2(20) NOT NULL, -- ÈÄ¿¡ USER Å×ÀÌºí FK Ãß°¡ÇÏ±â
+    WRITER VARCHAR2(20) NOT NULL, -- ï¿½Ä¿ï¿½ USER ï¿½ï¿½ï¿½Ìºï¿½ FK ï¿½ß°ï¿½ï¿½Ï±ï¿½
     CONTENT VARCHAR2(500),
     POST_ID NUMBER NOT NULL,
     REG_DATE DATE DEFAULT SYSDATE NOT NULL,
-    PARENT_ID NUMBER DEFAULT 0 NOT NULL, -- 0 ÀÌ¸é ºÎ¸ð ´ñ±Û ¾øÀ½
+    PARENT_ID NUMBER DEFAULT 0 NOT NULL, -- 0 ï¿½Ì¸ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     CONSTRAINT FK_POST_ID FOREIGN KEY(POST_ID) REFERENCES POST(ID) ON DELETE CASCADE
 );
 
