@@ -18,6 +18,8 @@ public interface UserService {
 	
 	public UserVO getUser(UserVO vo);
 	
+	public String passwordCheck(String id);
+	
 	public List<UserVO> getUserList(UserVO vo);
 	
 	public int findPwCheck(UserVO vo)throws Exception; 
@@ -25,4 +27,5 @@ public interface UserService {
 	public int findPw(String memberPw,String memberEmail)throws Exception;
 	
 	public void sendEmail(String memberEmail, HttpSession session)throws Exception;
+	
 }

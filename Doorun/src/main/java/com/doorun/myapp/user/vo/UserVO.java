@@ -14,7 +14,11 @@ public class UserVO {
 	private double totalduration;
 	private String profile_image;
 	private String introduce;
-	private String address;
+	private String nickname;
+	
+	private String postcode;
+	private String address_detail;
+	private String address_road;
 	
 	
 	public String getLogin() {
@@ -74,19 +78,42 @@ public class UserVO {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	
+	
+	
+	
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
+	public String getAddress_road() {
+		return address_road;
+	}
+	public void setAddress_road(String address_road) {
+		this.address_road = address_road;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	@Override
 	public String toString() {
-		return "UserVO [name=" + name + ", id=" + id + ", password=" + password + ", email=" + email
-				+ ", totaldistance=" + totaldistance + ", totalduration=" + totalduration + ", profile_image="
-				+ profile_image + ", introduce=" + introduce + ", address=" + address + "]";
+		return "UserVO [login=" + login + ", name=" + name + ", id=" + id + ", password=" + password + ", email="
+				+ email + ", totaldistance=" + totaldistance + ", totalduration=" + totalduration + ", profile_image="
+				+ profile_image + ", introduce=" + introduce + ", nickname=" + nickname + ", postcode=" + postcode
+				+ ", address_detail=" + address_detail + ", address_road=" + address_road + "]";
 	}
+	
 	
 	
 

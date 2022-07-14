@@ -31,8 +31,8 @@ public class UserController {
 		
 		UserVO user = userService.getUser(vo);
 		if (user != null) {			
-			session.setAttribute("name", user.getName());
-			session.setAttribute("password", user.getPassword());
+			session.setAttribute("id", user.getId());
+			session.setAttribute("nickname", user.getNickname());
 			model.addAttribute("user", user);
 			return "updateUser.jsp";  
 		} else
@@ -60,10 +60,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/updatepw.do")
-	public String updatePw(UserVO vo, HttpServletRequest req, HttpSession session) {
+	public String updatePw(UserVO vo, HttpSession session,HttpServletRequest req) {
 		
-		String currentPassword =req.getParameter("currentPassword");
-		if(currentPassword.equals(session.getAttribute("password"))) {
+		String inputPassword = req.getParameter("currentPassword");
+		
+		String id = (String) session.getAttribute("id");
+		String savedPassword = userService.passwordCheck(id);
+		
+		if(inputPassword.equals(savedPassword)) {
 			userService.updatePassword(vo);
 			return "updateUser.jsp";
 		}else {
@@ -81,13 +85,13 @@ public class UserController {
 			System.out.println("1");
 			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
 			
-			return "";
+			return "/findPW.jsp";
 		}else {
 			System.out.println("2");
 			userService.sendEmail(vo.getEmail(),session);
 			model.addAttribute("member", vo.getEmail());
 		
-		return"";
+		return"/login.jsp";
 		}
 	}
 	
