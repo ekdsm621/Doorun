@@ -6,34 +6,41 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.doorun.myapp.board.vo.PostVO;
+import com.doorun.myapp.board.vo.BoardVO;
+import com.doorun.myapp.board.vo.ReplyVO;
 
 @Repository
 public class BoardDAO {
+	
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public void insertBaord(PostVO vo) {
-//		vo.setWriter(); -> session에서 작성자 아이디 가져와서 넣기
-//		vo.setBoard_id(); -> Board_id 가져와서 넣기
-//		넣은 후 board-mapping.xml도 수정 필요
-		vo.setWriter("name");
+	public void insertBaord(BoardVO vo) {
+		vo.setBoard_id(1);
 		sst.insert("Board.insertBoard", vo);
 	}
 	
-	public List<PostVO> getBoardList(PostVO vo){		
+	public void insertReply(ReplyVO vo) {
+		sst.insert("Board.insertReply", vo);
+	}
+	
+	public List<BoardVO> getBoardList(BoardVO vo){		
 		return sst.selectList("Board.getBoardList",vo);
 	}
 	
-	public PostVO detailBoard(PostVO vo) {
+	public List<ReplyVO> getReply(ReplyVO vo) {
+		return sst.selectList("Board.getReply",vo);
+	}
+	
+	public BoardVO detailBoard(BoardVO vo) {
 		return sst.selectOne("Board.detailBoard", vo);
 	}
 
-	public void updateBaord(PostVO vo) {
+	public void updateBaord(BoardVO vo) {
 		sst.update("Board.updateBoard", vo);
 	}
 	
-	public void deleteBoard(PostVO vo) {
+	public void deleteBoard(BoardVO vo) {
 		sst.delete("Board.deleteBoard", vo);
 	}
 
