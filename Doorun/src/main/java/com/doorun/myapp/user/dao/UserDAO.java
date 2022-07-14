@@ -45,6 +45,10 @@ public class UserDAO {
 			return sst.selectOne("UserDAO.getUser",vo);
 		}
 		
+		public String passwordCheck(String id) {		
+			return sst.selectOne("UserDAO.passwordCheck",id);
+		}
+		
 		public List<UserVO> getUserList(UserVO vo){		
 			return sst.selectList("UserDAO.getUserList", vo);
 		}
@@ -87,6 +91,10 @@ public class UserDAO {
 				sendMail.setTo(email);
 				sendMail.send();
 		}
+		
+		
+		
+		
 		
 	}
 
