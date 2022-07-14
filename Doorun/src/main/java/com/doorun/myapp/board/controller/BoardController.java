@@ -1,54 +1,100 @@
 package com.doorun.myapp.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.doorun.myapp.board.dao.BoardDAO;
-import com.doorun.myapp.board.vo.PostVO;
+import com.doorun.myapp.board.dao.BoardService;
+import com.doorun.myapp.board.vo.BoardVO;
+import com.doorun.myapp.board.vo.ReplyVO;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
-	private BoardDAO dao;
+	private BoardService dao;
 	
+	//C
 	@RequestMapping (value="/insertBoard.do")
-	public String insertBoard(PostVO vo) {
+	public String insertBoard(HttpSession session, BoardVO vo) throws IOException {
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		// 개행 처리
+		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
+		
+		// 파일 업로드 처리
+		if(!uploadFile.isEmpty()) {
+			String fileName = uploadFile.getOriginalFilename();
+			// 파일 경로는 각자 경로에 맞게 수정해서 테스트!
+			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/free_board/"+fileName));
+			vo.setImage_file(fileName);
+		}else {
+			vo.setImage_file("");
+		}
+		vo.setWriter((String)session.getAttribute("id"));
+		vo.setBoard_id(1);
 		dao.insertBaord(vo);
 		return "getBoardList.do";
 	}
 	
+	@RequestMapping(value="/reply.do")
+	public String insertReply(ReplyVO vo) {
+		// 개행 처리
+		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
+		dao.insertReply(vo);
+		String returnDetail = "redirect:detailBoard.do?id="+vo.getBoard_id();
+		return returnDetail;
+	}
+	
+	//R
 	@RequestMapping (value="/getBoardList.do")
-	public String getBoardList(PostVO vo, Model model) {
-		vo.setBoard_id(1);
+	public String getBoardList(BoardVO vo, Model model) {
 		model.addAttribute("boardList", dao.getBoardList(vo)); 
 		return "board.jsp"; 
 	}
 	
-	@RequestMapping (value="/detailBoard.do")
-	public String detailBoard(PostVO vo, Model model) {
-		model.addAttribute("board", dao.detailBoard(vo));
+	@RequestMapping (value="/detailBoard.do", method=RequestMethod.GET)
+	public String detailBoard(BoardVO boardVO, ReplyVO replyVO, Model model) {
+		// 1. detail
+		model.addAttribute("board", dao.detailBoard(boardVO));
+		// 2. reply
+		replyVO.setBoard_id(boardVO.getId());
+		model.addAttribute("reply",dao.getReply(replyVO));
 		return "detail_board.jsp";
 	}
 	
-	@RequestMapping (value="/updateBoardView.do")
-	public String updateBoardView(PostVO vo, Model model) {
-		model.addAttribute("board", dao.detailBoard(vo));
+	
+	//U
+	@RequestMapping (value="/updateBoard.do", method=RequestMethod.GET)
+	public String updateBoardView(BoardVO vo, Model model) {
+		BoardVO board = dao.detailBoard(vo);
+		board.setContent(board.getContent().replace("<br>", "\r\n"));
+		model.addAttribute("board", board);
 		return "update_board.jsp";
 	}
 	
-	@RequestMapping (value="/updateBoard.do")
-	public String updateBoard(PostVO vo) {
+	@RequestMapping (value="/updateBoard.do", method=RequestMethod.POST)
+	public String updateBoard(BoardVO vo) {
+		String returnBoard = "redirect:detailBoard.do?id="+vo.getId();
+		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		dao.updateBaord(vo);
-		return "getBoardList.do";
+		return returnBoard;
 	}
 
+	//D
 	@RequestMapping (value="/deleteBoard.do")
-	public String deleteBoard(PostVO vo) {
+	public String deleteBoard(BoardVO vo) {
+		String returnBoard = "getBoardList.do?board_id="+dao.detailBoard(vo).getBoard_id();
 		dao.deleteBoard(vo);
-		return "getBoardList.do";
+		return returnBoard;
 	}
 	
 }
