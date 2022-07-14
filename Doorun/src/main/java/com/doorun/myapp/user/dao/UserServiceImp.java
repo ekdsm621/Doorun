@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 @Service("userService")
@@ -70,7 +71,12 @@ public class UserServiceImp implements UserService {
 		userDAO.sendEmail(vo , session);
 	}
 
+	@Override
+	public List<LocationVO> getMap(LocationVO vo) {
+		return userDAO.getMap(vo);
+	}
 
+	
 
 
 

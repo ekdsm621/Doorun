@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 public interface UserService {
@@ -29,4 +30,6 @@ public interface UserService {
 	public int findPw(String memberPw,String memberEmail)throws Exception;
 	
 	public void sendEmail(UserVO vo, HttpSession session)throws Exception;
+	
+	public List<LocationVO> getMap(LocationVO vo);
 }

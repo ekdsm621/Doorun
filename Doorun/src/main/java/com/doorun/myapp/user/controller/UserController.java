@@ -1,6 +1,9 @@
 package com.doorun.myapp.user.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.dao.UserService;
 import com.doorun.myapp.user.vo.UserVO;
 
@@ -119,6 +123,26 @@ public class UserController {
 		return "";
 	}
 	
+	@RequestMapping("/getMap.do")
+	public String getMap(LocationVO vo, Model model,HttpServletRequest req) {
+		
+//		LocationVO vo1 = new LocationVO();
+//		LocationVO vo2 = new LocationVO();
+//		
+//		vo1.setLatitude(37.47836955);
+//		vo1.setLongitude(126.87926727);
+//		vo2.setLatitude(37.47857905);
+//		vo2.setLongitude(126.87922677);
+//		List<LocationVO> list = new ArrayList<LocationVO>();
+//		list.add(vo1);
+//		list.add(vo2);
+//		req.setAttribute("locationList",list);
+		
+		
+		
+		req.setAttribute("locationList",userService.getMap(vo));
+		return "mapTest.jsp";
+	}
 	 
 	
 
