@@ -47,7 +47,13 @@
 	<![CDATA[	
 	  SELECT * FROM MEMBER
 	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
-	  
+	]]>	
+	</select>
+	
+	<select id="getUserWithEmail" resultType="String">
+	<![CDATA[	
+	  SELECT NICKNAME FROM MEMBER
+	  WHERE EMAIL = #{email} 
 	]]>	
 	</select>
 	

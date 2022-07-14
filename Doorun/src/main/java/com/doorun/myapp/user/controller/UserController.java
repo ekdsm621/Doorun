@@ -79,16 +79,19 @@ public class UserController {
 	@RequestMapping(value="/findpw.do", method=RequestMethod.GET)
 	public String findPw(UserVO vo,Model model,HttpSession session) throws Exception{
 		
+		String nickename = userService.getUserWithEmail(vo);
+		
+		vo.setNickname(nickename);
 		
 		System.out.println("1");
 		if(userService.findPwCheck(vo)==0) {
-			System.out.println("1");
+			System.out.println("아이디와 이메일를 확인해주세요");
 			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
 			
 			return "";
 		}else {
 			System.out.println("2");
-			userService.sendEmail(vo.getEmail(),session);
+			userService.sendEmail(vo,session);
 			model.addAttribute("member", vo.getEmail());
 		
 		return"";
