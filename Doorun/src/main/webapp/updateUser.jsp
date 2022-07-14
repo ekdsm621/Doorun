@@ -187,21 +187,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="postcode" class="col-md-4 col-lg-3 col-form-label">우편번호</label>
+                      <label for="address" class="col-md-4 col-lg-3 col-form-label">주소</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="postcode" type="text" class="form-control" id="postcode" value="${user.postcode}" >
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="address_road" class="col-md-4 col-lg-3 col-form-label">주소</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="address_road" type="text" class="form-control" id="address_road" value="${user.address_road}" >
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="address_detail" class="col-md-4 col-lg-3 col-form-label">상세주소</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="address_detail" type="text" class="form-control" id="address_detail" value="${user.address_detail}" >
+                        <input name="address" type="text" class="form-control" id="address" value="${user.address}" >
                       </div>
                     </div>
 
@@ -264,12 +252,11 @@
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
   window.onload = function(){
-      document.getElementById("postcode").addEventListener("click", function(){ //주소입력칸을 클릭하면
+      document.getElementById("Address").addEventListener("click", function(){ //주소입력칸을 클릭하면
           //카카오 지도 발생
           new daum.Postcode({
               oncomplete: function(data) { //선택시 입력값 세팅
-                  document.getElementById("postcode").value = data.zonecode;  // 우편번호 넣기
-                  document.getElementById("address_road").value = data.address; // 주소 넣기
+                  document.getElementById("Address").value = data.address; // 주소 넣기
                   document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
               }
           }).open();

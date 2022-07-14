@@ -12,22 +12,20 @@
 		<result property = "totalduration" column="TOTALDURATION"/>
 		<result property = "profile_image" column="PROFILE_IMAGE"/>
 		<result property = "introduce" column="INTRODUCE"/>
-		<result property = "postcode" column="POSTCODE"/>
-		<result property = "address_road" column="ADDRESS_ROAD"/>
-		<result property = "address_detail" column="ADDRESS_DETAIL"/>
+		<result property = "address" column="ADDRESS"/>
 	</resultMap>
 
 	<insert id ="insertUser">
 	  <![CDATA[
-	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, NICKNAME ,POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL )	  
-	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} )	
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, NICKNAME )	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{nickname} )	
 	  ]]>	
 	</insert>
 	
 	<update id="updateUser">
 	  <![CDATA[
 	  	UPDATE MEMBER
-	  	SET NAME = #{name} , INTRODUCE = #{introduce} ,POSTCODE = #{postcode} ,ADDRESS_ROAD = #{address_road} , ADDRESS_DETAIL = #{address_detail}
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , ADDRESS = #{address}
 	  	WHERE  EMAIL = #{email}
 	  ]]>		
 	</update>
@@ -49,7 +47,13 @@
 	<![CDATA[	
 	  SELECT * FROM MEMBER
 	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
-	  
+	]]>	
+	</select>
+	
+	<select id="getUserWithEmail" resultType="String">
+	<![CDATA[	
+	  SELECT NICKNAME FROM MEMBER
+	  WHERE EMAIL = #{email} 
 	]]>	
 	</select>
 	
@@ -79,14 +83,6 @@
 		select count(*) from MEMBER where EMAIL = #{email}
 	]]>
 	</select>
-	
-	<update id="updateUserImage">
-	<![CDATA[
-		UPDATE MEMBER
-		SET PROFILE_IMAGE = #{PROFILE_IMAGE}
-		WHERE EMAIL = #{email}		
-	]]>
-	</update>
 	
 
 

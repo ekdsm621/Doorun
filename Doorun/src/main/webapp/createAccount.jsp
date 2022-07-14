@@ -84,15 +84,8 @@
                       <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" required>
                       <div class="invalid-feedback">닉네임을 입력해주세요</div>
                     </div>
-                    <div class="col-8">
-                        <input name="postcode" type="text" class="form-control" id="postcode" placeholder="우편번호" >
-                    </div>
-                    <div class="col-12">
-                        <input name="address_road" type="text" class="form-control" id="address_road" placeholder="주소" >
-                    </div>
-                     <div class="col-12">
-                        <input name="address_detail" type="text" class="form-control" id="address_detail" placeholder="상세주소" >
-                    </div>
+
+
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
@@ -123,23 +116,6 @@
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-  
-  <!-- 주소 찾기 -->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-  window.onload = function(){
-      document.getElementById("postcode").addEventListener("click", function(){ //주소입력칸을 클릭하면
-          //카카오 지도 발생
-          new daum.Postcode({
-              oncomplete: function(data) { //선택시 입력값 세팅
-                  document.getElementById("address_road").value = data.address; // 주소 넣기
-                  document.getElementById("postcode").value = data.zonecode; 
-                  document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
-              }
-          }).open();
-      });
-  }
-  </script>
 
 
 </body>

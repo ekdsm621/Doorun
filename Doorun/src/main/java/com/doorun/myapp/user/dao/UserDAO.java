@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
+import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.MailUtils;
 import com.doorun.myapp.utils.TempKey;
@@ -53,6 +54,10 @@ public class UserDAO {
 			return sst.selectList("UserDAO.getUserList", vo);
 		}
 		
+		public String getUserWithEmail(UserVO vo) {
+			return sst.selectOne("UserDAO.getUserWithEmail", vo);
+		}
+		
 		public int findPwCheck(UserVO vo)throws Exception{
 			return sst.selectOne("UserDAO.findPwCheck", vo);	
 		}
@@ -66,22 +71,23 @@ public class UserDAO {
 			
 		}
 		
-		public void sendEmail(String email, HttpSession session)throws Exception{
+		public void sendEmail(UserVO vo, HttpSession session)throws Exception{
 			
 
 			
 			String memberKey = new TempKey().getKey(6,false);
 //			String memberPw = BCrypt.hashpw(memberKey,BCrypt.gensalt());
 			
-			System.out.println(email);
 			
+			String email = vo.getEmail();
+			System.out.println(email);
 			findPw(email,memberKey);
 			 
 			 MailUtils sendMail = new MailUtils(mailSender);
 				sendMail.setSubject("[DooRunDooRun 커뮤니티 임시 비밀번호 입니다.]"); //메일제목
 				sendMail.setText(
 						"<h1>임시비밀번호 발급</h1>" +
-								"<br/>"+session.getAttribute("name")+"님 "+
+								"<br/>"+vo.getNickname()+"님 "+
 								"<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."+
 								"<br/>임시비밀번호 :   <h2>"+memberKey+"</h2>"+
 								"<br/>로그인 후 비밀번호 변경을 해주세요."+
@@ -92,9 +98,9 @@ public class UserDAO {
 				sendMail.send();
 		}
 		
-		
-		
-		
+		public List<LocationVO> getMap(LocationVO vo){
+			return sst.selectList("location.getMap", vo);
+		}
 		
 	}
 

@@ -7,12 +7,8 @@
 		<typeAlias type="com.doorun.myapp.board.vo.PostVO" alias="post"></typeAlias>
 		<typeAlias type="com.doorun.myapp.board.vo.ReplyVO" alias="reply"></typeAlias>
 		<typeAlias type="com.doorun.myapp.user.vo.UserVO" alias="user"></typeAlias>
-	<!-- 
-		<typeAlias type="com.doorun.myapp.board.vo.InstantBrdVO" alias="instantbrd"></typeAlias>
-		<typeAlias type="com.doorun.myapp.board.vo.CrewBrdVO" alias="crewbrd"/>
-		<typeAlias type="com.doorun.myapp.board.vo.FreeBrdVO" alias="freebrd"/>
-		<typeAlias type="com.doorun.myapp.board.vo.EventBrdVO" alias="eventbrd"/>
-		 -->
+		<typeAlias type="com.doorun.myapp.run.vo.LocationVO" alias="locationVO"></typeAlias>
+
 	</typeAliases>
 	
 
@@ -20,5 +16,6 @@
 	<mappers>
 		<mapper resource="mappings/board-mapping.xml" />
 		<mapper resource="mappings/user-mapping.xml" />
+		<mapper resource="mappings/location-mapping.xml" />
 	</mappers>
 </configuration>
