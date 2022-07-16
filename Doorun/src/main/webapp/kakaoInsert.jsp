@@ -60,7 +60,7 @@
                     <div class="col-12">
                     
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" required">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" value=<%=request.getParameter("email") %> readonly>
                         <div class="invalid-feedback">이메일을 입력해주세요</div>
                       </div>
                       
@@ -71,10 +71,7 @@
                       <div class="invalid-feedback">아이디를 입력해주세요</div>
                     </div>
 
-                    <div class="col-12">
-                      <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호" required>
-                      <div class="invalid-feedback">비밀번호를 입력해주세요</div>
-                    </div>
+ 
 
                     <div class="col-12">
                       <input type="text" name="name" class="form-control" id="name" placeholder="이름" required>

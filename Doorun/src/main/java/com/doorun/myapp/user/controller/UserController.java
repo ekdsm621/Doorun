@@ -28,12 +28,12 @@ public class UserController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(UserVO vo, HttpSession session , Model model) {
 		
-		
-		if (vo.getLogin() == null || vo.getLogin().equals("")) {
-			throw new IllegalArgumentException("�α��� ����");
+		UserVO user;
+		if(vo.getPassword()==null) {
+			user = userService.getKakaoUser(vo);
+		}else {
+			user = userService.getUser(vo);
 		}
-		
-		UserVO user = userService.getUser(vo);
 		if (user != null) {			
 			session.setAttribute("id", user.getId());
 			session.setAttribute("nickname", user.getNickname());
@@ -52,7 +52,12 @@ public class UserController {
 	@RequestMapping("/insertUser.do")
 	public String insertUser(UserVO vo) {
 		
-		userService.insert(vo);
+		if(vo.getPassword()==null) {
+			userService.kakaoInsert(vo);
+		}else {
+			userService.insert(vo);
+			
+		}
 		return "login.jsp";
 	}
 	

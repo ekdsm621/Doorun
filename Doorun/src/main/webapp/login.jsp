@@ -8,34 +8,10 @@
 <html>
 <head>
      <%@include file="/common_jsp/head_settings.jsp" %>
-  <!-- 카카오  ! 나중에 적용 예정 !
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <script>
-      window.Kakao.init('a86d3c36ccc01d996ba44e0964be7fe82');
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-      function kakaoLogin() {
-          // 로그인
-          window.Kakao.Auth.login({
-              scope: 'profile_image , profile_nickname', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
-              success: function(response) {
-                  console.log(response) // 로그인 성공하면 받아오는 데이터
-                  window.Kakao.API.request({ // 사용자 정보 가져오기 
-                      url: '/v2/user/me',
-                      success: (res) => {
-                          const kakao_account = res.kakao_account;
-                          console.log(kakao_account)
-                      }
-                  });
-                  window.location.href='/sample/a/index.html' 
-              },
-              fail: function(error) {
-                  console.log(error);
-              }
-          });
-      }
 
-  </script>
-   --> 
 </head>
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.8; background-size: cover;">
@@ -68,26 +44,25 @@
                   <span class="d-none d-lg-block">DORUN DORUN</span>
                 </div>
               </div><!-- End Logo -->
-
+			   
               <div class="card mb-3">
 
                 <div class="card-body">
 
                   
                   
+                    
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">구글 로그인?</h5>
                     <h5 class="card-title text-center pb-0 fs-4">카톡 로그인?</h5>
-                   <!-- 카톡 로그인 버튼 
-                   <a href="javascript:kakaoLogin();"><img src="assets/img/kakao_login_medium_wide.png" alt="카카오계정 로그인"/></a>
-                    -->
-                     
+                    <a id="kakao-login-btn"></a>
+                     <a href="javascript:kakaoLogout();"><img src="assets/img/kakao_login_medium_wide.png" alt="카카오계정 로그아웃"/></a>
                     <h5 class="card-title text-center pb-0 fs-4" style="font-size: 5px;">이메일로 로그인</h5>
                   </div>
 
                   
 
-                  <form action="/login.do" method ="post" class="row g-3 needs-validation"  >
+                  <form name="login" action="/login.do" method ="post" class="row g-3 needs-validation"  >
 
                     <div class="col-12">
                       <div class="input-group has-validation">
@@ -115,6 +90,10 @@
                       <p class="small mb-0">비밀번호를 잊으셨나요? <a href="findPw.jsp">비밀번호 찾기</a></p>
                     </div>
                   </form>
+                  <form name="kakaoLogin" action="/login.do" method ="post">
+                  
+					<input type="hidden" id="email" name="email">
+                  </form>
 
                 </div>
               </div>
@@ -140,7 +119,86 @@
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-	
+    <script type="text/javascript">
+      window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
+      <!-- 
+      function kakaoLogin() {
+          // 로그인
+          window.Kakao.Auth.login({
+              scope: 'profile_image , profile_nickname', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+              success: function(response) {
+                  console.log(response) // 로그인 성공하면 받아오는 데이터
+                  window.Kakao.API.request({ // 사용자 정보 가져오기 
+                      url: '/v2/user/me',
+                      success: (res) => {
+                          const kakao_account = res.kakao_account;
+                          console.log(kakao_account)
+                      }
+                  });
+              },
+              fail: function(error) {
+                  console.log(error);
+              }
+          });
+      }
+      -->
+      Kakao.Auth.createLoginButton({
+    	    container: '#kakao-login-btn',
+    	    success: function(authObj) {
+    	      Kakao.API.request({
+    	        url: '/v2/user/me',
+    	        success: function(result) {
+    	          $('#result').append(result);
+    	          id = result.id
+    	          connected_at = result.connected_at
+    	          kakao_account = result.kakao_account
+    	          $('#result').append(kakao_account);
+    	          resultdiv="<h2>로그인 성공 !!"
+    	          resultdiv += '<h4>id: '+id+'<h4>'
+    	          resultdiv += '<h4>connected_at: '+connected_at+'<h4>'
+    	          email ="";
+    	          gender = "";
+    	          if(typeof kakao_account != 'undefined'){
+    	        	  email = kakao_account.email;
+    	        	  gender = kakao_account.gender;
+    	        	  document.getElementById("email").value = email
+    	        	  document.kakaoLogin.submit();
+    	          }
+    	          resultdiv += '<h4>email: '+email+'<h4>'
+    	          resultdiv += '<h4>gender: '+gender+'<h4>'
+    	          $('#result').append(resultdiv);
+    	        },
+    	        fail: function(error) {
+    	          alert(
+    	            'login success, but failed to request user information: ' +
+    	              JSON.stringify(error)
+    	          )
+    	        },
+    	      })
+    	    },
+    	    fail: function(err) {
+    	      alert('failed to login: ' + JSON.stringify(err))
+    	    },
+    	  })
+      function kakaoLogout() {
+    	    if (Kakao.Auth.getAccessToken()) {
+    	      Kakao.API.request({
+    	        url: '/v1/user/unlink',
+    	        success: function (response) {
+    	           console.log(response)
+    	        },
+    	        fail: function (error) {
+    	          console.log(error)
+    	        },
+    	      })
+    	      Kakao.Auth.setAccessToken(undefined)
+    	    }
+    	  }  
+      
+
+
+      </script>
+      
 
 
 </body>

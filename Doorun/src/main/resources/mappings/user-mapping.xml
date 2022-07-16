@@ -25,6 +25,13 @@
 	  ]]>	
 	</insert>
 	
+	<insert id ="kakaoInsertUser">
+	  <![CDATA[
+	  	INSERT INTO MEMBER (ID , NAME , EMAIL, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL )	  
+	  	VALUES ( #{id} , #{name} , #{email}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} )	
+	  ]]>	
+	</insert>
+	
 	<update id="updateUser">
 	  <![CDATA[
 	  	UPDATE MEMBER
@@ -52,6 +59,13 @@
 	  SELECT * FROM MEMBER
 	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
 	]]>	
+	</select>
+	
+	<select id="getKakaoUser" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE EMAIL = #{email}
+	  ]]>	
 	</select>
 	
 	<select id="getUserWithEmail" resultType="String">
