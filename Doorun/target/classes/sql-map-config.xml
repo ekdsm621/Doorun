@@ -5,6 +5,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.doorun.myapp.board.vo.PostVO" alias="post"></typeAlias>
+		<typeAlias type="com.doorun.myapp.board.vo.ReplyVO" alias="reply"></typeAlias>
+		<typeAlias type="com.doorun.myapp.board.vo.BoardVO" alias="board"></typeAlias>
 		<typeAlias type="com.doorun.myapp.user.vo.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.doorun.myapp.run.vo.LocationVO" alias="locationVO"></typeAlias>
 
