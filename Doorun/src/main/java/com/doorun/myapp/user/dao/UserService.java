@@ -11,6 +11,8 @@ public interface UserService {
 	
 	public void insert(UserVO vo);
 	
+	public void kakaoInsert(UserVO vo);
+	
 	public void update(UserVO vo);
 	
 	public void updatePassword(UserVO vo);
@@ -18,6 +20,8 @@ public interface UserService {
 	public void delete(UserVO vo);
 	
 	public UserVO getUser(UserVO vo);
+	
+	public UserVO getKakaoUser(UserVO vo);
 	
 	public String getUserWithEmail(UserVO vo);
 	

@@ -4606,6 +4606,8 @@
       this._scrollBar.hide();
 
       document.body.classList.add(CLASS_NAME_OPEN);
+      
+      map.relayout();
 
       this._adjustDialog();
 

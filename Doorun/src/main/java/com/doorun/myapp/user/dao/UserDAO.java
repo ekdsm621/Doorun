@@ -30,6 +30,11 @@ public class UserDAO {
 			sst.insert("UserDAO.insertUser", vo);
 		}
 		
+		public void kakaoInsert(UserVO vo) {
+			sst.insert("UserDAO.kakaoInsertUser", vo);
+		}
+		
+		
 		public void update(UserVO vo) {
 			sst.update("UserDAO.updateUser", vo);
 		}
@@ -44,6 +49,10 @@ public class UserDAO {
 		
 		public UserVO getUser(UserVO vo) {		
 			return sst.selectOne("UserDAO.getUser",vo);
+		}
+		
+		public UserVO getKakaoUser(UserVO vo) {		
+			return sst.selectOne("UserDAO.getKakaoUser",vo);
 		}
 		
 		public String passwordCheck(String id) {		

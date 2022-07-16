@@ -20,6 +20,11 @@ public class UserServiceImp implements UserService {
 	public void insert(UserVO vo) {
 		userDAO.insert(vo);
 	}
+	
+	@Override
+	public void kakaoInsert(UserVO vo) {
+		userDAO.kakaoInsert(vo);
+	}
 
 	@Override
 	public void update(UserVO vo) {
@@ -75,6 +80,13 @@ public class UserServiceImp implements UserService {
 	public List<LocationVO> getMap(LocationVO vo) {
 		return userDAO.getMap(vo);
 	}
+
+	@Override
+	public UserVO getKakaoUser(UserVO vo) {
+		return userDAO.getKakaoUser(vo);
+	}
+
+
 
 	
 
