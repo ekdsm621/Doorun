@@ -4,17 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.doorun.myapp.board.vo.PostVO" alias="post"></typeAlias>
 		<typeAlias type="com.doorun.myapp.board.vo.ReplyVO" alias="reply"></typeAlias>
 		<typeAlias type="com.doorun.myapp.board.vo.BoardVO" alias="board"></typeAlias>
 		<typeAlias type="com.doorun.myapp.user.vo.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.doorun.myapp.run.vo.LocationVO" alias="locationVO"></typeAlias>
-
+		<typeAlias type="com.doorun.myapp.meeting.vo.MeetingVO" alias="meeting"></typeAlias>
 	</typeAliases>
 	
 
 	
 	<mappers>
+		<mapper resource="mappings/meeting-mapping.xml" />
 		<mapper resource="mappings/board-mapping.xml" />
 		<mapper resource="mappings/user-mapping.xml" />
 		<mapper resource="mappings/location-mapping.xml" />
