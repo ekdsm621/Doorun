@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Meeting">
+
+	<insert id="insertMeeting">
+		<![CDATA[
+			INSERT INTO MEETING(ID, MASTER, TITLE, CONTENT, LOCATION, MEETING_DATE, LONGITUDE, LATITUDE, TOTAL_MEMBER)
+			VALUES((SELECT NVL(MAX(ID),0) FROM MEETING)+1, #{master}, #{title}, #{content}, #{location}, TO_DATE(#{meeting_date}, 'YYYYMMDD'), #{longitude}, #{latitude}, #{total_member})
+		]]>
+	</insert>
+</mapper>
