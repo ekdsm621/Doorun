@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.MailUtils;
 import com.doorun.myapp.utils.TempKey;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Repository
 public class UserDAO {
@@ -33,7 +37,6 @@ public class UserDAO {
 		public void kakaoInsert(UserVO vo) {
 			sst.insert("UserDAO.kakaoInsertUser", vo);
 		}
-		
 		
 		public void update(UserVO vo) {
 			sst.update("UserDAO.updateUser", vo);
@@ -110,6 +113,29 @@ public class UserDAO {
 		public List<LocationVO> getMap(LocationVO vo){
 			return sst.selectList("location.getMap", vo);
 		}
+		
+		public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
+
+		        String api_key = "NCSFD4ZROEZH3TGM";
+		        String api_secret = "PHNTMAPIFQVCGWA7RCCHHVKOIH5IP9R3";
+		        Message coolsms = new Message(api_key, api_secret);
+
+		        HashMap<String, String> params = new HashMap<String, String>();
+		        params.put("to", phoneNumber);    // 수신전화번호
+		        params.put("from", "01073025251");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+		        params.put("type", "SMS");
+		        params.put("text", "DooRun DooRun 휴대폰인증\n인증번호는" + "["+cerNum+"]" + "입니다.");
+		        params.put("app_version", "test app 1.2"); 
+
+		        try {
+		            JSONObject obj = (JSONObject) coolsms.send(params);
+		            System.out.println(obj.toString());
+		        } catch (CoolsmsException e) {
+		            System.out.println(e.getMessage());
+		            System.out.println(e.getCode());
+		        }
+
+		   }
 		
 	}
 

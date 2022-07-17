@@ -20,8 +20,8 @@
 
 	<insert id ="insertUser">
 	  <![CDATA[
-	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL )	  
-	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} )	
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, PHONE, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL )	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{phone}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} )	
 	  ]]>	
 	</insert>
 	
