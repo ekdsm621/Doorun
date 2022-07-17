@@ -1,15 +1,23 @@
 package com.doorun.myapp.user.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.vo.UserVO;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public interface UserService {
 	
 	public void insert(UserVO vo);
+	
+	public void certifiedPhoneNumber(String phoneNumber, String cerNum);
 	
 	public void kakaoInsert(UserVO vo);
 	

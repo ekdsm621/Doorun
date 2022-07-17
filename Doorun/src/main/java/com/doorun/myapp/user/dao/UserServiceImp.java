@@ -86,6 +86,12 @@ public class UserServiceImp implements UserService {
 		return userDAO.getKakaoUser(vo);
 	}
 
+	@Override
+	public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
+		userDAO.certifiedPhoneNumber(phoneNumber, cerNum);
+		
+	}
+
 
 
 	

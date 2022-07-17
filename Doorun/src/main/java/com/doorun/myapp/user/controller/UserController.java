@@ -3,6 +3,7 @@ package com.doorun.myapp.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.dao.UserService;
@@ -60,6 +62,26 @@ public class UserController {
 		}
 		return "login.jsp";
 	}
+	@ResponseBody
+	@RequestMapping("/sendSMS.do")
+	public String sendSMS(String phoneNumber) {
+		
+		phoneNumber="01073025251";
+		
+		System.out.println("컨트롤러");
+
+        Random rand  = new Random();
+        String numStr = "";
+        for(int i=0; i<4; i++) {
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr+=ran;
+        }
+
+        System.out.println("수신자 번호 : " + phoneNumber);
+        System.out.println("인증번호 : " + numStr);
+        userService.certifiedPhoneNumber(phoneNumber,numStr);
+        return numStr;
+    }
 	
 	@RequestMapping("/updateUser.do")
 	public String updateUser(UserVO vo) {
