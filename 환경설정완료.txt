@@ -3,6 +3,7 @@
 1. web.xml
 	- SpringFramework 에서 제공하는 DispatcherServlet 사용 설정
 	- Mybatis 이용 위해 ContextLoaderListener 설정
+	- filter UTF-8
 
 2. application.xml
 	- annotation 사용 설정
