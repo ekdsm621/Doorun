@@ -2,6 +2,8 @@ package com.doorun.myapp.user.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class UserVO {
 	private String login;
@@ -17,9 +19,13 @@ public class UserVO {
 	private String introduce;
 	private String nickname;
 	
+	private MultipartFile imageFile;
+	
 	private String postcode;
 	private String address_road;
 	private String address_detail;
+	
+	private String member_type;
 	
 	
 	public String getLogin() {
@@ -74,12 +80,6 @@ public class UserVO {
 	public void setTotalduration(double totalduration) {
 		this.totalduration = totalduration;
 	}
-	public String getProfile_image() {
-		return profile_image;
-	}
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
-	}
 	public String getIntroduce() {
 		return introduce;
 	}
@@ -112,6 +112,28 @@ public class UserVO {
 	public void setAddress_detail(String address_detail) {
 		this.address_detail = address_detail;
 	}
+	public String getProfile_image() {
+		return profile_image;
+	}
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+	
+	
+	
+	public String getMember_type() {
+		return member_type;
+	}
+	public void setMember_type(String member_type) {
+		this.member_type = member_type;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVO [login=" + login + ", name=" + name + ", id=" + id + ", password=" + password + ", email="

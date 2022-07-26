@@ -9,7 +9,6 @@
 		<typeAlias type="com.doorun.myapp.user.vo.UserVO" alias="user"></typeAlias>
 		<typeAlias type="com.doorun.myapp.run.vo.LocationVO" alias="locationVO"></typeAlias>
 		<typeAlias type="com.doorun.myapp.meeting.vo.MeetingVO" alias="meeting"></typeAlias>
-		<typeAlias type="com.doorun.myapp.meeting.vo.MeetingJoinVO" alias="meetingJoin"></typeAlias>
 	</typeAliases>
 	
 

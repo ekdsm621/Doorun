@@ -23,6 +23,8 @@ public interface UserService {
 	
 	public void update(UserVO vo);
 	
+	public void update2(UserVO vo);
+	
 	public void updatePassword(UserVO vo);
 	
 	public void delete(UserVO vo);
@@ -44,4 +46,7 @@ public interface UserService {
 	public void sendEmail(UserVO vo, HttpSession session)throws Exception;
 	
 	public List<LocationVO> getMap(LocationVO vo);
+	
+	
+	
 }

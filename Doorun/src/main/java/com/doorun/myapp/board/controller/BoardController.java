@@ -27,13 +27,13 @@ public class BoardController {
 	public String insertBoard(HttpSession session, BoardVO vo) throws IOException {
 		MultipartFile uploadFile = vo.getUploadFile();
 		
-
+		// 개행 처리
 		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		
-
+		// 파일 업로드 처리
 		if(!uploadFile.isEmpty()) {
 			String fileName = uploadFile.getOriginalFilename();
-
+			// 파일 경로는 각자 경로에 맞게 수정해서 테스트!
 			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/free_board/"+fileName));
 			vo.setImage_file(fileName);
 		}else {
@@ -47,6 +47,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply.do")
 	public String insertReply(ReplyVO vo) {
+		// 개행 처리
 		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		dao.insertReply(vo);
 		String returnDetail = "redirect:detailBoard.do?id="+vo.getBoard_id();

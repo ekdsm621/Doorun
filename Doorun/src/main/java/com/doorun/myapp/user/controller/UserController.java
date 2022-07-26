@@ -1,11 +1,14 @@
 package com.doorun.myapp.user.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.doorun.myapp.run.vo.LocationVO;
 import com.doorun.myapp.user.dao.UserService;
@@ -28,20 +32,25 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(UserVO vo, HttpSession session , Model model) {
+	public String login(UserVO vo, HttpSession session , Model model ) {
 		
 		UserVO user;
 		if(vo.getPassword()==null) {
 			user = userService.getKakaoUser(vo);
+			if(user == null) {
+				return "kakaoInsert.jsp";
+			}
 		}else {
 			user = userService.getUser(vo);
 		}
 		if (user != null) {			
 			session.setAttribute("id", user.getId());
 			session.setAttribute("nickname", user.getNickname());
+			session.setAttribute("member_type", user.getMember_type());
 			model.addAttribute("user", user);
 			return "updateUser.jsp";  
 		} else
+			session.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "login.jsp";
 	}
 	
@@ -66,7 +75,6 @@ public class UserController {
 	@RequestMapping("/sendSMS.do")
 	public String sendSMS(String phoneNumber) {
 		
-		phoneNumber="01073025251";
 		
 		System.out.println("컨트롤러");
 
@@ -84,11 +92,23 @@ public class UserController {
     }
 	
 	@RequestMapping("/updateUser.do")
-	public String updateUser(UserVO vo) {
+	public String updateUser(UserVO vo) throws IllegalStateException, IOException {
 		
-		userService.update(vo);
+		MultipartFile uploadFile = vo.getImageFile();
+		
+		if(!uploadFile.isEmpty()) {
+			String fileName = uploadFile.getOriginalFilename();
+			uploadFile.transferTo(new File("C:\\Users\\kosmo\\Desktop\\dorun_dev\\Doorun\\Doorun\\src\\main\\webapp\\upload_img\\profile_img\\"+fileName));
+			vo.setProfile_image(fileName);
+			userService.update(vo);
+		}else {
+			userService.update2(vo);
+			System.out.println("asfasdfasdf");
+		}
 		return "updateUser.jsp";
 	}
+	
+	
 	
 	@RequestMapping("/updatepw.do")
 	public String updatePw(UserVO vo, HttpSession session,HttpServletRequest req) {
@@ -170,7 +190,7 @@ public class UserController {
 		req.setAttribute("locationList",userService.getMap(vo));
 		return "mapTest.jsp";
 	}
-	 
+	
 	
 
 }

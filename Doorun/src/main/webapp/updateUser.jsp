@@ -150,17 +150,20 @@
 
               
 
-                <div class="tab-pane fade show active profile-overview" id="profile-edit">
+                <div class="tab-pane fade show active profile-overview" id="profile-edit" >
 
                   <!-- Profile Edit Form -->
-                  <form action = "/updateUser.do" method = "post">
+                  <form action = "/updateUser.do" method = "post" enctype="multipart/form-data">
 
                     <br>
                     <div class="text-center">
-                      <img src="assets/img/1564534_customer_man_user_account_profile_icon.png" name = "userimg" id="userimg" class="rounded-circle" >
+                      <img src="upload_img/profile_img/${user.profile_image}" class="rounded-circle" >
                     </div>
-                    <div class="text-center" >
-                      <button class="btn btn-light rounded-pill" type="button"><i class="ri-camera-2-line"></i></button>
+                    <div class="row mb-3">
+                       <label for="imageFile" class="col-md-4 col-lg-3 col-form-label">프로필 사진</label>
+                       <div class="col-sm-9">
+                           <input class="form-control" type="file" id="imageFile" name="imageFile">
+                       </div>
                     </div>
       
 

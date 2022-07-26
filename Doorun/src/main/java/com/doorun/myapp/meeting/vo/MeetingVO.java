@@ -1,6 +1,5 @@
 package com.doorun.myapp.meeting.vo;
 
-
 public class MeetingVO {
 	private int id;
 	private String master;
@@ -8,12 +7,10 @@ public class MeetingVO {
 	private String content;
 	private String location;
 	private String meeting_date;
-	private String meeting_time;
 	private String longitude;
 	private String latitude;
 	private int total_member;
 	private int joined_member;
-	
 	public int getId() {
 		return id;
 	}
@@ -44,17 +41,12 @@ public class MeetingVO {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
 	public String getMeeting_date() {
 		return meeting_date;
 	}
 	public void setMeeting_date(String meeting_date) {
 		this.meeting_date = meeting_date;
-	}
-	public String getMeeting_time() {
-		return meeting_time;
-	}
-	public void setMeeting_time(String meeting_time) {
-		this.meeting_time = meeting_time;
 	}
 	public String getLongitude() {
 		return longitude;

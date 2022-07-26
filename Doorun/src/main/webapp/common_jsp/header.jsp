@@ -15,7 +15,7 @@
             <ul class="d-flex align-items-center">
                 <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="upload_img/profile_img/${user.profile_image}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2"><%=session.getAttribute("nickname") %></span>
                 </a><!-- End Profile Iamge Icon -->
         
@@ -40,10 +40,18 @@
                     <hr class="dropdown-divider">
                     </li>
                     <li>
+                    <%if(session.getAttribute("member_type").equals("EMAIL")){ %>
                     <a href="/logout.do" class="dropdown-item d-flex align-items-center" href="#">
                         <i class="bi bi-box-arrow-right"></i>
                         <span>로그아웃</span>
                     </a>
+                    <%} %>
+                    <%if(session.getAttribute("member_type").equals("KAKAO")){ %>
+                    <a href="javascript:kakaoLogout();" class="dropdown-item d-flex align-items-center" >
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>로그아웃</span>
+                    </a>
+                    <%} %>
                     </li>
         
                 </ul><!-- End Profile Dropdown Items -->
@@ -51,6 +59,27 @@
         
             </ul>
             </nav><!-- End Icons Navigation -->
+            
         
         </header><!-- End Header -->
     
+            <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+            <script type="text/javascript">
+            window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
+               function kakaoLogout() {
+            	   
+	    	    	if (Kakao.Auth.getAccessToken()) {
+		    	      Kakao.API.request({
+		    	        url: '/v1/user/unlink',
+		    	        success: function (response) {
+		    	           console.log(response)
+		    	        },
+		    	        fail: function (error) {
+		    	          console.log(error)
+		    	        },
+		    	      })
+		    	      Kakao.Auth.setAccessToken(undefined)
+		    	      window.location.href="/logout.do";
+		    	    }
+		    	  }  
+            </script>
