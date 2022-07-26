@@ -92,6 +92,12 @@ public class UserServiceImp implements UserService {
 		
 	}
 
+	@Override
+	public void update2(UserVO vo) {
+		userDAO.update2(vo);
+	}
+
+
 
 
 	

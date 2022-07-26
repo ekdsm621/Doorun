@@ -49,9 +49,6 @@
                 <div class="card-body">
                   
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">구글 가입??</h5>
-                    <h5 class="card-title text-center pb-0 fs-4">카카오 가입?</h5>
-                    <p ></p>
                     <p class="text-center small" >이메일로 가입</p>
                   </div>
 
@@ -60,7 +57,7 @@
                     <div class="col-12">
                     
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" required">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" required>
                         <div class="invalid-feedback">이메일을 입력해주세요</div>
                       </div>
                       
