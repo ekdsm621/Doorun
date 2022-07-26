@@ -48,12 +48,6 @@
 
                 <div class="card-body">
                   
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">구글 가입??</h5>
-                    <h5 class="card-title text-center pb-0 fs-4">카카오 가입?</h5>
-                    <p ></p>
-                    <p class="text-center small" >이메일로 가입</p>
-                  </div>
 
                   <form action="/insertUser.do" method= "post" class="row g-3 needs-validation">
 
@@ -81,6 +75,10 @@
                       <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" required>
                       <div class="invalid-feedback">닉네임을 입력해주세요</div>
                     </div>
+                    
+                    
+                    
+                    
                     <div class="col-12">
                       <input type="text" name="postcode" class="form-control" id="postcode" placeholder="우편번호" required>
                     </div>

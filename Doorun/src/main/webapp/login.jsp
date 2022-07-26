@@ -3,6 +3,14 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+	String errMsg = (String)session.getAttribute("errMsg");
+	if (errMsg == null) errMsg = "";
+	
+	session.invalidate();
+
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +18,8 @@
      <%@include file="/common_jsp/head_settings.jsp" %>
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+  
+  
 
 </head>
 
@@ -46,17 +55,11 @@
               </div><!-- End Logo -->
 			   
               <div class="card mb-3">
-
                 <div class="card-body">
-
-                  
-                  
-                    
+                	<div class="text-center">
+                     <a id="kakao-login-btn"></a>
+                	</div>
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">구글 로그인?</h5>
-                    <h5 class="card-title text-center pb-0 fs-4">카톡 로그인?</h5>
-                    <a id="kakao-login-btn"></a>
-                     <a href="javascript:kakaoLogout();"><img src="assets/img/kakao_login_medium_wide.png" alt="카카오계정 로그아웃"/></a>
                     <h5 class="card-title text-center pb-0 fs-4" style="font-size: 5px;">이메일로 로그인</h5>
                   </div>
 
@@ -66,7 +69,7 @@
 
                     <div class="col-12">
                       <div class="input-group has-validation">
-                        <input type="text" name="login" class="form-control" id="login" placeholder="이메일" required>
+                        <input type="text" name="login" class="form-control" id="login" placeholder="이메일 or 아이디" required>
                         <div class="invalid-feedback">이메일이나 아이디를 입력해주세요</div>
                       </div>
                     </div>
@@ -74,7 +77,9 @@
                     <div class="col-12">
                       <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호" required>
                       <div class="invalid-feedback">비밀번호를 입력해주세요</div>
+                    <div id ="errMsg" style ="color:red"><%=errMsg%></div>
                     </div>
+                    
 
                     <div class="col-12">
                       <div class="form-check">
@@ -119,6 +124,8 @@
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  
+   <!-- 카카오 로그인 -->
     <script type="text/javascript">
       window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
       <!-- 
@@ -180,27 +187,9 @@
     	      alert('failed to login: ' + JSON.stringify(err))
     	    },
     	  })
-      function kakaoLogout() {
-    	    if (Kakao.Auth.getAccessToken()) {
-    	      Kakao.API.request({
-    	        url: '/v1/user/unlink',
-    	        success: function (response) {
-    	           console.log(response)
-    	        },
-    	        fail: function (error) {
-    	          console.log(error)
-    	        },
-    	      })
-    	      Kakao.Auth.setAccessToken(undefined)
-    	    }
-    	  }  
-      
-
-
       </script>
-      
-
-
+       
+ 
 </body>
 
 </html>

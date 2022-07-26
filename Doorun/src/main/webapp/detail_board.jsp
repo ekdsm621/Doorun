@@ -45,7 +45,7 @@
                         <c:forEach items="${reply }" var="re">
 	                        <div class="row mb-3" style="padding: 10px; background-color: #f5faff; border-radius: 10px">
 	                            <div style="text-align:left">
-	                            	${re.writer }: 
+	                            	${re.writer } 
 	                            </div>
 	                            <div class="col-sm-10">
 	                                <span>

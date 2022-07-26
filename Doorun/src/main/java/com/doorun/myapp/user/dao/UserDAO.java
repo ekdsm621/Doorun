@@ -42,6 +42,10 @@ public class UserDAO {
 			sst.update("UserDAO.updateUser", vo);
 		}
 		
+		public void update2(UserVO vo) {
+			sst.update("UserDAO.updateUser2", vo);
+		}
+		
 		public void updatePassword(UserVO vo) {
 			sst.update("UserDAO.updatePassword", vo);
 		}
@@ -136,6 +140,10 @@ public class UserDAO {
 		        }
 
 		   }
+		
+		
+		
+		
 		
 	}
 
