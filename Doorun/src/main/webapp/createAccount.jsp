@@ -85,6 +85,38 @@
                       <div class="invalid-feedback">닉네임을 입력해주세요</div>
                     </div>
                     <div class="col-12">
+                      <input id="phone" type="text" name="phone" class="form-control" placeholder="휴대전화" readonly>
+                      <div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
+                    </div>
+                    <div class="col-12" data-bs-toggle="modal" data-bs-target="#sendSMS" >
+                        <button type="button" class="btn btn-primary">휴대폰 본인인증</button>
+                    </div>
+                    
+                    <div class="modal fade" id="sendSMS" tabindex="-1">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<h5 class="modal-title">인증번호 입력</h5>
+    					  		</div>
+      							<div class="modal-body">
+      								<div class="col-12">
+      									<input id="inputPhone" type="text" placeholder="휴대폰(번호만입력)" style="width:300px;height:35px;font-size:20px;">
+      									<button id="sendPhoneNumber" type="button" class="btn btn-primary">인증번호받기</button>
+      								</div>
+      								<div class="col-12">
+        								<input id="certifiedNumber" type="text" placeholder="인증번호를 입력해 주세요" style="width:300px;height:35px;font-size:20px;"/>
+        							</div>
+        					
+      							</div>
+      							<div class="modal-footer">
+        							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        							<button type="button" class="btn btn-primary" id="checkBtn">인증확인</button>
+      							</div>
+    						</div>
+  						</div>
+					 </div>
+
+                    <div class="col-12">
                       <input type="text" name="postcode" class="form-control" id="postcode" placeholder="우편번호" required>
                     </div>
                     <div class="col-12">
@@ -93,13 +125,14 @@
                     <div class="col-12">
                       <input type="text" name="address_detail" class="form-control" id="address_detail" placeholder="상세주소" required>
                     </div>
-
+					
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
                     </div>
                   </form>
+     
 
                 </div>
               </div>
@@ -125,6 +158,8 @@
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   
   	<!-- 주소 검색 -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -141,6 +176,42 @@
           }).open();
       });
   }
+  
+  $('#sendPhoneNumber').click(function(){
+      let phoneNumber = $('#inputPhone').val();
+      Swal.fire('인증번호 발송 완료!')
+
+      $.ajax({
+          type: "GET",
+          url: "/sendSMS.do",
+          data: {
+              "phoneNumber" : phoneNumber
+          },
+          success: function(res){
+              $('#checkBtn').click(function(){
+                  if($.trim(res) ==$('#certifiedNumber').val()){
+                      Swal.fire(
+                              '인증성공!',
+                              '휴대폰 인증이 정상적으로 완료되었습니다.',
+                              'success'
+                          )
+                      document.getElementById('phone').value=phoneNumber ; 
+                      $('#sendSMS').modal('hide')
+  
+                  }else{
+                      Swal.fire({
+                          icon: 'error',
+                          title: '인증오류',
+                          text: '인증번호가 올바르지 않습니다!',
+                      })
+                  }
+              })
+
+
+          }
+      })
+  });
+
   </script>
 
 

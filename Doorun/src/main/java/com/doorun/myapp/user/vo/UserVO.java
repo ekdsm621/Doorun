@@ -10,6 +10,7 @@ public class UserVO {
 	private String id;
 	private String password;
 	private String email;
+	private String phone;
 	private double totaldistance;
 	private double totalduration;
 	private String profile_image;
@@ -53,6 +54,13 @@ public class UserVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public double getTotaldistance() {
 		return totaldistance;
