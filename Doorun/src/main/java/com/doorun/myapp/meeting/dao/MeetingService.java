@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.doorun.myapp.meeting.vo.MeetingJoinVO;
 import com.doorun.myapp.meeting.vo.MeetingVO;
+import com.doorun.myapp.user.vo.UserVO;
 
 public interface MeetingService {
 
@@ -11,11 +12,11 @@ public interface MeetingService {
 
 	List<MeetingVO> selectJoinedMeeting(String member_id);
 	
-	List<MeetingVO> selectJoinedMeetingImg(int meeting_id);
+	List<UserVO> selectJoinedMeetingImg(int meeting_id);
 
 	List<MeetingVO> selectNotJoinedMeeting(String member_id);
 	
-	void joinMeeting(MeetingJoinVO vo);
+	Boolean joinMeeting(MeetingJoinVO vo);
 
 	List<MeetingVO> joinedMeetingNotHosting(String member_id);
 	
