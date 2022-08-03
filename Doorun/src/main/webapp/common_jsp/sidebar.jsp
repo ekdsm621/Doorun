@@ -4,7 +4,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/index.jsp">
+                <a class="nav-link collapsed" href="#">
                 <i class="bi bi-grid"></i>
                 <span>메인</span>
                 </a>
@@ -49,12 +49,12 @@
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/meeting.do">
+                        <a href="/find_team.html">
                         <i class="bi bi-circle"></i><span>모임 찾기</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/joinedMeeting.do">
+                        <a href="/join_team.html">
                         <i class="bi bi-circle"></i><span>진행 중인 모임</span>
                         </a>
                     </li>

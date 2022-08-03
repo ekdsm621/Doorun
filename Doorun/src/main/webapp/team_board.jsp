@@ -6,7 +6,6 @@
 <head>
 <title>모임</title>
 <%@include file="/common_jsp/head_settings.jsp" %>
-<script type="text/javascript" src="/assets/js/joinMeeting"></script>
 </head>
 
 <body>
@@ -42,8 +41,8 @@
                                 <h6 class="card-subtitle mb-2 text-muted col-sm-12 nav justify-content-end align-self-end" style="margin: 0; height: 20px;"> 모집인원: ${meet.joined_member } / ${meet.total_member }</h6>
                                 <!-- 프로필 사진 -->
                                 <div style="padding: 0;">
-                                	<c:forEach items="${joined_meeting.get(meet) }" var="member_img">
-	                                    <img src="/upload_img/profile_img/${member_img.profile_image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+                                	<c:forEach items="${joined_meeting.get(meet) }" var="image">
+	                                    <img src="${image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
                                 	</c:forEach>
                                 </div>
                             </div>
@@ -63,7 +62,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 
-                                                <div id="map${meet.id }" style="width:700px;height: 400px;display: block; margin-bottom:20px;"></div>
+                                                <div id="map${meet.id }" style="width:700px;height: 400px;display: block; margin-bottom:10px;"></div>
 
 												<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e276eb8837d2a3c0160dc186ed9a6c5a"></script>
 												<script>
@@ -127,7 +126,7 @@
                                 <!-- 프로필 사진 -->
                                 <div style="padding: 0;">
                                 	<c:forEach items="${not_joined_meeting.get(meet) }" var="image">
-	                                    <img src="/upload_img/profile_img/${image.profile_image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+	                                    <img src="${image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
                                 	</c:forEach>
                                 </div>
                             </div>
@@ -169,7 +168,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 
-                                                <div id="map${meet.id }" style="width:700px;height: 400px;display: block; margin-bottom:20px;"></div>
+                                                <div id="map${meet.id }" style="width:700px;height: 400px;display: block; margin-bottom:10px;"></div>
 
 												<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e276eb8837d2a3c0160dc186ed9a6c5a"></script>
 												<script>
@@ -194,17 +193,19 @@
 													marker.setMap(map${meet.id});
 													// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 												</script>
-												<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 지역: ${meet.location }</h6>
-                                				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 일시: ${meet.meeting_date }</h6>
-                                				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${meet.master }</h6>
-                                                <h6 style="text-align:left">내용: ${meet.content }</h6>
+												<h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 지역: ${meet.location }</h5>
+                                				<h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 일시: ${meet.meeting_date }</h5>
+                                				<h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${meet.master }</h5>
+                                                <h5 style="text-align:left">내용: ${meet.content }</h5>
                                             </div>
-                                            <div class="modal-footer">
-                                            	<input type="hidden" name="meeting_id" id="meeting_id" value="${meet.id }">
-                                    			<input type="hidden" name="member_id" id="member_id" value="${id }">
-                                                <button type="button" class="btn btn-danger" id="joinBtn">참가</button>
-                                                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-dark">닫기</button>
-                                            </div>
+                                            <form action="joinMeeting.do" method="post">
+	                                            <div class="modal-footer">
+	                                            	<input type="hidden" name="meeting_id" value="${meet.id }">
+	                                    			<input type="hidden" name="member_id" value="${id }">
+	                                                <input type="submit" class="btn btn-danger" value="참가">
+	                                                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-dark">닫기</button>
+	                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

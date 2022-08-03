@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-import com.doorun.myapp.run.vo.LocationVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 import net.nurigo.java_sdk.api.Message;
@@ -45,7 +45,6 @@ public interface UserService {
 	
 	public void sendEmail(UserVO vo, HttpSession session)throws Exception;
 	
-	public List<LocationVO> getMap(LocationVO vo);
 	
 	
 	

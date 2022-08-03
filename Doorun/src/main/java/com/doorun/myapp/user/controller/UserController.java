@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.doorun.myapp.run.vo.LocationVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.dao.UserService;
 import com.doorun.myapp.user.vo.UserVO;
 
@@ -45,6 +45,7 @@ public class UserController {
 		}
 		if (user != null) {			
 			session.setAttribute("id", user.getId());
+			session.setAttribute("profile_image", user.getProfile_image());
 			session.setAttribute("nickname", user.getNickname());
 			session.setAttribute("member_type", user.getMember_type());
 			model.addAttribute("user", user);
@@ -98,7 +99,7 @@ public class UserController {
 		
 		if(!uploadFile.isEmpty()) {
 			String fileName = uploadFile.getOriginalFilename();
-			uploadFile.transferTo(new File("C:\\Users\\kosmo\\Desktop\\dorun_dev\\Doorun\\Doorun\\src\\main\\webapp\\upload_img\\profile_img\\"+fileName));
+			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/profile_img/"+fileName));
 			vo.setProfile_image(fileName);
 			userService.update(vo);
 		}else {
@@ -170,27 +171,7 @@ public class UserController {
 		return "";
 	}
 	
-	@RequestMapping("/getMap.do")
-	public String getMap(LocationVO vo, Model model,HttpServletRequest req) {
-		
-//		LocationVO vo1 = new LocationVO();
-//		LocationVO vo2 = new LocationVO();
-//		
-//		vo1.setLatitude(37.47836955);
-//		vo1.setLongitude(126.87926727);
-//		vo2.setLatitude(37.47857905);
-//		vo2.setLongitude(126.87922677);
-//		List<LocationVO> list = new ArrayList<LocationVO>();
-//		list.add(vo1);
-//		list.add(vo2);
-//		req.setAttribute("locationList",list);
-		
-		
-		
-		req.setAttribute("locationList",userService.getMap(vo));
-		return "mapTest.jsp";
-	}
-	
+
 	
 
 }
