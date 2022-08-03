@@ -34,7 +34,7 @@
                      <div class="pagetitle col-sm-12">
                          <h1 style="font-size: 30px;" align="center">참가한 모임</h1>
                      </div>
-                     <c:forEach items="${joined_meeting.keySet() }" var="join">
+                     <c:forEach items="${joined_meeting }" var="join">
                     <div class="card">
                         <div class="card-body row" >
                             <!-- 제목, 지역, 일시 -->
@@ -50,9 +50,9 @@
                                 <h6 class="card-subtitle mb-2 text-muted col-sm-12 nav justify-content-end align-self-end" style="margin: 0; height: 20px;"> 모집인원: ${join.joined_member } / ${join.total_member }</h6>
                                 <!-- 프로필 사진 -->
                                 <div style="padding: 0;">
-                                	<c:forEach items="${joined_meeting.get(join) }" var="image">
-	                                    <img src="/upload_img/profile_img/${image.profile_image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
-                                	</c:forEach>
+                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
                                 </div>
                             </div>
                             <!-- 버튼 -->
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 
-                                                <div id="map${join.id }" style="width:700px;height: 400px;display: block; margin-bottom:20px"></div>
+                                                <div id="map${join.id }" style="width:700px;height: 400px;display: block;"></div>
 
 												<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e276eb8837d2a3c0160dc186ed9a6c5a"></script>
 												<script>
@@ -119,10 +119,10 @@
 													// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 													// marker.setMap(null);    
 												</script>
-                                                <h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 지역: ${join.location }</h6>
-                                				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 일시: ${join.meeting_date }</h6>
-                                				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${join.master }</h6>
-                                                <h6 style="text-align:left">내용: ${join.content }</h6>
+                                                <h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 지역: ${join.location }</h5>
+                                				<h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 일시: ${join.meeting_date }</h5>
+                                				<h5 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${join.master }</h5>
+                                                <h5 style="text-align:left">내용: ${join.content }</h5>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger">참가</button>
@@ -158,7 +158,7 @@
 	                     	</div>                     
                          </c:when>
                          <c:otherwise>
-		                     <c:forEach items="${hosting_meeting.keySet() }" var="host">
+		                     <c:forEach items="${hosting_meeting }" var="host">
 			                     <div class="card">
 			                        <div class="card-body row" >
 			                            <!-- 제목, 지역, 일시 -->
@@ -174,9 +174,9 @@
 			                                <h6 class="card-subtitle mb-2 text-muted col-sm-12 nav justify-content-end align-self-end" style="margin: 0; height: 20px;"> 모집인원: ${host.joined_member } / ${host.total_member }</h6>
 			                                <!-- 프로필 사진 -->
 			                                <div style="padding: 0;">
-			                                	<c:forEach items="${hosting_meeting.get(host) }" var="image">
-				                                    <img src="/upload_img/profile_img/${image.profile_image }" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
-			                                	</c:forEach>
+			                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+			                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
+			                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; padding: 0;">
 			                                </div>
 			                            </div>
 			                            
@@ -234,27 +234,25 @@
 																var map${host.id } = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 																
 																// 지도를 클릭한 위치에 표출할 마커입니다
-																var marker${host.id} = new kakao.maps.Marker({ 
+																var marker = new kakao.maps.Marker({ 
 																    // 지도 중심좌표에 마커를 생성합니다 
 																    position: map${host.id }.getCenter() 
 																}); 
 																// 지도에 마커를 표시합니다
-																marker${host.id}.setMap(map${host.id });
+																marker.setMap(map${host.id });
 																// 지도에 클릭 이벤트를 등록합니다
 																// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 																kakao.maps.event.addListener(map${host.id }, 'click', function(mouseEvent) {        
 																    // 클릭한 위도, 경도 정보를 가져옵니다 
 																    var latlng = mouseEvent.latLng; 
 																    // 마커 위치를 클릭한 위치로 옮깁니다
-																    marker${host.id}.setPosition(latlng);
+																    marker.setPosition(latlng);
 																    
-																    document.querySelector("#longitude_update${host.id}").value= latlng.getLng();
-																    document.querySelector("#latitude_update${host.id}").value= latlng.getLat();
 																});
 															</script>
 															<form action="/updateMeeting.do" method="post" name="update_frm" onsubmit="return checkUpdate()">
-						                                         <input id="longitude_update${host.id}" type="hidden" name="longitude" value="${host.longitude }">
-						                                         <input id="latitude_update${host.id}" type="hidden" name="latitude" value="${host.latitude }"> 
+						                                         <input id="longitude_update" type="hidden" name="longitude" value="${host.longitude }">
+						                                         <input id="latitude_update" type="hidden" name="latitude" value="${host.latitude }"> 
 						                                         <input type="hidden" name="id" value="${host.id }">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">제목: </label>
 						                                         <input type="text" class="form-control" name="title" value="${host.title }">
@@ -263,9 +261,9 @@
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">장소: </label>
 						                                         <input type="text" class="form-control" name="location" value="${host.location }">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">날짜: </label>
-						                                         <input type="date" class="form-control" name="meeting_date" value="${host.meeting_date}">
+						                                         <input type="date" class="form-control" name="meeting_date">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">시간: </label>
-                                         						 <input type="time" class="form-control" name="meeting_time" value="${host.meeting_time}">
+                                         						 <input type="time" class="form-control" name="meeting_time">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">총 인원: </label>
 						                                         <input type="text" class="form-control" name="total_member" value="${host.total_member }">
 						                                         <div style="margin-top:10px">

@@ -22,7 +22,6 @@
 			SELECT *
 			FROM MEETING
 			ORDER BY ID
-			WHERE MEETING_DATE > SYSDATE
 		]]>
 	</select>
 	
@@ -32,7 +31,6 @@
 			FROM MEETING
 			WHERE ID IN (SELECT MEETING_ID FROM MEETING_JOIN WHERE MEMBER_ID = #{member_id})
 			AND MASTER <> #{member_id} 
-			AND MEETING_DATE > SYSDATE
 			ORDER BY ID
 		]]>
 	</select>
@@ -42,12 +40,11 @@
 			SELECT *
 			FROM MEETING
 			WHERE ID IN (SELECT MEETING_ID FROM MEETING_JOIN WHERE MEMBER_ID = #{member_id})
-			AND MEETING_DATE > SYSDATE
 			ORDER BY ID
 		]]>
 	</select>
 	
-	<select id="selectJoinedMeetingImg" resultType="user">
+	<select id="selectJoinedMeetingImg" resultType="meeting">
 		<![CDATA[
 			SELECT U.PROFILE_IMAGE
 			FROM MEMBER U, MEETING_JOIN J, MEETING M
@@ -63,7 +60,6 @@
 			SELECT *
 			FROM MEETING
 			WHERE ID NOT IN (SELECT MEETING_ID FROM MEETING_JOIN WHERE MEMBER_ID = #{member_id})
-			AND MEETING_DATE > SYSDATE
 			ORDER BY ID
 		]]>
 	</select>
@@ -73,7 +69,6 @@
 			SELECT *
 			FROM MEETING
 			WHERE ID IN (SELECT ID FROM MEETING WHERE MASTER = #{member_id})
-			AND MEETING_DATE > SYSDATE
 			ORDER BY ID
 		]]>
 	</select>
@@ -114,7 +109,7 @@
 			SET TITLE = #{title},
 				CONTENT = #{content},
 				LOCATION = #{location},
-				MEETING_DATE = TO_DATE(#{meeting_date}, 'YYYY-MM-DDHH24:MI'),
+				MEETING_DATE = #{meeting_date},
 				TOTAL_MEMBER = #{total_member},
 				LATITUDE = #{latitude},
 				LONGITUDE = #{longitude}
@@ -129,11 +124,4 @@
 		]]>
 	</delete>
 	
-	<select id="selectJoinNumber" resultType="meeting">
-		<![CDATA[
-			SELECT * 
-			FROM MEETING
-			WHERE ID = #{meeting_id}
-		]]>
-	</select>
 </mapper>
