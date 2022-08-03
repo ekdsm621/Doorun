@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.doorun.myapp.meeting.vo.MeetingJoinVO;
 import com.doorun.myapp.meeting.vo.MeetingVO;
+import com.doorun.myapp.user.vo.UserVO;
 
 @Service
 public class MeetingServiceImpl implements MeetingService {
@@ -29,8 +30,8 @@ public class MeetingServiceImpl implements MeetingService {
 		return dao.selectNotJoinedMeeting(member_id);
 	}
 	
-	public void joinMeeting(MeetingJoinVO vo) {
-		dao.joinMeeting(vo);
+	public Boolean joinMeeting(MeetingJoinVO vo) {
+		return dao.joinMeeting(vo);
 	}
 
 	public List<MeetingVO> joinedMeetingNotHosting(String member_id) {
@@ -55,7 +56,7 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 
 	@Override
-	public List<MeetingVO> selectJoinedMeetingImg(int meeting_id) {
+	public List<UserVO> selectJoinedMeetingImg(int meeting_id) {
 		return dao.selectJoinedMeetingImg(meeting_id);
 	}
 
