@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
-import com.doorun.myapp.run.vo.LocationVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.MailUtils;
 import com.doorun.myapp.utils.TempKey;
@@ -114,9 +114,7 @@ public class UserDAO {
 				sendMail.send();
 		}
 		
-		public List<LocationVO> getMap(LocationVO vo){
-			return sst.selectList("location.getMap", vo);
-		}
+
 		
 		public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
 
