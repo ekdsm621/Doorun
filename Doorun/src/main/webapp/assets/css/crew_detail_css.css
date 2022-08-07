@@ -1,0 +1,188 @@
+.navbar{
+    background-color: white;
+    z-index: 100;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color:rgb(245, 200, 133);
+}
+
+.navbar-light .navbar-brand{
+    color:rgb(245, 200, 133);
+    font-weight: bold;
+}
+
+.navbar-light .navbar-brand:hover{
+    color: blanchedalmond;
+    font-weight: bold;
+}
+
+.nav-item .nav-link{
+    color:gray;
+}
+.nav-item .nav-link.active{
+    color: orange;
+}
+
+.container-fluid{
+    width:70%;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}
+
+.main{
+    position:relative;
+    top:100px;
+    z-index: 0;
+}
+
+.crew-main-img{
+    width: 100%;
+    height: 300px;
+}
+
+.crew-sub-img{
+    position: relative;
+    top:-30px;
+    left:30px;
+    border-radius: 50em;
+}
+
+h1.crew-name{
+    font-weight:bold;
+    position: relative;
+    left: 30px;
+}
+
+.nav-tabs{
+    margin-top:3%;
+}
+
+.tab-pane{
+    margin-top: 2%;
+}
+
+h2.top-rank-title{
+    color:darkorange;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-left:2%
+}
+
+table.top-rank{
+    border-color: white;
+    background-color: rgb(255, 218, 173);
+    margin-bottom: 5%;
+}
+
+.top-rank th{
+    color:orange;
+    font-size:1.5em;
+    width:10%;
+    text-align:center;
+}
+
+.top-rank td{
+    width:10%;
+    text-align:center;
+}
+
+.rank-tbl td{
+    width:10%;
+    text-align:center;
+}
+
+.rank-tbl th{
+    width:10%;
+    text-align:center;
+}
+
+td>img{
+    width:50%;
+    border-radius: 25em;
+}
+
+.recent-img{
+    height:30em;
+    align-self: auto;
+    padding:1em;
+}
+
+.card-title{
+    margin-left: 1em;
+}
+
+.card-text{
+    margin-bottom: 0;
+    margin-left: 1em;
+}
+
+div.card-body{
+    padding-top: 0;
+}
+
+.member-title{
+    font-weight: bold;
+    margin-top: 3%;
+    margin-left:2%
+}
+
+.member-img{
+    width:4em;
+    border-radius: 25em;
+}
+
+.crew-member-tbl{
+    margin-left: 8%;
+    width:40%;
+}
+
+.crew-member-tbl td{
+    text-align:left;
+}
+
+.crew-join{
+    margin-top: 2em;
+}
+.crew-join p{
+    margin-bottom: 0;
+}
+.crew-join button{
+    margin-top:1em;
+    width:100%;
+}
+
+.seached-member{
+    align-self: center;
+    width:80%;
+    margin:1em;
+}
+
+.modal-dialog .modal-dialog-centered{
+    z-index:2000;
+}
+
+footer{
+    position: relative;
+    margin-top: 15em;
+    margin-bottom: 4em;
+}
+
+.board-title{
+    font-weight: bold;
+    margin-top: 3%;
+    margin-left:2%
+}

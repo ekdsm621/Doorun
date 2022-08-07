@@ -5,60 +5,115 @@
 
 	<resultMap type="user" id="userResult">
 		<id property ="id" column="ID"/>
-		<result property = "password" column="PASSWORD"/>
 		<result property = "name" column="NAME"/>
-		<result property = "regdate" column="REGDATE"/>
-		<result property = "address" column="ADDRESS"/>
-		<result property = "phone" column="PHONE"/>
+		<result property = "password" column="PASSWORD"/>
 		<result property = "email" column="EMAIL"/>
-		<result property = "birth" column="BIRTH"/>
-		<result property = "gender" column="GENDER"/>
-		<result property = "groupid" column="GROUPID"/>		
+		<result property = "totaldistance" column="TOTALDISTANCE"/>
+		<result property = "totalduration" column="TOTALDURATION"/>
+		<result property = "profile_image" column="PROFILE_IMAGE"/>
+		<result property = "introduce" column="INTRODUCE"/>
+		<result property = "nickname" column="NICKNAME"/>
+		<result property = "postcode" column="POSTCODE"/>
+		<result property = "address_road" column="ADDRESS_ROAD"/>
+		<result property = "address_detail" column="ADDRESS_DETAIL"/>
+		<result property = "member_type" column="MEMBER_TYPE"/>
 	</resultMap>
 
 	<insert id ="insertUser">
 	  <![CDATA[
-	  	INSERT INTO USERS (ID, PASSWORD, NAME, ADDRESS, PHONE, EMAIL,
-	  	BIRTH, GENDER, GROUPID) 
-	  	VALUES (#{id}, #{password}, #{name}, #{address}, #{phone}, 
-	  	#{email}, #{birth}, #{gender}, #{groupid})	  	
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, PHONE, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL , MEMBER_TYPE)	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{phone}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} , 'EMAIL' )	
+	  ]]>	
+	</insert>
+	
+	<insert id ="kakaoInsertUser">
+	  <![CDATA[
+	  	INSERT INTO MEMBER (ID , NAME , EMAIL, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL , MEMBER_TYPE )	  
+	  	VALUES ( #{id} , #{name} , #{email}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} , 'KAKAO' )	
 	  ]]>	
 	</insert>
 	
 	<update id="updateUser">
 	  <![CDATA[
-	  	UPDATE USERS SET
-	  		PASSWORD = #{password},
-	  		NAME = #{name},
-	  		ADDRESS = #{address},
-	  		PHONE = #{phone},
-	  		EMAIL = #{email},
-	  		GROUPID = #{groupid}
-	  	WHERE ID = #{id}	
+	  	UPDATE MEMBER
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , 
+	  	POSTCODE = #{postcode} , ADDRESS_ROAD = #{address_road} , ADDRESS_DETAIL = #{address_detail} , PROFILE_IMAGE = #{profile_image}
+	  	WHERE  EMAIL = #{email}
+	  ]]>		
+	</update>
+	
+	
+	<update id="updateUser2">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , 
+	  	POSTCODE = #{postcode} , ADDRESS_ROAD = #{address_road} , ADDRESS_DETAIL = #{address_detail}
+	  	WHERE  EMAIL = #{email}
+	  ]]>		
+	</update>
+	
+	
+	<update id="updatePassword">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET PASSWORD =#{password}
 	  ]]>		
 	</update>
 	
 	<delete id="deleteUser">
 	<![CDATA[
-	   DELETE USERS
-	   WHERE ID = #{id}
+	 
 	]]>	
 	</delete>
 	
 	<select id="getUser" resultType="user">
 	<![CDATA[	
-	  SELECT * FROM USERS
-	  WHERE ID = #{id} AND PASSWORD = #{password}
+	  SELECT * FROM MEMBER
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
+	]]>	
+	</select>
+	
+	<select id="getKakaoUser" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE EMAIL = #{email}
+	  ]]>	
+	</select>
+	
+	<select id="getUserWithEmail" resultType="String">
+	<![CDATA[	
+	  SELECT NICKNAME FROM MEMBER
+	  WHERE EMAIL = #{email} 
+	]]>	
+	</select>
+	
+	<select id="passwordCheck" resultType="String">
+	<![CDATA[	
+	  SELECT PASSWORD FROM MEMBER
+	  WHERE ID = #{id}
 	  
 	]]>	
 	</select>
 	
 	<select id="getUserList" resultMap ="userResult">
 	<![CDATA[
-	  SELECT * FROM USERS
+	  SELECT * FROM MEMBER
 	  ORDER BY ID DESC
 	]]>
 	</select>
+	
+	<update id="findPw" >
+	<![CDATA[
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}
+	]]>
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email}
+	]]>
+	</select>
+	
 	
 
 

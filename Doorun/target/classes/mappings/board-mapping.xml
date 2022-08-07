@@ -3,226 +3,71 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Board">
 
-<!-- Instant -->
-
-	<resultMap id="boardResult" type="instantbrd">
+	<resultMap id="boardResult" type="board">
 		<id property="id" column="ID" />
-		<result property="writer" column="WRITER" />
-		<result property="content" column="CONTENT" />
-		<result property="location" column="LOCATION" />
-		<result property="regDate" column="REGDATE" />
-		<result property="maxMember" column="MAXMEMBER" />
-		<result property="joinedMember" column="JOINMEMBER" />
-	</resultMap>
-
-	<insert id="insertInstantbrd" parameterType="instantbrd">
-		<![CDATA[
-		INSERT INTO BOARD(id, WRITER,CONTENT, LOCATION, MAXMEMBER)
-		VALUES((SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD),
-		#{writer}, #{content} , #{location}, #{maxmember})
-		]]>
-	</insert>
-
-	<update id="updateInstantbrd" parameterType="instantbrd">
-		<![CDATA[
-		UPDATE BOARD SET
-		CONTENT = #{content},
-		LOCATION = #{location},
-		MAXMEMBER = #{maxmember}
-		WHERE id = #{id}
-		]]>
-	</update>
-
-	<delete id="deleteInstantbrd" parameterType="instantbrd">
-		<![CDATA[
-		DELETE BOARD
-		WHERE ID = #{id}
-		]]>
-	</delete>
-
-	<select id="getInstantbrd" resultType="instantbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		WHERE ID = #{id}
-		]]>
-	</select>
-
-	<select id="getInstantbrdList" resultType="instantbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		ORDER BY ID DESC
-		]]>
-	</select>
-	<!-- InstantBoard End -->
-	
-	<!-- CrewBoard -->
-	
-	<resultMap id="crewBrdResult" type="crewbrd">
-		<id property="id" column="ID" />
-		<result property="writer" column="WRITER" />
-		<result property="crewId" column="CREWID" />
+		<result property="rownum" column="ROWNUM" />
 		<result property="title" column="TITLE" />
 		<result property="content" column="CONTENT" />
-		<result property="image" column="IMAGE" />
-		<result property="date" column="DATE" />
-	</resultMap>
-
-	<insert id="insertCrewBoard" parameterType="crewbrd">
-		<![CDATA[
-		INSERT INTO BOARD(id, WRITER,CREWID, TITLE, CONTENT,IMAGE)
-		VALUES((SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD),
-		#{writer}, #{crewId} , #{title}, #{content}, #{image})
-		]]>
-	</insert>
-
-	<update id="updateCrewBoard" parameterType="crewbrd">
-		<![CDATA[
-		UPDATE BOARD SET
-		TITLE = #{title},
-		CONTENT = #{content},
-		IMAGE = #{image}
-		WHERE id = #{id}
-		]]>
-	</update>
-
-	<delete id="deleteCrewBoard" parameterType="crewbrd">
-		<![CDATA[
-		DELETE BOARD
-		WHERE ID = #{id}
-		]]>
-	</delete>
-
-	<select id="getCrewBoard" resultType="crewbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		WHERE ID = #{id}
-		]]>
-	</select>
-
-	<select id="getCrewBoardList" resultType="crewbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		ORDER BY ID DESC
-		]]>
-	</select>
-	
-	<!-- CrewBoard End -->
-	
-	
-	
-	<!-- FreeBoard -->
-	
-	<resultMap id="freeBrdResult" type="freebrd">
-		<id property="id" column="ID" />
 		<result property="writer" column="WRITER" />
-		<result property="category" column="CATEGORY" />
-		<result property="title" column="TITLE" />
-		<result property="content" column="CONTENT" />
-		<result property="image" column="IMAGE" />
-		<result property="date" column="DATE" />
+		<result property="image_file" column="IMAGE_FILE" />
+		<result property="reg_date" column="REG_DATE" />
+		<result property="board_id" column="BOARD_ID" />
 	</resultMap>
-
-	<insert id="insertFreeBoard" parameterType="freebrd">
+	
+	<insert id="insertBoard">
 		<![CDATA[
-		INSERT INTO BOARD(id, WRITER,CATEGORY, TITLE, CONTENT,IMAGE)
-		VALUES((SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD),
-		#{writer}, #{category} , #{title}, #{content}, #{image})
+			INSERT INTO BOARD(ID, TITLE, CONTENT, WRITER, BOARD_ID, IMAGE_FILE)
+			VALUES((SELECT NVL(MAX(ID),1) FROM BOARD)+1, #{title}, #{content}, #{writer}, #{board_id}, #{image_file})
 		]]>
 	</insert>
-
-	<update id="updateFreeBoard" parameterType="freebrd">
-		<![CDATA[
-		UPDATE BOARD SET
-		TITLE = #{title},
-		CATEGORY =#{category}
-		CONTENT = #{content},
-		IMAGE = #{image}
-		WHERE id = #{id}
-		]]>
-	</update>
-
-	<delete id="deleteFreeBoard" parameterType="freebrd">
-		<![CDATA[
-		DELETE BOARD
-		WHERE ID = #{id}
-		]]>
-	</delete>
-
-	<select id="getFreeBoard" resultType="freebrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		WHERE ID = #{id}
-		]]>
-	</select>
-
-	<select id="getFreeBoardList" resultType="freebrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		ORDER BY ID DESC
-		]]>
-	</select>
 	
-	<!-- FreeBoard End -->
-	
-	<!-- EventBoard -->
-	
-	<resultMap id="freeEventResult" type="eventbrd">
-		<id property="id" column="ID" />
-		<result property="category" column="CATEGORY" />
-		<result property="title" column="TITLE" />
-		<result property="content" column="CONTENT" />
-		<result property="image" column="IMAGE" />
-		<result property="date" column="DATE" />
-	</resultMap>
-
-	<insert id="insertEventBoard" parameterType="eventbrd">
+	<insert id="insertReply">
 		<![CDATA[
-		INSERT INTO BOARD(id,CATEGORY, TITLE, CONTENT,IMAGE)
-		VALUES((SELECT NVL(MAX(SEQ), 0) + 1 FROM BOARD),
-		#{category} , #{title}, #{content}, #{image})
+			INSERT INTO REPLY(ID, BOARD_ID, CONTENT, WRITER)
+			VALUES((SELECT NVL(MAX(ID),0) FROM REPLY)+1, #{board_id}, #{content}, #{writer})
 		]]>
 	</insert>
-
-	<update id="updateEventBoard" parameterType="eventbrd">
+	
+	<select id="getBoardList" resultType="board">
 		<![CDATA[
-		UPDATE BOARD SET
-		TITLE = #{title},
-		CATEGORY =#{category}
-		CONTENT = #{content},
-		IMAGE = #{image}
-		WHERE id = #{id}
+			SELECT ROWNUM, B.*
+			FROM (SELECT *
+      			  FROM BOARD
+      			  WHERE BOARD_ID = 1
+      			  ORDER BY REG_DATE DESC) B
+		]]>
+	</select>
+	
+	<select id="detailBoard" resultType="board">
+		<![CDATA[
+			SELECT *
+			FROM BOARD
+			WHERE ID = #{id}
+		]]>
+	</select>
+	
+	<select id="getReply" resultType="reply">
+		<![CDATA[
+			SELECT *
+			FROM REPLY
+			WHERE BOARD_ID = #{board_id}
+			ORDER BY REG_DATE ASC
+		]]>
+	</select>
+	
+	<update id="updateBoard">
+		<![CDATA[
+			UPDATE BOARD
+			SET TITLE=#{title}, CONTENT=#{content}
+			WHERE ID = #{id}
 		]]>
 	</update>
-
-	<delete id="deleteEventBoard" parameterType="eventbrd">
+	
+	<delete id="deleteBoard">
 		<![CDATA[
-		DELETE BOARD
-		WHERE ID = #{id}
+			DELETE FROM BOARD
+			WHERE ID = #{id}
 		]]>
 	</delete>
-
-	<select id="getEventBoard" resultType="eventbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		WHERE ID = #{id}
-		]]>
-	</select>
-
-	<select id="getEventBoardList" resultType="eventbrd">
-		<![CDATA[
-		SELECT *
-		FROM BOARD
-		ORDER BY ID DESC
-		]]>
-	</select>
-	<!-- EventBoard End -->
-	
 
 </mapper>
