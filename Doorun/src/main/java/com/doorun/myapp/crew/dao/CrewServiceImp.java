@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.doorun.myapp.crew.vo.CrewVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 @Service("crewService")
@@ -63,6 +64,23 @@ public class CrewServiceImp implements CrewService {
 	public void minusCrewMember(CrewVO vo) {
 		crewDAO.minusCrewMember(vo);
 	}
+
+	@Override
+	public List<RunVO> getCrewRecentRecord(CrewVO vo) {
+		return crewDAO.getCrewRecentRecord(vo);
+	}
+
+
+	@Override
+	public String getCrewMasterImage(CrewVO vo) {
+		return crewDAO.getCrewMasterImage(vo);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

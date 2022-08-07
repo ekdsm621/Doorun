@@ -59,12 +59,15 @@ public class CrewController {
 	public String detailCrew(CrewVO vo, Model model) {
 		
 		model.addAttribute("detailCrew", crewService.detailCrew(vo));
+		model.addAttribute("masterImage", crewService.getCrewMasterImage(vo));
 		
 		List<UserVO> crewMemberList = crewService.getCrewMember(vo);
 		
 		model.addAttribute("crewMemberList", crewMemberList);
 		
-		return "detail_crew.jsp";
+		model.addAttribute("getCrewRecentRecord",crewService.getCrewRecentRecord(vo));
+		
+		return "crew_detail.jsp";
 	}
 	
 	@RequestMapping("/joinCrew.do")

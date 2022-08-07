@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.doorun.myapp.crew.vo.CrewVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 
@@ -62,6 +63,14 @@ public class CrewDAO {
 	
 	public void minusCrewMember(CrewVO vo) {
 		sst.update("Crew.minusCrewMember", vo);
+	}
+	
+	public List<RunVO> getCrewRecentRecord(CrewVO vo) {
+		return sst.selectList("Crew.getCrewRecentRecord",vo);
+	}
+	
+	public String  getCrewMasterImage(CrewVO vo) {
+		return sst.selectOne("Crew.getCrewMasterImage",vo);
 	}
 	
 	

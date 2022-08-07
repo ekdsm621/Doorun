@@ -4,13 +4,13 @@
 <mapper namespace="run">
 
 
-	
+	<!--  
 	<select id ="getMap" resultType="run">
 	  <![CDATA[
 	  SELECT * FROM LOCATION WHERE ID = #{id} AND MEMBER_ID =#{member_id} ORDER BY LOCATION_ID
 	  ]]>	
 	</select>
-	
+	-->
 	<select id ="getRecordList" resultType="run">
 	  <![CDATA[
 	  SELECT ID, DISTANCE, DURATION,AVG_SPEED,RUNNING_DATE FROM journey
@@ -18,13 +18,25 @@
 
 	  ]]>	
 	</select>
-	
+	<!--  
 	<select id ="detailRecord" resultType="run">
 	  <![CDATA[
 	  SELECT DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID = #{id}
 	  ]]>	
 	</select>
+	-->
 	
+	<select id ="getMap" resultType="run">
+	  <![CDATA[
+	  SELECT * FROM LOCATION WHERE ID = #{id} ORDER BY LOCATION_ID
+	  ]]>	
+	</select>
+	
+	<select id ="detailRecord" resultType="run">
+	  <![CDATA[
+	  SELECT DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM JOURNEY WHERE ID = #{id}
+	  ]]>	
+	</select>
 	
 	
 

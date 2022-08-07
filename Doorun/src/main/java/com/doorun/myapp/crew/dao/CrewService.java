@@ -3,6 +3,7 @@ package com.doorun.myapp.crew.dao;
 import java.util.List;
 
 import com.doorun.myapp.crew.vo.CrewVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 
 public interface CrewService {
@@ -17,6 +18,8 @@ public interface CrewService {
 	public void updateCrew(CrewVO vo);
 	public void quitCrew(String id);
 	public void minusCrewMember(CrewVO vo);
+	public List<RunVO> getCrewRecentRecord(CrewVO vo);
+	public String  getCrewMasterImage(CrewVO vo);
 	
 
 }

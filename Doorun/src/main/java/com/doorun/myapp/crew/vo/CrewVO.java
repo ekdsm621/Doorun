@@ -8,6 +8,7 @@ public class CrewVO {
 	private String name;
 	private String master;
 	private String image_file;
+	private String background_img;
 	private String describe;
 	private String distance;
 	private int member;
@@ -57,6 +58,18 @@ public class CrewVO {
 
 	public void setImage_file(String image_file) {
 		this.image_file = image_file;
+	}
+	
+	
+
+
+	public String getBackground_img() {
+		return background_img;
+	}
+
+
+	public void setBackground_img(String background_img) {
+		this.background_img = background_img;
 	}
 
 
