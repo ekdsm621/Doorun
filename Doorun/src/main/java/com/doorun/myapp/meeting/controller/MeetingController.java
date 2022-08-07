@@ -52,7 +52,7 @@ public class MeetingController {
 		}
 		model.addAttribute("not_joined_meeting", not_joined_meetings);
 		
-		return "team_board.jsp";
+		return "team_list.jsp";
 	}
 	
 	@ResponseBody
