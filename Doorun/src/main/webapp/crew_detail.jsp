@@ -1,4 +1,7 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,6 +18,7 @@
             });
         });
     </script>
+    <script src="assets/vendor/jquery/jquery-3.6.0.min.js"></script>
     <title>크루 상세</title>
 </head>
 <body>
@@ -76,16 +80,13 @@
 
     <div class="container-fluid">
         <div class="main">
-            <img src="/assets/img/slides-3.jpg" class="crew-main-img">
-            <img src="/assets/img/messages-1.jpg" class="crew-sub-img">
+            <img src="upload_img/crew_img/${detailCrew.background_img }" class="crew-main-img">
+            <img src="upload_img/crew_img/${detailCrew.image_file }" class="crew-sub-img">
             <div>
-                <h1 class="crew-name">Give N Run</h1>
+                <h1 class="crew-name">${detailCrew.name }</h1>
             </div>
             <div class="crew-intro">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi itaque commodi, architecto, rem fugit distinctio odio quis aut adipisci a ut expedita soluta, vel doloribus iste corrupti rerum tempora accusamus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi itaque commodi, architecto, rem fugit distinctio odio quis aut adipisci a ut expedita soluta, vel doloribus iste corrupti rerum tempora accusamus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi itaque commodi, architecto, rem fugit distinctio odio quis aut adipisci a ut expedita soluta, vel doloribus iste corrupti rerum tempora accusamus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi itaque commodi, architecto, rem fugit distinctio odio quis aut adipisci a ut expedita soluta, vel doloribus iste corrupti rerum tempora accusamus.
+            ${detailCrew.describe }
             </div>
 
             <ul class="nav nav-tabs" id="crewTab" role="tablist">
@@ -118,33 +119,19 @@
                             <h2 class="top-rank-title">TOP 3</h2>
                             <table class="table align-middle top-rank">
                                 <tbody>
+                                <c:forEach items="${crewMemberList }" var="member">
+                                <c:set var="i" value ="${i+1 }"/>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
+                                        <th scope="row">${i }</th>
+                                        <td><img src="upload_img/profile_img/${member.profile_image }"></td>
+                                        <td>${member.name }</td>
+                                        <td>${member.nickname }</td>
+                                        <td>${member.totaldistance }KM</td>
+                                        <td>${member.totalduration }</td>
                                         <td>8'46''</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
+                                </c:forEach>
+
                                 </tbody>
                             </table>
                             
@@ -161,60 +148,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach items="${crewMemberList }" var="member">
+                                <c:set var="j" value ="${j+1 }"/>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
+                                        <th scope="row">${j }</th>
+                                        <td><img src="upload_img/profile_img/${member.profile_image }"></td>
+                                        <td>${member.name }</td>
+                                        <td>${member.nickname }</td>
+                                        <td>${member.totaldistance }KM</td>
+                                        <td>${member.totalduration }</td>
                                         <td>8'46''</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td><img src="/assets/img/messages-2.jpg"></td>
-                                        <td>ekdsm621</td>
-                                        <td>이다은</td>
-                                        <td>52KM</td>
-                                        <td>13:28:56</td>
-                                        <td>8'46''</td>
-                                    </tr>
+                                </c:forEach>
+
                                 </tbody>
                             </table>
                         </div>
@@ -261,38 +207,19 @@
                 <div class="tab-pane fade" id="crew-recent" role="tabpanel" aria-labelledby="crew-recent-tab">
                     <div class="row">
                         <div class="col-8">
+                        <c:forEach items="${getCrewRecentRecord}" var="record">
                             <div class="card mb-3">
-                                <img class="recent-img"src="/assets/img/지도사진.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">ekdsm621 회원님</h5>
-                                    <p class="card-text">달린 거리: 5.16 Km</p>
-                                    <p class="card-text">달린 시간: 01:02:00</p>
-                                    <p class="card-text">평균 페이스: 9'3''</p>
-                                    <p class="card-text"><small class="text-muted">2022-08-03 15:56</small></p>
-                                </div>
-                            </div>
+                                <iframe id="myIframe" src="/detailRecord.do?id=${record.id }" loading="lazy"  width="100%" height="300px" frameborder='0' scrolling="no" src='hompage' style="overflow-y:hidden"></iframe>
 
-                            <div class="card mb-3">
-                                <img class="recent-img"src="/assets/img/지도사진.png" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">ekdsm621 회원님</h5>
-                                    <p class="card-text">달린 거리: 5.16 Km</p>
-                                    <p class="card-text">달린 시간: 01:02:00</p>
-                                    <p class="card-text">평균 페이스: 9'3''</p>
-                                    <p class="card-text"><small class="text-muted">2022-08-03 15:56</small></p>
+                                    <h5 class="card-title">${record.member_id } 회원님</h5>
+                                    <p class="card-text">달린 거리: ${record.distance } Km</p>
+                                    <p class="card-text">달린 시간: ${record.duration }</p>
+                                    <p class="card-text">평균 페이스: ${record.avg_speed }</p>
+                                    <p class="card-text"><small class="text-muted">${record.running_date }</small></p>
                                 </div>
                             </div>
-
-                            <div class="card mb-3">
-                                <img class="recent-img"src="/assets/img/지도사진.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">ekdsm621 회원님</h5>
-                                    <p class="card-text">달린 거리: 5.16 KM</p>
-                                    <p class="card-text">달린 시간: 01:02:00</p>
-                                    <p class="card-text">평균 페이스: 9'3''</p>
-                                    <p class="card-text"><small class="text-muted">2022-08-03 15:56</small></p>
-                                </div>
-                            </div>
+						</c:forEach>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3 crew-join">
@@ -343,8 +270,8 @@
                                 <table class="table table-borderless align-middle crew-member-tbl">
                                     <tbody>
                                         <tr>
-                                            <td><img src="/assets/img/messages-2.jpg" class="member-img"></td>
-                                            <td>이다은</td>
+                                            <td><img src="upload_img/profile_img/${masterImage }" class="member-img"></td>
+                                            <td>${detailCrew.master }</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -353,22 +280,13 @@
                                 <hr>
                                 <table class="table table-borderless align-middle crew-member-tbl">
                                     <tbody>
+                                    <c:forEach items="${crewMemberList }" var="member">
                                         <tr>
-                                            <td><img src="/assets/img/messages-2.jpg" class="member-img"></td>
-                                            <td>이다은</td>
+                                            <td><img src="upload_img/profile_img/${member.profile_image }" class="member-img"></td>
+                                            <td>${member.nickname }</td>
                                         </tr>
-                                        <tr>
-                                            <td><img src="/assets/img/messages-2.jpg" class="member-img"></td>
-                                            <td>이다은</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="/assets/img/messages-2.jpg" class="member-img"></td>
-                                            <td>이다은</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="/assets/img/messages-2.jpg" class="member-img"></td>
-                                            <td>이다은</td>
-                                        </tr>
+                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>

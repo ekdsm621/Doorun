@@ -186,3 +186,11 @@ footer{
     margin-top: 3%;
     margin-left:2%
 }
+.crew-sub-img{
+    position: relative;
+    top:-30px;
+    left:30px;
+    border-radius: 50em;
+    width:7.5em;
+    height:7.5em;
+}

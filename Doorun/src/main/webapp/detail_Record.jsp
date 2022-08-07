@@ -13,13 +13,6 @@
 List<RunVO> list = (List<RunVO>)request.getAttribute("locationList");
 %>
 <body>
-
-<p>시간: ${detailRecord.duration }</p>
-<p>거리: ${detailRecord.distance }</p>
-<p>속도: ${detailRecord.avg_speed }</p>
-<p>날짜: ${detailRecord.running_date }</p>
-
-<%=list.size() %><br>
 <%
 double startLat = list.get(0).getLatitude();
 double endLat = list.get(list.size()-1).getLatitude();
@@ -36,14 +29,8 @@ double num = a.distance(startLat, startLong, endLat, endLong,"meter");
 
 
 %>
-<%=startLat %><br>
-<%=endLat %><br><br>
-<%=startLong %><br>
-<%=endLong %><br><br>	
-<%=centerLat %><br>
-<%=centerLong %><br>
-<%=num %>
-<div id="map" style="width:50%;height:500px;"></div>    
+
+<div id="map" style="width:100%;height:300px;"></div>    
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c162825c55c60498b8e0afcb0f6c2617"></script>
 
@@ -56,24 +43,22 @@ mapOption = {
 	<%if(num<100){ %>
 	2,
 	<% }else if(num>100 && num<800){ %>
-	4,
-	<%}else if(num>800 && num<1500){ %>
 	5,
-	<%}else if(num>1500 && num<3000){ %>
+	<%}else if(num>800 && num<1500){ %>
 	6,
-	<%}else if(num>3000 && num<5000){ %>
+	<%}else if(num>1500 && num<3000){ %>
 	7,
-	<%}else if(num>5000 && num<8000){ %>
+	<%}else if(num>3000 && num<5000){ %>
 	8,
-	<%}else if(num>8000 && num<25000){ %>
+	<%}else if(num>5000 && num<8000){ %>
 	9,
-	<%}else if(num>18000 && num<40000){ %>
+	<%}else if(num>8000 && num<25000){ %>
 	10,
-	<%}else if(num>40000 && num<100000){ %>
+	<%}else if(num>18000 && num<40000){ %>
 	11,
-	<%}else if(num>100000 && num<200000){ %>
+	<%}else if(num>40000 && num<100000){ %>
 	12,
-	<%}else if(num>200000 && num<300000){ %>
+	<%}else if(num>100000 && num<200000){ %>
 	13,
 	<%}else{ %>
 	14,

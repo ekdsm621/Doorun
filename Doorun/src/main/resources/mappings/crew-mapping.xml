@@ -44,7 +44,7 @@
 			FROM MEMBER M, CREW_JOIN J, CREW C
 			WHERE M.ID = J.MEMBER_ID AND J.CREW_ID = C.ID
 			GROUP BY C.ID
-			HAVING C.ID = #{id}) as DISTANCE,NAME,IMAGE_FILE,DESCRIBE,MASTER,MEMBER
+			HAVING C.ID = #{id}) as DISTANCE,NAME,IMAGE_FILE,BACKGROUND_IMG,DESCRIBE,MASTER,MEMBER
 			FROM CREW
 			WHERE ID =#{id}
 		]]>
@@ -85,12 +85,20 @@
 	
 	</update>
 	
-	<select id="getCrewRecentRecord	" resultType="user">
+	<select id="getCrewRecentRecord" resultType="run">
 		<![CDATA[
-			SELECT MEMBER_ID,DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM (SELECT M.* FROM MEMBER M , CREW_JOIN C
+			SELECT B.ID, MEMBER_ID,DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM (SELECT M.* FROM MEMBER M , CREW_JOIN C
 			WHERE C.CREW_ID =#{id } AND M.ID = C.MEMBER_ID)A,(SELECT * FROM journey)B
 			WHERE A.ID= B.MEMBER_ID
 			ORDER BY RUNNING_DATE DESC
+		]]>
+	
+	</select>
+	
+	<select id="getCrewMasterImage" resultType="String">
+		<![CDATA[
+			SELECT profile_image FROM MEMBER 
+			WHERE ID = (SELECT MASTER FROM CREW WHERE ID=#{id })
 		]]>
 	
 	</select>
