@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MarathonDAO">
+
+
+	<resultMap type="marathon" id="marathonResult">
+		<result property = "day" column="day"/>
+		<result property = "name" column="name"/>
+		<result property = "place" column="place"/>
+		<result property = "address" column="address"/>
+	</resultMap>
+
+
+	<select id="getmarathon" resultMap ="marathonResult">
+	<![CDATA[
+	  SELECT * FROM MARATHON
+	]]>
+	</select>
+
+
+</mapper>

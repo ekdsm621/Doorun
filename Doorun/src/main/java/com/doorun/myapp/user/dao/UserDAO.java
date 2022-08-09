@@ -74,6 +74,10 @@ public class UserDAO {
 			return sst.selectOne("UserDAO.getUserWithEmail", vo);
 		}
 		
+		public UserVO getUserWithId(String id) {
+			return sst.selectOne("UserDAO.getUserWithId", id);
+		}
+		
 		public int findPwCheck(UserVO vo)throws Exception{
 			return sst.selectOne("UserDAO.findPwCheck", vo);	
 		}
@@ -150,6 +154,23 @@ public class UserDAO {
 		public List<CrewVO> getJoinedCrewList(UserVO vo) {
 			return sst.selectList("UserDAO.getJoinedCrewList", vo);
 		}
+		
+		public int EmailCheck(String email) {
+			return sst.selectOne("UserDAO.EmailCheck", email);
+		}
+		
+		public int IdCheck(String id) {
+			return sst.selectOne("UserDAO.IdCheck", id);
+		}
+		
+		public int NicknameCheck(String nickname) {
+			return sst.selectOne("UserDAO.nicknameCheck" , nickname);
+		}
+		
+		
+		
+		
+		
 	}
 
 

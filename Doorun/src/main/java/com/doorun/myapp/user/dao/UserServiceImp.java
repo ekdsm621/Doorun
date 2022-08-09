@@ -108,5 +108,28 @@ public class UserServiceImp implements UserService {
 	public List<CrewVO> getJoinedCrewList(UserVO vo) {
 		return userDAO.getJoinedCrewList(vo);
 	}
+	
+	@Override
+	public UserVO getUserWithId(String id) {
+		return userDAO.getUserWithId(id);
+	}
+
+	@Override
+	public int EmailCheck(String email) {
+		int result = userDAO.EmailCheck(email);
+		return result;
+	}
+
+	@Override
+	public int IdCheck(String id) {
+		int result = userDAO.IdCheck(id);
+		return result;
+	}
+
+	@Override
+	public int NicknameCheck(String nickname) {
+		int result = userDAO.NicknameCheck(nickname);
+		return result;
+	}
 
 }

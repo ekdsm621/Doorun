@@ -30,6 +30,8 @@ public interface UserService {
 	
 	public String getUserWithEmail(UserVO vo);
 	
+	public UserVO getUserWithId(String id);
+	
 	public String passwordCheck(String id);
 	
 	public List<UserVO> getUserList(UserVO vo);
@@ -45,6 +47,12 @@ public interface UserService {
 	public List<RunVO> getUserRecordList(UserVO vo);
 	
 	public List<CrewVO> getJoinedCrewList(UserVO vo);
+	
+	public int EmailCheck(String email);
+	
+	public int IdCheck(String id);
+	
+	public int NicknameCheck(String nickname);
 	
 	
 }

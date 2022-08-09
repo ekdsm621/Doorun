@@ -10,6 +10,7 @@
 		<typeAlias type="com.doorun.myapp.run.vo.RunVO" alias="run"></typeAlias>
 		<typeAlias type="com.doorun.myapp.meeting.vo.MeetingVO" alias="meeting"></typeAlias>
 		<typeAlias type="com.doorun.myapp.crew.vo.CrewVO" alias="crew"></typeAlias>
+		<typeAlias type="com.doorun.myapp.marathon.vo.MarathonVO" alias="marathon"></typeAlias>
 	</typeAliases>
 	
 
@@ -20,5 +21,6 @@
 		<mapper resource="mappings/user-mapping.xml" />
 		<mapper resource="mappings/run-mapping.xml" />
 		<mapper resource="mappings/crew-mapping.xml" />
+		<mapper resource="mappings/marathon-mapping.xml" />
 	</mappers>
 </configuration>

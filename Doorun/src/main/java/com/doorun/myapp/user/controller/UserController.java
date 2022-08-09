@@ -48,11 +48,22 @@ public class UserController {
 			session.setAttribute("nickname", user.getNickname());
 			session.setAttribute("member_type", user.getMember_type());
 			model.addAttribute("user", user);
-			return "updateUser.jsp";  
+			return "/index.jsp";  
 		} else
 			session.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "login.jsp";
 	}
+	
+	@RequestMapping(value = "/UserSetting.do")
+	public String UserSetting(UserVO vo, HttpSession session , Model model ) {
+		
+		UserVO user;
+		vo.setId((String)session.getAttribute("id"));
+		user = userService.getUserWithId(vo.getId());
+		model.addAttribute("user", user);
+		return "updateUser.jsp";
+	}
+	
 	
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
@@ -103,9 +114,8 @@ public class UserController {
 			userService.update(vo);
 		}else {
 			userService.update2(vo);
-			System.out.println("asfasdfasdf");
 		}
-		return "updateUser.jsp";
+		return "UserSetting.do";
 	}
 	
 	
@@ -228,6 +238,52 @@ public class UserController {
 		
 		return "user_detail.jsp";
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailcheck.do" , method=RequestMethod.POST )
+	public String EmailCheck( String email) throws Exception {
+		int result = userService.EmailCheck(email);
+		String check = null;
+		if (result == 1) {
+			check = "n";
+		}else {
+			check = "y";
+		}
+		
+		return check;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/idcheck.do" , method=RequestMethod.POST)
+	public String IdCheck(String id) throws Exception {
+		int result = userService.IdCheck(id);
+		String check = null;
+		if (result == 1) {
+			check = "n";
+		}else {
+			check = "y";
+		}
+		
+		return check;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/nicknamecheck.do" , method=RequestMethod.POST)
+	public String NicknameCheck(String nickname) throws Exception {
+		int result = userService.NicknameCheck(nickname);
+		String check = null;
+		if (result == 1) {
+			check = "n";
+		}else {
+			check = "y";
+		}
+		
+		return check;
+	}
+	
 	
 
 	
