@@ -29,7 +29,7 @@
 
 
 
-  <main>
+ <main>
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -61,8 +61,10 @@
                     </div>
                     
                     <div class="col-12">
-                      <input type="text" name="id" class="form-control" id="id" placeholder="아이디" required>
+                      <input type="text" name="id" class="form-control" id="id" placeholder="아이디" oninput="idCheck()" required>
                       <div class="invalid-feedback">아이디를 입력해주세요</div>
+                     	<span class="id_ok" style="display:none; color:green;">사용 가능한 아이디입니다.</span>
+						<span class="id_already" style="display:none; color:red;" >중복된 아이디입니다</span>
                     </div>
 
  
@@ -71,9 +73,10 @@
                       <input type="text" name="name" class="form-control" id="name" placeholder="이름" required>
                       <div class="invalid-feedback">이름을 입력해주세요</div>
                     </div>
-                    <div class="col-12">
-                      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" required>
-                      <div class="invalid-feedback">닉네임을 입력해주세요</div>
+                     <div class="col-12">
+                      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" oninput="nicknameCheck()" required>
+                       <span class="nickname_ok" style="display:none; color:green;">사용 가능한 닉네임입니다.</span>
+					   <span class="nickname_already" style="display:none; color:red;" >중복된 닉네임입니다</span>
                     </div>
                     
                     
@@ -120,6 +123,8 @@
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   
   	<!-- 주소 검색 -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -136,8 +141,63 @@
           }).open();
       });
   }
-  </script>
+  
 
+  
+  
+ 
+  	
+  	 <!-- 아이디 중복검사 -->
+  	function idCheck(){
+  		$.ajax({
+  			url : "/idcheck.do" ,
+  			type : "POST",
+  			data : {"id" : $("#id").val()},
+  			success : function(resp){
+  				if(resp == 'n'){
+  					 $('.id_already').css("display","inline-block");
+                     $('.id_ok').css("display", "none");
+  				}else{
+  					$('.id_ok').css("display","inline-block"); 
+                    $('.id_already').css("display", "none");
+  				}
+  			},
+	  		  error: function (request, status,error){
+	  			alert(data);
+	  	        alert(error+" " + request.status + " " + request.responseText);
+	  	    }
+  		})
+  	}
+  	
+	 <!-- 닉네임 중복검사 -->
+	  	function nicknameCheck(){
+	  		$.ajax({
+	  			url : "/nicknamecheck.do" ,
+	  			type : "POST",
+	  			data : {"nickname" : $("#nickname").val()},
+	  			success : function(resp){
+	  				if(resp == 'n'){
+	  					 $('.nickname_already').css("display","inline-block");
+	                     $('.nickname_ok').css("display", "none");
+	                  
+	                     
+	  				}else{
+	  					$('.nickname_ok').css("display","inline-block"); 
+	                    $('.nickname_already').css("display", "none");
+	  				}
+	  			},
+		  		  error: function (request, status,error){
+		  			alert(data);
+		  	        alert(error+" " + request.status + " " + request.responseText);
+		  	    }
+	  		})
+	  	}
+  
+  	
+  	
+  	
+  </script>
+  
 
 </body>
 

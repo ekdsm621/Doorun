@@ -57,28 +57,41 @@
                     <div class="col-12">
                     
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" required>
-                        <div class="invalid-feedback">이메일을 입력해주세요</div>
+                        <input type="text" name="email" class="form-control" id="email" placeholder="이메일" oninput="emailCheck()" required> 
                       </div>
+                      <span class="email_no" style="display:none; color:red;">이메일을 입력 해주세요.</span>
+                        <span class="email_ok" style="display:none; color:green;">사용 가능한 이메일입니다.</span>
+						            <span class="email_already" style="display:none; color:red;" >중복된 이메일입니다</span>
                       
                     </div>
                     
                     <div class="col-12">
-                      <input type="text" name="id" class="form-control" id="id" placeholder="아이디" required>
+                      <input type="text" name="id" class="form-control" id="id" placeholder="아이디" oninput="idCheck()" required>
                       <div class="invalid-feedback">아이디를 입력해주세요</div>
+                   	    <span class="id_ok" style="display:none; color:green;">사용 가능한 아이디입니다.</span>
+						<span class="id_already" style="display:none; color:red;" >중복된 아이디입니다</span>
                     </div>
 
                     <div class="col-12">
                       <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호" required>
                       <div class="invalid-feedback">비밀번호를 입력해주세요</div>
                     </div>
+                    
+                    <div class="col-12">
+                      <input type="password" name="password_check" class="form-control" id="password_check" placeholder="비밀번호 확인" oninput="pwCheck()" required>
+                      <span class="pw_ok" style="display:none; color:green;">비밀번호가 일치합니다.</span>
+					  <span class="pw_no" style="display:none; color:red;" >비밀번호가 일치하지 않습니다.</span>
+                    </div>
+                    
 
                     <div class="col-12">
                       <input type="text" name="name" class="form-control" id="name" placeholder="이름" required>
                       <div class="invalid-feedback">이름을 입력해주세요</div>
                     </div>
                     <div class="col-12">
-                      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" required>
+                      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임" oninput="nicknameCheck()" required>
+                       <span class="nickname_ok" style="display:none; color:green;">사용 가능한 닉네임입니다.</span>
+					   <span class="nickname_already" style="display:none; color:red;" >중복된 닉네임입니다</span>
                       <div class="invalid-feedback">닉네임을 입력해주세요</div>
                     </div>
                     <div class="col-12">
@@ -125,7 +138,7 @@
 					
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">가입</button> <p></p>
+                      <button id="submit" class="btn btn-primary w-100" type="submit" >가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
                     </div>
                   </form>
@@ -174,6 +187,7 @@
       });
   }
   
+  <!-- 문자인증 -->
   $('#sendPhoneNumber').click(function(){
       let phoneNumber = $('#inputPhone').val();
       Swal.fire('인증번호 발송 완료!')
@@ -208,9 +222,104 @@
           }
       })
   });
-
+  
+  
+  	<!-- 이메일 중복검사 -->
+  	function emailCheck(){
+  		
+  		$.ajax({
+  			url : "/emailcheck.do",
+  			type : "POST",
+  			data : {"email" : $("#email").val()},
+  			success : function(resp){
+  				var email = $("#email").val();
+  		  		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  				if(email.match(regExp) != null){
+  					$('.email_no').css("display", "none");
+	  				if(resp == 'n'){
+	  					 $('.email_already').css("display","inline-block");
+	                     $('.email_ok').css("display", "none");
+	  				}else{
+	  					$('.email_ok').css("display","inline-block"); 
+	                    $('.email_already').css("display", "none");
+	  				}
+  				}else{
+  					$('.email_no').css("display","inline-block");
+  					$('.email_ok').css("display", "none");
+  					$('.email_already').css("display", "none");
+  				}
+  			},
+	  		  error: function (request, status,error){
+	  			alert(data);
+	  	        alert(error+" " + request.status + " " + request.responseText);
+	  	    }
+  		})
+  	}
+  	
+  	 <!-- 아이디 중복검사 -->
+  	function idCheck(){
+  		$.ajax({
+  			url : "/idcheck.do" ,
+  			type : "POST",
+  			data : {"id" : $("#id").val()},
+  			success : function(resp){
+  				if(resp == 'n'){
+  					 $('.id_already').css("display","inline-block");
+                     $('.id_ok').css("display", "none");
+  				}else{
+  					$('.id_ok').css("display","inline-block"); 
+                    $('.id_already').css("display", "none");
+  				}
+  			},
+	  		  error: function (request, status,error){
+	  			alert(data);
+	  	        alert(error+" " + request.status + " " + request.responseText);
+	  	    }
+  		})
+  	}
+  	
+	 <!-- 닉네임 중복검사 -->
+	  	function nicknameCheck(){
+	  		$.ajax({
+	  			url : "/nicknamecheck.do" ,
+	  			type : "POST",
+	  			data : {"nickname" : $("#nickname").val()},
+	  			success : function(resp){
+	  				if(resp == 'n'){
+	  					 $('.nickname_already').css("display","inline-block");
+	                     $('.nickname_ok').css("display", "none");
+	                  
+	                     
+	  				}else{
+	  					$('.nickname_ok').css("display","inline-block"); 
+	                    $('.nickname_already').css("display", "none");
+	  				}
+	  			},
+		  		  error: function (request, status,error){
+		  			alert(data);
+		  	        alert(error+" " + request.status + " " + request.responseText);
+		  	    }
+	  		})
+	  	}
+  	
+  	<!-- 비밀번호 확인 -->
+  	function pwCheck() {
+  		var p1 = document.getElementById("password").value;
+  		var p2 = document.getElementById("password_check").value;
+  		if(p1 == p2){
+  			$('.pw_ok').css("display","inline-block"); 
+            $('.pw_no').css("display", "none");
+  		}else{
+  			 $('.pw_no').css("display","inline-block");
+             $('.pw_ok').css("display", "none");
+  		}
+	}
+  	
+  	
+  	
+  	
   </script>
-
+  
 
 </body>
 

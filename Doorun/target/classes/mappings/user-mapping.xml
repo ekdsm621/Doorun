@@ -87,6 +87,13 @@
 	]]>	
 	</select>
 	
+	<select id="getUserWithId" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE ID = #{id} 
+	]]>	
+	</select>
+	
 	<select id="passwordCheck" resultType="String">
 	<![CDATA[	
 	  SELECT PASSWORD FROM MEMBER
@@ -137,6 +144,24 @@
 			ON C.ID = J.CREW_ID
 			WHERE J.MEMBER_ID = #{id}
 		]]>
+	</select>
+	
+			<select id="EmailCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email} AND MEMBER_TYPE = 'EMAIL'
+	]]>
+	</select>
+	
+	<select id="IdCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where ID = #{id}  
+	]]>
+	</select>
+	
+	<select id="nicknameCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where NICKNAME = #{nickname} 
+	]]>
 	</select>
 
 

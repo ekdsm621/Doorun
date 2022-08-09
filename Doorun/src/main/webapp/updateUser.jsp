@@ -6,120 +6,80 @@
 
 <head>
   <%@include file="/common_jsp/head_settings.jsp" %>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/assets/css/marathon.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script>
+        $(document).ready(function(){
+            $(".dropdown").hover(function(){
+                var dropdownMenu = $(this).children(".dropdown-menu");
+                if(dropdownMenu.is(":visible")){
+                    dropdownMenu.parent().toggleClass("open");
+                }
+            });
+        });
+    </script>
   <title>DORUN DORUN</title>
 </head>
 
 <body>
 
-  <%@include file="/common_jsp/header.jsp" %>
-
-  <!-- ======= Sidebar ======= -->
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                <i class="bi bi-grid"></i>
-                <span>메인</span>
-                </a>
-            </li>
-
-            <!-- 개인 -->
-            <!--메인카테고리 a class=collapsed 제거하면 활성화 
-                서브카테고리 a class="active" 추가하면 활성화
-                ul class="show" 추가하면 열림-->
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-fill"></i><span>개인</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>프로필</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>기록 보기</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>통계 보기</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="components-breadcrumbs.html">
-                    <i class="bi bi-circle"></i><span>가입한 크루</span>
-                    </a>
-                </li>
-                </ul>
-            </li>
-            <!-- 개인 -->
-            <!-- 모임 -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people-fill"></i>
-                    <span>모임</span>
-                    <i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/find_team.html">
-                        <i class="bi bi-circle"></i><span>모임 찾기</span>
-                        </a>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand">DooRun</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">개인</a>
                     </li>
-                    <li>
-                        <a href="/join_team.html">
-                        <i class="bi bi-circle"></i><span>진행 중인 모임</span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        모임
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">모임 참여</a></li>
+                            <li><a class="dropdown-item" href="#">참여한 모임</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            크루
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">크루 가입</a></li>
+                            <li><a class="dropdown-item" href="#">가입한 크루</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/getmarathon.do">마라톤</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">전체게시판</a>
                     </li>
                 </ul>
-            </li>
-            <!-- 모임 -->
-            <!-- 크루 -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="ri-team-fill"></i><span>크루</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>크루 소개</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>순위</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>게시판</span>
-                    </a>
-                </li>
-                </ul>
-            </li>
-            <!-- 크루 -->
-            <!-- 크루 가입 -->
-            <li class="nav-item">
-                <a class="nav-link collapsed active" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-plus-fill"></i><span>크루 가입</span>
-                </a>
-            </li>
-            <!-- 크루 가입 -->
-            <!-- 전체 게시판 -->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="/free_board.html">
-                <i class="bi bi-journal-text"></i><span>전체 게시판</span>
-                </a>
-            </li>
-            <!-- 전체 게시판 -->
-        </ul>
-    </aside><!-- 사이드바-->
-
-    
-    
+                <div class="d-flex">
+                    <img src="/assets/img/messages-2.jpg" style="border-radius: 50em; width:45px">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                아이디
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">개인 페이지 이동</a></li>
+                                <li><a class="dropdown-item" href="#">개인정보 수정</a></li>
+                                <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+ 
         
   <main id="main" class="main">
 
@@ -212,7 +172,7 @@
 
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">수정</button>
+                      <button type="submit" class="btn btn-dark team-making mb-3">수정</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
 
@@ -241,7 +201,7 @@
                     
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">변경</button>
+                      <button type="submit" class="btn btn-dark team-making mb-3">변경</button>
                     </div>
                   </form><!-- End Change Password Form -->
 
@@ -260,11 +220,28 @@
     
   </main>
   
+  
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center border-top">
+            <p class="col-md-4 mb-0 text-muted">&copy; 2022 Company, Inc</p>
+        
+            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            </a>
+        
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+        </footer>
+    </div>
+  
     
    
 
 
-	<%@include file="/common_jsp/footer.jsp" %>
 	
 	<!-- 주소 검색 -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

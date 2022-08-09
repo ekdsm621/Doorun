@@ -1,0 +1,76 @@
+.navbar{
+    background-color: white;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color:rgb(245, 200, 133);
+}
+
+.navbar-light .navbar-brand{
+    color:rgb(245, 200, 133);
+    font-weight: bold;
+}
+
+.navbar-light .navbar-brand:hover{
+    color: blanchedalmond;
+    font-weight: bold;
+}
+
+.nav-item .nav-link{
+    color:gray;
+}
+.nav-item .nav-link.active{
+    color: orange;
+}
+
+.container-fluid{
+    width:60%;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}
+
+
+
+
+thead{
+    padding:2%;
+    background-color:  rgba(0, 0, 0, 0.05);
+}
+
+th{
+    font-size:large;
+}
+
+thead tr{
+	vertical-align:middle;
+	height: 50px;
+}
+
+tbody tr{
+	vertical-align:middle;
+	text-align: center;
+	height: 100px;
+	
+	
+}
+
+
+
+footer{
+    position: relative;
+    margin-top: 15em;
+    margin-bottom: 4em;
+}
