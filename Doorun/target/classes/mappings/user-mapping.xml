@@ -8,8 +8,8 @@
 		<result property = "name" column="NAME"/>
 		<result property = "password" column="PASSWORD"/>
 		<result property = "email" column="EMAIL"/>
-		<result property = "totaldistance" column="TOTALDISTANCE"/>
-		<result property = "totalduration" column="TOTALDURATION"/>
+		<result property = "total_distance" column="TOTALDISTANCE"/>
+		<result property = "total_duration" column="TOTALDURATION"/>
 		<result property = "profile_image" column="PROFILE_IMAGE"/>
 		<result property = "introduce" column="INTRODUCE"/>
 		<result property = "nickname" column="NICKNAME"/>
@@ -114,7 +114,30 @@
 	]]>
 	</select>
 	
+	<select id="getUserDesc" resultType="user">
+	<![CDATA[
+		SELECT * 
+		FROM MEMBER 
+		WHERE ID = #{id}
+	]]>
+	</select>
 	
+	<select id ="getUserRecordList" resultType="run">
+	  <![CDATA[
+		  SELECT *
+		  FROM JOURNEY
+		  WHERE MEMBER_ID = #{id}
+	  ]]>	
+	</select>
+	
+	<select id="getJoinedCrewList" resultType="crew">
+		<![CDATA[
+			SELECT C.*
+			FROM CREW C INNER JOIN CREW_JOIN J
+			ON C.ID = J.CREW_ID
+			WHERE J.MEMBER_ID = #{id}
+		]]>
+	</select>
 
 
 </mapper>

@@ -1,85 +1,103 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <!-- ======= Header: 상단 메뉴들 ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-
-        <div class="d-flex align-items-center justify-content-between">
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-            <a href="#" class="logo d-flex align-items-center">
-                <img src="" alt="">
-                <span class="d-none d-lg-block">DOORUN!</span>
-            </a>
-            </div><!-- End Logo -->
-        
-            <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-                <li class="nav-item dropdown pe-3">
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="upload_img/profile_img/<%=session.getAttribute("profile_image") %>" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2"><%=session.getAttribute("nickname") %></span>
-                </a><!-- End Profile Iamge Icon -->
-        
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i class="bi bi-person"></i>
-                        <span>My Profile</span>
-                    </a>
-                    </li>
-                    <li>
-                    <hr class="dropdown-divider">
-                    </li>
-        
-                    <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i class="bi bi-gear"></i>
-                        <span>Account Settings</span>
-                    </a>
-                    </li>
-                    <li>
-                    <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                    <%if(session.getAttribute("member_type").equals("EMAIL")){ %>
-                    <a href="/logout.do" class="dropdown-item d-flex align-items-center" href="#">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>로그아웃</span>
-                    </a>
-                    <%} %>
-                    <%if(session.getAttribute("member_type").equals("KAKAO")){ %>
-                    <a href="javascript:kakaoLogout();" class="dropdown-item d-flex align-items-center" >
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>로그아웃</span>
-                    </a>
-                    <%} %>
-                    </li>
-        
-                </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
-        
-            </ul>
-            </nav><!-- End Icons Navigation -->
-            
-        
-        </header><!-- End Header -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <script>
+        $(document).ready(function(){
+            $(".dropdown").hover(function(){
+                var dropdownMenu = $(this).children(".dropdown-menu");
+                if(dropdownMenu.is(":visible")){
+                    dropdownMenu.parent().toggleClass("open");
+                }
+            });
+        });
+    </script>
     
-            <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-            <script type="text/javascript">
-            window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
-               function kakaoLogout() {
-            	   
-	    	    	if (Kakao.Auth.getAccessToken()) {
-		    	      Kakao.API.request({
-		    	        url: '/v1/user/unlink',
-		    	        success: function (response) {
-		    	           console.log(response)
-		    	        },
-		    	        fail: function (error) {
-		    	          console.log(error)
-		    	        },
-		    	      })
-		    	      Kakao.Auth.setAccessToken(undefined)
-		    	      window.location.href="/logout.do";
-		    	    }
-		    	  }  
-            </script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+     <script type="text/javascript">
+	    window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
+	   	function kakaoLogout() {
+	     	   
+	   	if (Kakao.Auth.getAccessToken()) {
+	      Kakao.API.request({
+	        url: '/v1/user/unlink',
+	        success: function (response) {
+	           console.log(response)
+	        },
+	        fail: function (error) {
+	          console.log(error)
+	        },
+	      })
+	      Kakao.Auth.setAccessToken(undefined)
+	      window.location.href="/logout.do";
+	    }
+	  }  
+	</script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand">DooRun</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/userDetail.do">개인</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/meeting.do" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        모임
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/meeting.do">모임 참가</a></li>
+                            <li><a class="dropdown-item" href="/joinedMeeting.do">참가한 모임</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/getCrewList.do" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            크루
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/marathon.do">마라톤</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">전체게시판</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+					 
+                
+                
+                
+                	<%if(session.getAttribute("nickname") == null){%>
+                		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        	<li class="nav-item dropdown">
+                        		<a href="/login.jsp" class="nav-link">로그인</a>
+                        	</li>
+                        </ul>
+                	<%}else{ %>
+                    <img src="upload_img/profile_img/<%=session.getAttribute("profile_image") %>" alt="Profile" style="border-radius: 50em; width:45px">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <%=session.getAttribute("nickname") %>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/userDetail.do">개인 페이지 이동</a></li>
+                                <li><a class="dropdown-item" href="/UserSetting.do">개인정보 수정</a></li>
+                                <%if(session.getAttribute("member_type").equals("EMAIL")){ %>
+                                	<li><a class="dropdown-item" href="/logout.do">로그아웃</a></li>
+                    			<%} %>
+                    			<%if(session.getAttribute("member_type").equals("KAKAO")){ %>
+                    				<li><a class="dropdown-item" href="javascript:kakaoLogout();">로그아웃</a></li>
+                    			<%} %>                	
+                            </ul>
+                        </li>
+                    </ul>
+                	<%} %>
+                </div>
+            </div>
+        </div>
+    </nav>

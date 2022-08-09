@@ -43,6 +43,9 @@
 			FROM MEETING
 			WHERE ID IN (SELECT MEETING_ID FROM MEETING_JOIN WHERE MEMBER_ID = #{member_id})
 			AND MEETING_DATE > SYSDATE
+			AND TITLE LIKE '%'||#{title }||'%'
+            AND LOCATION LIKE '%'||#{location }||'%'
+            AND JOINED_MEMBER<TOTAL_MEMBER
 			ORDER BY ID
 		]]>
 	</select>
@@ -64,6 +67,9 @@
 			FROM MEETING
 			WHERE ID NOT IN (SELECT MEETING_ID FROM MEETING_JOIN WHERE MEMBER_ID = #{member_id})
 			AND MEETING_DATE > SYSDATE
+			AND TITLE LIKE '%'||#{title }||'%'
+            AND LOCATION LIKE '%'||#{location }||'%'
+            AND JOINED_MEMBER<TOTAL_MEMBER
 			ORDER BY ID
 		]]>
 	</select>

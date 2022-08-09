@@ -1,10 +1,13 @@
 package com.doorun.myapp.meeting.controller;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +28,25 @@ public class MeetingController {
 	@Autowired
 	MeetingServiceImpl service;
 	
-	@RequestMapping(value="/insertMeeting.do")
-	public String insertMeeting(MeetingVO vo) {
+	@RequestMapping(value="/insertMeeting.do", method=RequestMethod.POST)
+	public String insertMeeting(HttpServletRequest request, MeetingVO vo) {
+		String location = request.getParameter("general") + " " + request.getParameter("state");
+		vo.setLocation(location);
 		vo.setMeeting_date(vo.getMeeting_date()+vo.getMeeting_time());
+		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		service.insertMeeting(vo);
-		return "redirect:joinedMeeting.do";
+		return "redirect:meeting.do";
 	}
 	
 	@RequestMapping(value="/meeting.do")
 	public String selectMeeting(HttpSession session, MeetingVO vo, Model model) {
-		String member_id = (String)session.getAttribute("id");
+		vo.setMember_id((String)session.getAttribute("id"));
+		vo.setTitle("");
+		vo.setLocation("");
 		
 		// 참여한
 		Map<MeetingVO, List<UserVO>> joined_meetings = new LinkedHashMap<>();
-		for(MeetingVO meeting : service.selectJoinedMeeting(member_id)) {
+		for(MeetingVO meeting : service.selectJoinedMeeting(vo)) {
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
 			joined_meetings.put(meeting, service.selectJoinedMeetingImg(meeting.getId()));
 		}
@@ -46,7 +54,7 @@ public class MeetingController {
 		
 		//참여하지 않은
 		Map<MeetingVO, List<UserVO>> not_joined_meetings = new LinkedHashMap<>();
-		for(MeetingVO meeting : service.selectNotJoinedMeeting(member_id)) {
+		for(MeetingVO meeting : service.selectNotJoinedMeeting(vo)) {
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
 			not_joined_meetings.put(meeting, service.selectJoinedMeetingImg(meeting.getId()));
 		}
@@ -55,16 +63,53 @@ public class MeetingController {
 		return "team_list.jsp";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/joinMeeting.do", method=RequestMethod.POST)
-	public String joinMeeting(MeetingJoinVO vo) {
-		String result = null;
-		if(service.joinMeeting(vo)) {
-			result =  "y";
+	@RequestMapping(value="/searchMeeting.do", method=RequestMethod.POST)
+	public String searchMeeting(HttpServletRequest request, HttpSession session, MeetingVO vo, Model model) {
+		vo.setMember_id((String)session.getAttribute("id"));
+		if(request.getParameter("team_name") != null) {
+			vo.setTitle(request.getParameter("team_name"));
 		}else {
-			result = "n";
+			vo.setTitle("");
 		}
-		return result;
+		if(request.getParameter("general") != null) {
+			if(request.getParameter("state").equals("전체")) {
+				vo.setLocation(request.getParameter("general"));			
+			}else {
+				vo.setLocation(request.getParameter("general") + " " + request.getParameter("state"));			
+			}
+		}else {
+			vo.setLocation("");
+		}
+		
+		// 참여한
+		Map<MeetingVO, List<UserVO>> joined_meetings = new LinkedHashMap<>();
+		
+		for(MeetingVO meeting : service.selectJoinedMeeting(vo)) {
+			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
+			joined_meetings.put(meeting, service.selectJoinedMeetingImg(meeting.getId()));
+		}
+		model.addAttribute("joined_meeting", joined_meetings);
+		
+		//참여하지 않은
+		Map<MeetingVO, List<UserVO>> not_joined_meetings = new LinkedHashMap<>();
+		for(MeetingVO meeting : service.selectNotJoinedMeeting(vo)) {
+			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
+			not_joined_meetings.put(meeting, service.selectJoinedMeetingImg(meeting.getId()));
+		}
+		model.addAttribute("not_joined_meeting", not_joined_meetings);
+		
+		return "team_list.jsp";
+	}
+	
+	@RequestMapping(value="/joinMeeting.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Object joinMeeting(MeetingJoinVO vo){
+//		PrintWriter out = response.getWriter();
+		if(service.joinMeeting(vo)) {
+			return "y";
+		}else {
+			return "n";
+		}
 	}
 	
 	@RequestMapping(value="/joinedMeeting.do")
@@ -82,10 +127,11 @@ public class MeetingController {
 		for(MeetingVO meeting : service.hostingMeeting(member_id)) {
 			meeting.setMeeting_time(meeting.getMeeting_date().substring(11,16));
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0,10));
+			meeting.setContent(meeting.getContent().replace("<br>", "\r\n"));
 			hosting_meeting.put(meeting, service.selectJoinedMeetingImg(meeting.getId()));
 		}
 		model.addAttribute("hosting_meeting", hosting_meeting);
-		return "joined_team.jsp";
+		return "joined_team_list.jsp";
 	}
 	
 	@RequestMapping(value="/deleteJoin.do")
@@ -94,9 +140,12 @@ public class MeetingController {
 		return "joinedMeeting.do";
 	}
 	
-	@RequestMapping(value="/updateMeeting.do")
-	public String updateMeeting(MeetingVO vo) {
+	@RequestMapping(value="/updateMeeting.do", method=RequestMethod.POST)
+	public String updateMeeting(HttpServletRequest request, MeetingVO vo) {
+		String location = request.getParameter("general") + " " + request.getParameter("state");
+		vo.setLocation(location);
 		vo.setMeeting_date(vo.getMeeting_date()+vo.getMeeting_time());
+		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		service.updateMeeting(vo);
 		return "joinedMeeting.do";
 	}

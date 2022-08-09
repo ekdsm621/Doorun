@@ -13,6 +13,7 @@ public class MeetingVO {
 	private String latitude;
 	private int total_member;
 	private int joined_member;
+	private String member_id;
 	
 	public int getId() {
 		return id;
@@ -80,4 +81,11 @@ public class MeetingVO {
 	public void setJoined_member(int joined_member) {
 		this.joined_member = joined_member;
 	}
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+	
 }

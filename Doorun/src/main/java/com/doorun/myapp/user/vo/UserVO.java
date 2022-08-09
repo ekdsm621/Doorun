@@ -13,8 +13,8 @@ public class UserVO {
 	private String password;
 	private String email;
 	private String phone;
-	private double totaldistance;
-	private double totalduration;
+	private double total_distance;
+	private double total_duration;
 	private String profile_image;
 	private String introduce;
 	private String nickname;
@@ -68,17 +68,17 @@ public class UserVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public double getTotaldistance() {
-		return totaldistance;
+	public double getTotal_distance() {
+		return total_distance;
 	}
-	public void setTotaldistance(double totaldistance) {
-		this.totaldistance = totaldistance;
+	public void setTotal_distance(double total_distance) {
+		this.total_distance = total_distance;
 	}
-	public double getTotalduration() {
-		return totalduration;
+	public double getTotal_duration() {
+		return total_duration;
 	}
-	public void setTotalduration(double totalduration) {
-		this.totalduration = totalduration;
+	public void setTotalduration(double total_duration) {
+		this.total_duration = total_duration;
 	}
 	public String getIntroduce() {
 		return introduce;
@@ -137,7 +137,7 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [login=" + login + ", name=" + name + ", id=" + id + ", password=" + password + ", email="
-				+ email + ", totaldistance=" + totaldistance + ", totalduration=" + totalduration + ", profile_image="
+				+ email + ", total_distance=" + total_distance + ", total_duration=" + total_duration + ", profile_image="
 				+ profile_image + ", introduce=" + introduce + ", nickname=" + nickname + ", postcode=" + postcode
 				+ ", address_road=" + address_road + ", address_detail=" + address_detail + "]";
 	}
