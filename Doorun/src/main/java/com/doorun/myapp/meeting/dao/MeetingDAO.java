@@ -22,12 +22,12 @@ public class MeetingDAO {
 	}
 	
 
-	public List<MeetingVO> selectJoinedMeeting(String member_id) {
-		return sst.selectList("Meeting.selectJoinedMeeting", member_id);
+	public List<MeetingVO> selectJoinedMeeting(MeetingVO vo) {
+		return sst.selectList("Meeting.selectJoinedMeeting", vo);
 	}
 	
-	public List<MeetingVO> selectNotJoinedMeeting(String member_id) {
-		return sst.selectList("Meeting.selectNotJoinedMeeting", member_id);
+	public List<MeetingVO> selectNotJoinedMeeting(MeetingVO vo) {
+		return sst.selectList("Meeting.selectNotJoinedMeeting", vo);
 	}
 
 	public Boolean joinMeeting(MeetingJoinVO vo) {

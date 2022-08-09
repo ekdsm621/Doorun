@@ -122,7 +122,7 @@
                                                 <h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 지역: ${join.location }</h6>
                                 				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 일시: ${join.meeting_date }</h6>
                                 				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${join.master }</h6>
-                                                <h6 style="text-align:left">내용: ${join.content }</h6>
+                                                <h6 style="text-align:left"><br>${join.content }</h6>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger">참가</button>
@@ -259,7 +259,7 @@
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">제목: </label>
 						                                         <input type="text" class="form-control" name="title" value="${host.title }">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">내용: </label>
-						                                         <input type="text" class="form-control" name="content" value="${host.content }">
+						                                         <textarea class="form-control" name="content">${host.content }</textarea>
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">장소: </label>
 						                                         <input type="text" class="form-control" name="location" value="${host.location }">
 						                                         <label class="col-sm-12 col-form-label" style="text-align: left;">날짜: </label>
@@ -345,7 +345,7 @@
                                          <label class="col-sm-12 col-form-label" style="text-align: left;">제목: </label>
                                          <input type="text" class="form-control" name="title">
                                          <label class="col-sm-12 col-form-label" style="text-align: left;">내용: </label>
-                                         <input type="text" class="form-control" name="content">
+                                         <textarea class="form-control" rows="4" name="content"></textarea>
                                          <label class="col-sm-12 col-form-label" style="text-align: left;">장소: </label>
                                          <input type="text" class="form-control" name="location">
                                          <label class="col-sm-12 col-form-label" style="text-align: left;">날짜: </label>

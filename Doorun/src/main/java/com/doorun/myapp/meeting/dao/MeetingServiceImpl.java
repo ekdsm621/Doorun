@@ -21,13 +21,13 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 
 	@Override
-	public List<MeetingVO> selectJoinedMeeting(String member_id) {
-		return dao.selectJoinedMeeting(member_id);
+	public List<MeetingVO> selectJoinedMeeting(MeetingVO vo) {
+		return dao.selectJoinedMeeting(vo);
 	}
 	
 	@Override
-	public List<MeetingVO> selectNotJoinedMeeting(String member_id) {
-		return dao.selectNotJoinedMeeting(member_id);
+	public List<MeetingVO> selectNotJoinedMeeting(MeetingVO vo) {
+		return dao.selectNotJoinedMeeting(vo);
 	}
 	
 	public Boolean joinMeeting(MeetingJoinVO vo) {

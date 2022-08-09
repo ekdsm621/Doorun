@@ -8,12 +8,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
+import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.MailUtils;
@@ -138,11 +138,18 @@ public class UserDAO {
 		        }
 
 		   }
+
+		public UserVO getUserDesc(UserVO vo) {
+			return sst.selectOne("UserDAO.getUserDesc", vo);
+		}
 		
+		public List<RunVO> getUserRecordList(UserVO vo) {
+			return sst.selectList("UserDAO.getUserRecordList", vo);
+		}
 		
-		
-		
-		
+		public List<CrewVO> getJoinedCrewList(UserVO vo) {
+			return sst.selectList("UserDAO.getJoinedCrewList", vo);
+		}
 	}
 
 

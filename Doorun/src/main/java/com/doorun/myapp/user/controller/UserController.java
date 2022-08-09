@@ -3,12 +3,10 @@ package com.doorun.myapp.user.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.dao.UserService;
 import com.doorun.myapp.user.vo.UserVO;
@@ -169,6 +168,65 @@ public class UserController {
 		
 		model.addAttribute("UserList", userService.getUserList(vo));
 		return "";
+	}
+	
+	@RequestMapping("/userDetail.do")
+	public String userDetail(HttpSession session, UserVO vo, Model model) {
+		vo.setId((String)session.getAttribute("id"));
+		
+		// 프로필 + 요약
+		UserVO userDesc = userService.getUserDesc(vo);
+		
+		// 1. 거리
+		userDesc.setTotal_distance((double)Math.round(userDesc.getTotal_distance()*100)/100);
+		
+		// 2. 시간
+		double duration = userDesc.getTotal_duration();
+		int totalHour = (int)(duration / 3600);
+		duration -= totalHour * 3600;
+		int totalMin = (int)(duration / 60);
+		duration -= totalMin * 60;
+		int totalSec = (int)(duration);
+		model.addAttribute("totalHour",totalHour);
+		model.addAttribute("totalMin",totalMin);
+		model.addAttribute("totalSec",totalSec);
+		
+		// 3. 페이스
+		double pace = userDesc.getTotal_duration() / userDesc.getTotal_distance();
+		int paceMin = (int)(pace / 60);
+		int paceSec = (int)(pace % 60);
+		model.addAttribute("userDesc",userDesc);
+		model.addAttribute("paceMin",paceMin);
+		model.addAttribute("paceSec",paceSec);
+		
+		// 활동 기록
+		List<RunVO> userRecordList = userService.getUserRecordList(vo);
+		for(RunVO run:userRecordList) {
+			// 시간
+			int runDuration = Integer.parseInt(run.getDuration());
+			
+			int tempDuration = runDuration;
+			int runHour = (int)(tempDuration / 3600);
+			tempDuration -= runHour * 3600;
+			int runMin = (int)(tempDuration / 60);
+			tempDuration -= runMin * 60;
+			String strDuration = runHour + ":" + runMin + ":" + tempDuration;
+			run.setDuration(strDuration);
+			
+			// 페이스
+			double runDistance = Double.parseDouble(run.getDistance());
+			double runPace = runDuration / runDistance;
+			int runPaceMin = (int)(runPace / 60);
+			int runPaceSec = (int)(runPace % 60);
+			String strRunPace = runPaceMin + "'" + runPaceSec + "''";
+			run.setAvg_speed(strRunPace);
+		}
+		model.addAttribute("userRecordList", userRecordList);
+		
+		// 가입한 크루
+		model.addAttribute("joinedCrewList", userService.getJoinedCrewList(vo));
+		
+		return "user_detail.jsp";
 	}
 	
 

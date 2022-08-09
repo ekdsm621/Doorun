@@ -1,17 +1,12 @@
 package com.doorun.myapp.user.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-
+import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
-
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public interface UserService {
 	
@@ -44,8 +39,12 @@ public interface UserService {
 	public int findPw(String memberPw,String memberEmail)throws Exception;
 	
 	public void sendEmail(UserVO vo, HttpSession session)throws Exception;
+
+	public UserVO getUserDesc(UserVO vo);
 	
+	public List<RunVO> getUserRecordList(UserVO vo);
 	
+	public List<CrewVO> getJoinedCrewList(UserVO vo);
 	
 	
 }

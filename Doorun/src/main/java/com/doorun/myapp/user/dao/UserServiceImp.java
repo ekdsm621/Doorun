@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 
@@ -93,11 +94,19 @@ public class UserServiceImp implements UserService {
 		userDAO.update2(vo);
 	}
 
+	@Override
+	public UserVO getUserDesc(UserVO vo) {
+		return userDAO.getUserDesc(vo);
+	}
 
-
-
+	@Override
+	public List<RunVO> getUserRecordList(UserVO vo) {
+		return userDAO.getUserRecordList(vo);
+	}
 	
-
-
+	@Override
+	public List<CrewVO> getJoinedCrewList(UserVO vo) {
+		return userDAO.getJoinedCrewList(vo);
+	}
 
 }

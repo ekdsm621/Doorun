@@ -10,11 +10,11 @@ public interface MeetingService {
 
 	void insertMeeting(MeetingVO vo);
 
-	List<MeetingVO> selectJoinedMeeting(String member_id);
+	List<MeetingVO> selectJoinedMeeting(MeetingVO vo);
 	
 	List<UserVO> selectJoinedMeetingImg(int meeting_id);
 
-	List<MeetingVO> selectNotJoinedMeeting(String member_id);
+	List<MeetingVO> selectNotJoinedMeeting(MeetingVO vo);
 	
 	Boolean joinMeeting(MeetingJoinVO vo);
 
