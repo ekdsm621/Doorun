@@ -39,5 +39,31 @@
 	</select>
 	
 	
+	<insert id ="insertRecord">
+	  <![CDATA[
+	  INSERT INTO journey(ID,DURATION,DISTANCE,RUNNING_DATE,AVG_SPEED,MEMBER_ID) 
+	  VALUES((SELECT NVL(MAX(ID),0)+1 FROM journey),TO_NUMBER(#{duration}),TO_BINARY_FLOAT(#{distance}),
+	  TO_CHAR(SYSDATE,'YYYY-MM-DD PM HH:MI:SS'),TO_BINARY_FLOAT(#{avg_speed}),#{member_id})
+	  ]]>	
+	</insert>
+	
+	<select id ="getJourneyMaxId" resultType="int">
+	  <![CDATA[
+	  SELECT MAX(ID) FROM JOURNEY
+	  ]]>	
+	</select>
+	
+	<insert id ="insertLocation">
+	  <![CDATA[
+	  INSERT INTO LOCATION(LOCATION_ID,ID,LONGITUDE,LATITUDE,MEMBER_ID)
+	  VALUES((SELECT NVL(MAX(location_id),0)+1 FROM location WHERE id =TO_NUMBER(#{id})),
+	  TO_NUMBER(#{id}),#{longitude},#{latitude},#{member_id})
+		
+	  ]]>	
+	</insert>
+	
+	
+	
+	
 
 </mapper>

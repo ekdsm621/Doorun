@@ -13,6 +13,9 @@ public class CrewVO {
 	private String distance;
 	private int member;
 	private MultipartFile uploadFile;
+	private String temp_area;
+	private String temp_area2;
+	private String area;
 	
 	
 	public CrewVO() {
@@ -111,6 +114,43 @@ public class CrewVO {
 	public void setDistance(String distance) {
 		this.distance = distance;
 	}
+
+
+	public String getTemp_area() {
+		return temp_area;
+	}
+
+
+	public void setTemp_area(String temp_area) {
+		this.temp_area = temp_area;
+	}
+
+
+	public String getTemp_area2() {
+		return temp_area2;
+	}
+
+
+	public void setTemp_area2(String temp_area2) {
+		this.temp_area2 = temp_area2;
+	}
+
+
+	public String getArea() {
+		return area;
+	}
+
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	
 	

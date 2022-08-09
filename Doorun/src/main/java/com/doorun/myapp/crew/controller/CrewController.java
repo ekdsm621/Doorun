@@ -25,6 +25,10 @@ public class CrewController {
 	@RequestMapping("/insertCrew.do")
 	public String insertCrew(HttpSession session, CrewVO vo) throws Exception, IOException {
 		
+		String area = vo.getTemp_area()+" "+vo.getTemp_area2();
+		
+		vo.setArea(area);
+		
 		
 		MultipartFile uploadFile = vo.getUploadFile();
 		vo.setDescribe(vo.getDescribe().replace("\r\n", "<br>"));
@@ -52,7 +56,7 @@ public class CrewController {
 		
 		model.addAttribute("crewList", crewService.getCrewList(vo));
 		
-		return "crew_list.jsp";
+		return "crew_join.jsp";
 	}
 	
 	@RequestMapping("/detailCrew.do")

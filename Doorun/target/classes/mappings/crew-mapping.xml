@@ -4,8 +4,8 @@
 
 	<insert id ="insertCrew">
 	  <![CDATA[
-	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, DESCRIBE)	  
-	  		VALUES ( (SELECT NVL(MAX(ID),0)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{describe})	
+	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, DESCRIBE, AREA)	  
+	  		VALUES ( (SELECT NVL(MAX(ID),0)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{describe},#{area})	
 	  ]]>	
 	</insert>
 	

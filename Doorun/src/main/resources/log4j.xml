@@ -38,4 +38,17 @@
 		<appender-ref ref="console" />
 	</root>
 	
+	
+	
+	<logger name="jdbc.sqltiming" additivity="false">
+	    <level value="info" />
+	    <appender-ref ref="console"/> 
+	</logger>
+	<!--  SQL 쿼리 문장 -->
+	<logger name="jdbc.sqlonly" additivity="false"> 
+	    <level value="info"/> 
+	    <appender-ref ref="console"/> 
+	</logger>
+=
+	
 </log4j:configuration>

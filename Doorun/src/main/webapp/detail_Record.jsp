@@ -14,10 +14,10 @@ List<RunVO> list = (List<RunVO>)request.getAttribute("locationList");
 %>
 <body>
 <%
-double startLat = list.get(0).getLatitude();
-double endLat = list.get(list.size()-1).getLatitude();
-double startLong = list.get(0).getLongitude();
-double endLong =list.get(list.size()-1).getLongitude();
+double startLat = Double.parseDouble(list.get(0).getLatitude());
+double endLat = Double.parseDouble(list.get(list.size()-1).getLatitude());
+double startLong = Double.parseDouble(list.get(0).getLongitude());
+double endLong =Double.parseDouble(list.get(list.size()-1).getLongitude());
 	
 double centerLat = Double.sum(startLat, endLat)/2;
 double centerLong = Double.sum(startLong, endLong)/2;

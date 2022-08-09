@@ -73,6 +73,13 @@
 	]]>	
 	</select>
 	
+	<select id="getUserFromApp" resultType="int">
+	<![CDATA[	
+	  SELECT COUNT(*) FROM MEMBER
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
+	]]>	
+	</select>
+	
 	<select id="getKakaoUser" resultType="user">
 	<![CDATA[	
 	  SELECT * FROM MEMBER
