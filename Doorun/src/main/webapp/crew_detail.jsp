@@ -126,8 +126,8 @@
                                         <td><img src="upload_img/profile_img/${member.profile_image }"></td>
                                         <td>${member.name }</td>
                                         <td>${member.nickname }</td>
-                                        <td>${member.totaldistance }KM</td>
-                                        <td>${member.totalduration }</td>
+                                        <td>${member.total_distance }KM</td>
+                                        <td>${member.total_duration }</td>
                                         <td>8'46''</td>
                                     </tr>
                                 </c:forEach>
@@ -155,8 +155,8 @@
                                         <td><img src="upload_img/profile_img/${member.profile_image }"></td>
                                         <td>${member.name }</td>
                                         <td>${member.nickname }</td>
-                                        <td>${member.totaldistance }KM</td>
-                                        <td>${member.totalduration }</td>
+                                        <td>${member.total_distance }KM</td>
+                                        <td>${member.total_duration }</td>
                                         <td>8'46''</td>
                                     </tr>
                                 </c:forEach>
