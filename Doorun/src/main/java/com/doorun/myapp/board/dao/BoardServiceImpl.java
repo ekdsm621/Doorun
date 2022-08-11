@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.doorun.myapp.board.vo.BoardVO;
 import com.doorun.myapp.board.vo.ReplyVO;
+import com.doorun.myapp.utils.PagingVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -49,4 +50,18 @@ public class BoardServiceImpl implements BoardService {
 		dao.deleteBoard(vo);
 	}
 
+	@Override
+	public void deleteReply(ReplyVO vo) {
+		dao.deleteReply(vo);
+	}
+	
+	@Override
+	public int countBoard(int board_id) {
+		return dao.countBoard(board_id);
+	}
+
+	@Override
+	public List<BoardVO> selectBoard(PagingVO vo) {
+		return dao.selectBoard(vo);
+	}
 }

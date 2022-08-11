@@ -23,60 +23,7 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand">DooRun</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">개인</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        모임
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">모임 참여</a></li>
-                            <li><a class="dropdown-item" href="#">참여한 모임</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            크루
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">크루 가입</a></li>
-                            <li><a class="dropdown-item" href="#">가입한 크루</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">마라톤</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">전체게시판</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <img src="/assets/img/messages-2.jpg" style="border-radius: 50em; width:45px">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                아이디
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">개인 페이지 이동</a></li>
-                                <li><a class="dropdown-item" href="#">개인정보 수정</a></li>
-                                <li><a class="dropdown-item" href="#">로그아웃</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+	<%@include file="/common_jsp/header.jsp" %>
 
     <div class="container-fluid">
         <div class="main">
@@ -90,8 +37,13 @@
             </div>
 
             <ul class="nav nav-tabs" id="crewTab" role="tablist">
+            	<li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="crew-board-tab" data-bs-toggle="tab" data-bs-target="#crew-board" type="button" role="tab" aria-controls="crew-board" aria-selected="true">
+                        게시판
+                    </button>
+                </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="crew-rank-tab" data-bs-toggle="tab" data-bs-target="#crew-rank" type="button" role="tab" aria-controls="crew-rank" aria-selected="true">
+                    <button class="nav-link" id="crew-rank-tab" data-bs-toggle="tab" data-bs-target="#crew-rank" type="button" role="tab" aria-controls="crew-rank" aria-selected="false">
                         크루순위표
                     </button>
                 </li>
@@ -105,15 +57,10 @@
                         회원
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="crew-board-tab" data-bs-toggle="tab" data-bs-target="#crew-board" type="button" role="tab" aria-controls="crew-board" aria-selected="false">
-                        게시판
-                    </button>
-                </li>
             </ul>
             <div class="tab-content" id="crewTabContent">
                 <!-- 크루순위표 -->
-                <div class="tab-pane fade show active" id="crew-rank" role="tabpanel" aria-labelledby="crew-rank-tab">
+                <div class="tab-pane fade" id="crew-rank" role="tabpanel" aria-labelledby="crew-rank-tab">
                     <div class="row">
                         <div class="col-8">
                             <h2 class="top-rank-title">TOP 3</h2>
@@ -332,40 +279,51 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="crew-board" role="tabpanel" aria-labelledby="crew-board-tab">
+                <div class="tab-pane show active" id="crew-board" role="tabpanel" aria-labelledby="crew-board-tab">
                     <div class="row">
                         <div class="col-8">
                             <h4 class="board-title">크루 게시판</h4>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/entireBoard_insert.jsp?id=<%=request.getParameter("id")%>"><button class="btn btn-dark">글쓰기</button></a>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">title</th>
-                                    <th scope="col">writer</th>
-                                    <th scope="col">date</th>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">작성일</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>오늘 달리기할 사람 모집해요~</td>
-                                        <td>ekdsm621</td>
-                                        <td>2022-08-03</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>내일 달리기할 사람 모집해요~</td>
-                                        <td>ekdsm621</td>
-                                        <td>2022-08-03</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>달리기 하고 왔습니다~</td>
-                                        <td>ekdsm621</td>
-                                        <td>2022-08-03</td>
-                                    </tr>
+                                	<c:forEach items="${viewAll }" var="list">
+	                                    <tr>
+	                                        <th scope="row">${list.id }</th>
+	                                        <td><a href="detailBoard.do?id=${list.id }&board_id=<%=request.getParameter("id")%>">${list.title }</a></td>
+	                                        <td>${list.writer }</td>
+	                                        <td>${list.reg_date }</td>
+	                                    </tr>
+                                	</c:forEach>
                                 </tbody>
                             </table>
+                            <div style="display: block; text-align: center;">		
+								<c:if test="${paging.startPage != 1 }">
+									<a href="/detailCrew.do?id=${paging.board_id }&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<b>${p }</b>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<a href="/detailCrew.do?id=${paging.board_id }&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<a href="/detailCrew.do?id=${paging.board_id }&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+								</c:if>
+						</div>
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3 crew-join">
