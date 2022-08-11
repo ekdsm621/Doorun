@@ -9,16 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="/assets/css/entire_board.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <title>게시판 글쓰기</title>
+    <title>게시글 수정</title>
 </head>
 <body> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
    	<%@include file="/common_jsp/header.jsp" %>
  	  <div class="container-fluid">
-	  	<h2><strong>게시판 글쓰기</strong></h2>
+	  	<h2><strong>게시글 수정</strong></h2>
 	  	<div class="row">
-	  		<form method="post" action="/insertBoard.do" enctype="multipart/form-data">
-	  			<input type="hidden" name="board_id" value="<%=request.getParameter("id")%>">
+	  		<form method="post" action="/updateBoard.do?board_id=${board.board_id }" enctype="multipart/form-data">
+	  			<input type="hidden" name="board_id" value="${board.board_id }">
+               	<input type="hidden" name="id" value="${board.id }">
 		  		<table class="table table-striped" style="text-align:center; border:1px solid #dddddd;">
 		  			<thead>
 		  				<tr>
@@ -27,10 +28,10 @@
 		  			</thead>
 		  			<tbody>
 		  				<tr>
-		  					<td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"></td>		  					 				
+		  					<td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50" value="${board.title }"></td>		  					 				
 		  				</tr>
 		  				<tr>
-		  					<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height:400px;"></textarea></td>
+		  					<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height:400px;">${board.content }</textarea></td>
 		  				</tr>
 		  				<tr>
 		  					<td>
@@ -42,7 +43,7 @@
 		  			</tbody>
 		  		</table>	
 	  			<a href="/getBoardList.do" class="btn btn-dark mb-3 " style="width:80px; float:right">목록</a>
-	  			<input type="submit" class="btn btn-dark mb-3 mx-1" value="등록" style="width:80px; float:right">
+	  			<input type="submit" class="btn btn-dark mb-3 mx-1" value="수정" style="width:80px; float:right">
 	  		</form>  		
 	  	</div>			
 	   </div>

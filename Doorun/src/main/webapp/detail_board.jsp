@@ -45,8 +45,9 @@
                         <c:forEach items="${reply }" var="re">
 	                        <div class="row mb-3" style="padding: 10px; background-color: #f5faff; border-radius: 10px">
 	                            <div style="text-align:left">
-	                            	${re.writer } 
+	                            	<strong>${re.writer }</strong> 
 	                            </div>
+	                            <br>
 	                            <div class="col-sm-10">
 	                                <span>
 	                                	${re.content }
@@ -68,8 +69,6 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <button type="submit" class="btn btn-outline-primary col-sm-5" style="float: left; width:45%">입력</button>
-                                    <span class="col-sm-2"></span>
-                                    <button type="reset" class="btn btn-outline-dark col-sm-5" style="float: right; width:45%">취소</button>
                                 </div>
                             </div>
                         </form><!-- End Horizontal Form -->

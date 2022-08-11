@@ -31,7 +31,7 @@
 	                                    <input type="text" class="form-control" name="title">
 	                                </div>
 	                            </div>
-	                            <input type="hidden" name="board_id" value="1">
+	                            <input type="hidden" name="board_id" value="<%=request.getParameter("id")%>">
 	                            <div class="row mb-3">
 	                                <label for="inputPassword" class="col-sm-2 col-form-label">Content</label>
 	                                <div class="col-sm-10">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.doorun.myapp.board.vo.BoardVO;
 import com.doorun.myapp.board.vo.ReplyVO;
+import com.doorun.myapp.utils.PagingVO;
 
 @Repository
 public class BoardDAO {
@@ -16,7 +17,6 @@ public class BoardDAO {
 	private SqlSessionTemplate sst;
 	
 	public void insertBaord(BoardVO vo) {
-		vo.setBoard_id(1);
 		sst.insert("Board.insertBoard", vo);
 	}
 	
@@ -44,4 +44,15 @@ public class BoardDAO {
 		sst.delete("Board.deleteBoard", vo);
 	}
 
+	public void deleteReply(ReplyVO vo) {
+		sst.delete("Board.deleteReply", vo);
+	}
+	
+	public int countBoard(int board_id) {
+		return sst.selectOne("Board.countBoard",board_id);
+	}
+
+	public List<BoardVO> selectBoard(PagingVO vo) {
+		return sst.selectList("Board.selectBoard",vo);
+	}
 }

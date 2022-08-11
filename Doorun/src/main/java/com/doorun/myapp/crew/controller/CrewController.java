@@ -10,17 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.doorun.myapp.board.dao.BoardDAO;
+import com.doorun.myapp.board.dao.BoardService;
 import com.doorun.myapp.crew.dao.CrewService;
 import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.user.vo.UserVO;
+import com.doorun.myapp.utils.PagingVO;
 
 @Controller
 public class CrewController {
 	
 	@Autowired
 	private CrewService crewService;
+	
+	@Autowired
+	private BoardService boardService;
 	
 	@RequestMapping("/insertCrew.do")
 	public String insertCrew(HttpSession session, CrewVO vo) throws Exception, IOException {
@@ -60,8 +67,10 @@ public class CrewController {
 	}
 	
 	@RequestMapping("/detailCrew.do")
-	public String detailCrew(CrewVO vo, Model model) {
-		
+	public String detailCrew(CrewVO vo, Model model, PagingVO pagingVO
+			,@RequestParam(value="id", required=true)String id
+			,@RequestParam(value="nowPage", required=false)String nowPage
+			,@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		model.addAttribute("detailCrew", crewService.detailCrew(vo));
 		model.addAttribute("masterImage", crewService.getCrewMasterImage(vo));
 		
@@ -70,6 +79,20 @@ public class CrewController {
 		model.addAttribute("crewMemberList", crewMemberList);
 		
 		model.addAttribute("getCrewRecentRecord",crewService.getCrewRecentRecord(vo));
+		
+		// 게시판
+		int total = boardService.countBoard(Integer.parseInt(id));
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "10";
+		}
+		pagingVO = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), Integer.parseInt(id));
+		model.addAttribute("paging", pagingVO);
+		model.addAttribute("viewAll", boardService.selectBoard(pagingVO));
 		
 		return "crew_detail.jsp";
 	}
