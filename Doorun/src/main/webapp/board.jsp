@@ -48,7 +48,7 @@
                     	</c:forEach>
                     </tbody>
                     </table>
-					<a href="insert_board.jsp"><button class="btn btn-outline-dark" style="float:right; width:10%">글쓰기</button></a>
+					<a href="insert_board.jsp?"><button class="btn btn-outline-dark" style="float:right; width:10%">글쓰기</button></a>
                 </div>
                 </div>
                 </div>

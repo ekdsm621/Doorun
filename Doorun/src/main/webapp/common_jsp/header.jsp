@@ -32,7 +32,7 @@
 	    }
 	  }  
 	</script>
-    
+	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
         <div class="container-fluid">
@@ -54,8 +54,8 @@
                             <li><a class="dropdown-item" href="/joinedMeeting.do">참가한 모임</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="/getCrewList.do" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/getCrewList.do">
                             크루
                         </a>
                     </li>
@@ -63,7 +63,7 @@
                         <a class="nav-link" href="/marathon.do">마라톤</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">전체게시판</a>
+                        <a class="nav-link" href="/boardList.do?id=1">전체게시판</a>
                     </li>
                 </ul>
                 <div class="d-flex">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.doorun.myapp.board.vo.BoardVO;
 import com.doorun.myapp.board.vo.ReplyVO;
+import com.doorun.myapp.utils.PagingVO;
 
 public interface BoardService {
 
@@ -21,4 +22,9 @@ public interface BoardService {
 
 	void deleteBoard(BoardVO vo);
 
+	void deleteReply(ReplyVO vo);
+	
+	public int countBoard(int board_id);
+
+	public List<BoardVO> selectBoard(PagingVO vo);
 }
