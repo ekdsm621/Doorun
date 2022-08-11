@@ -29,6 +29,19 @@ public class ServerDAO {
 		}
 	}
 	
+	public String kakao_login(UserVO vo) {
+		
+		int result = sst.selectOne("UserDAO.getKakaoUserFromApp",vo);
+		
+		System.out.println(result);
+		
+		if(result ==1 ) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+	
 	public void insertRecord(RunVO vo) {
 		sst.insert("run.insertRecord",vo);
 	}
@@ -39,6 +52,12 @@ public class ServerDAO {
 	
 	public void insertLocation(RunVO vo) {
 		sst.insert("run.insertLocation",vo);
+	}
+	public void updateMemberRecord(RunVO vo) {
+		sst.update("run.updateMemberRecord", vo);
+	}
+	public String getIdFromEmail(String email) {
+		return sst.selectOne("run.getIdFromEmail",email);
 	}
 	
 	

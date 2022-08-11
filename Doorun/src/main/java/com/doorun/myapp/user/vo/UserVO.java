@@ -27,6 +27,23 @@ public class UserVO {
 	
 	private String member_type;
 	
+	private int firstday;
+	private int secondday;
+	private int thirdday;
+	private int fourthday;
+	private int fifthday;
+	private int sixthday;
+	private int seventhday;
+	
+	private String firstday_date;
+	private String secondday_date;
+	private String thirdday_date;
+	private String fourthday_date;
+	private String fifthday_date;
+	private String sixthday_date;
+	private String seventhday_date;
+	
+	
 	
 	public String getLogin() {
 		return login;
@@ -77,9 +94,13 @@ public class UserVO {
 	public double getTotal_duration() {
 		return total_duration;
 	}
-	public void setTotalduration(double total_duration) {
+	
+	public void setTotal_duration(double total_duration) {
 		this.total_duration = total_duration;
 	}
+//	public void setTotalduration(double total_duration) {
+//		this.total_duration = total_duration;
+//	}
 	public String getIntroduce() {
 		return introduce;
 	}
@@ -134,6 +155,96 @@ public class UserVO {
 		this.member_type = member_type;
 	}
 	
+	
+	
+	public int getFirstday() {
+		return firstday;
+	}
+	public void setFirstday(int firstday) {
+		this.firstday = firstday;
+	}
+	public int getSecondday() {
+		return secondday;
+	}
+	public void setSecondday(int secondday) {
+		this.secondday = secondday;
+	}
+	public int getThirdday() {
+		return thirdday;
+	}
+	public void setThirdday(int thirdday) {
+		this.thirdday = thirdday;
+	}
+	public int getFourthday() {
+		return fourthday;
+	}
+	public void setFourthday(int fourthday) {
+		this.fourthday = fourthday;
+	}
+	public int getFifthday() {
+		return fifthday;
+	}
+	public void setFifthday(int fifthday) {
+		this.fifthday = fifthday;
+	}
+	public int getSixthday() {
+		return sixthday;
+	}
+	public void setSixthday(int sixthday) {
+		this.sixthday = sixthday;
+	}
+	public int getSeventhday() {
+		return seventhday;
+	}
+	public void setSeventhday(int seventhday) {
+		this.seventhday = seventhday;
+	}
+
+	
+	
+	
+	public String getFirstday_date() {
+		return firstday_date;
+	}
+	public void setFirstday_date(String firstday_date) {
+		this.firstday_date = firstday_date;
+	}
+	public String getSecondday_date() {
+		return secondday_date;
+	}
+	public void setSecondday_date(String secondday_date) {
+		this.secondday_date = secondday_date;
+	}
+	public String getThirdday_date() {
+		return thirdday_date;
+	}
+	public void setThirdday_date(String thirdday_date) {
+		this.thirdday_date = thirdday_date;
+	}
+	public String getFourthday_date() {
+		return fourthday_date;
+	}
+	public void setFourthday_date(String fourthday_date) {
+		this.fourthday_date = fourthday_date;
+	}
+	public String getFifthday_date() {
+		return fifthday_date;
+	}
+	public void setFifthday_date(String fifthday_date) {
+		this.fifthday_date = fifthday_date;
+	}
+	public String getSixthday_date() {
+		return sixthday_date;
+	}
+	public void setSixthday_date(String sixthday_date) {
+		this.sixthday_date = sixthday_date;
+	}
+	public String getSeventhday_date() {
+		return seventhday_date;
+	}
+	public void setSeventhday_date(String seventhday_date) {
+		this.seventhday_date = seventhday_date;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [login=" + login + ", name=" + name + ", id=" + id + ", password=" + password + ", email="

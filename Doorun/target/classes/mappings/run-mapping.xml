@@ -63,6 +63,16 @@
 	</insert>
 	
 	
+	<update id ="updateMemberRecord">
+	  <![CDATA[
+		UPDATE MEMBER SET 
+		TOTAL_DURATION = TOTAL_DURATION + (SELECT DURATION FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID =(SELECT MAX(ID) FROM JOURNEY WHERE MEMBER_ID=#{member_id})),
+		TOTAL_DISTANCE = TOTAL_DISTANCE + (SELECT DISTANCE FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID =(SELECT MAX(ID) FROM JOURNEY WHERE MEMBER_ID=#{member_id}))
+		WHERE ID =#{member_id}
+	  ]]>	
+	</update>
+	
+	
 	
 	
 

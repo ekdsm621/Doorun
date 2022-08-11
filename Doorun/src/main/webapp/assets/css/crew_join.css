@@ -84,3 +84,9 @@ footer{
     margin-top: 15em;
     margin-bottom: 4em;
 }
+
+.crew-sub-img{
+    border-radius: 50em;
+    width:7.5em;
+    height:7.5em;
+}

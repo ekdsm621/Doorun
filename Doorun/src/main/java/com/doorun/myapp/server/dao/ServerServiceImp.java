@@ -34,4 +34,26 @@ public class ServerServiceImp implements ServerService {
 		
 	}
 
+	@Override
+	public void updateMemberRecord(RunVO vo) {
+		serverDAO.updateMemberRecord(vo);
+		
+	}
+
+	@Override
+	public String getIdFromEmail(String email) {
+		return serverDAO.getIdFromEmail(email);
+	}
+
+	@Override
+	public String kakao_login(UserVO vo) {
+		return serverDAO.kakao_login(vo);
+	}
+	
+	
+	
+	
+	
+	
+
 }
