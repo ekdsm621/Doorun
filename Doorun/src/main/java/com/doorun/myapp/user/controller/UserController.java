@@ -184,6 +184,8 @@ public class UserController {
 	public String userDetail(HttpSession session, UserVO vo, Model model) {
 		vo.setId((String)session.getAttribute("id"));
 		
+
+		
 		// 프로필 + 요약
 		UserVO userDesc = userService.getUserDesc(vo);
 		
@@ -200,6 +202,7 @@ public class UserController {
 		model.addAttribute("totalHour",totalHour);
 		model.addAttribute("totalMin",totalMin);
 		model.addAttribute("totalSec",totalSec);
+		
 		
 		// 3. 페이스
 		double pace = userDesc.getTotal_duration() / userDesc.getTotal_distance();
@@ -235,6 +238,19 @@ public class UserController {
 		
 		// 가입한 크루
 		model.addAttribute("joinedCrewList", userService.getJoinedCrewList(vo));
+		
+		//그래프 거리 
+		UserVO graph = userService.recordForGraph(vo);
+		
+
+		
+		model.addAttribute("graph",graph);
+		
+		//그래프 날짜값
+		UserVO date = userService.dateForGraph(vo);
+		model.addAttribute("date",date);
+		
+		
 		
 		return "user_detail.jsp";
 	}

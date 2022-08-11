@@ -132,4 +132,22 @@ public class UserServiceImp implements UserService {
 		return result;
 	}
 
+	@Override
+	public UserVO recordForGraph(UserVO vo) {
+		return userDAO.recordForGraph(vo);
+	}
+
+	@Override
+	public UserVO dateForGraph(UserVO vo) {
+		return userDAO.dateForGraph(vo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

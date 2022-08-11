@@ -23,14 +23,27 @@ public class ServerController {
 		return "connectApp.jsp";
 	}
 	
+	@RequestMapping("/app_Kakaologin.do")
+	public String app_KakaoLogin(UserVO vo, Model model) {
+		
+		model.addAttribute("check_id",serverService.login(vo) );
+		
+		return "connectApp.jsp";
+	}
+	
 	@RequestMapping("/insertRecord.do")
 	public void insertRecord(RunVO vo) {
 		
-		System.out.println(vo.getDistance());
-		System.out.println(vo.getDuration());
-		System.out.println(vo.getAvg_speed());
-		System.out.println(vo.getMember_id());
-		serverService.insertRecord(vo);
+		if(vo.getMember_id().contains("@")) {
+			vo.setMember_id(serverService.getIdFromEmail(vo.getMember_id()));
+			serverService.insertRecord(vo);
+			serverService.updateMemberRecord(vo);
+		}else {
+			serverService.insertRecord(vo);
+			serverService.updateMemberRecord(vo);
+		}
+		
+
 	}
 	@RequestMapping("/insertLocation.do")
 	public void insertLocation(RunVO vo) {

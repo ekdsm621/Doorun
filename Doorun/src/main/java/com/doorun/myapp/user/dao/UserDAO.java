@@ -167,6 +167,12 @@ public class UserDAO {
 			return sst.selectOne("UserDAO.nicknameCheck" , nickname);
 		}
 		
+		public UserVO recordForGraph(UserVO vo){
+			return sst.selectOne("UserDAO.recordForGraph",vo);
+		}
+		public UserVO dateForGraph(UserVO vo) {
+			return sst.selectOne("UserDAO.dateForGraph",vo);
+		}
 		
 		
 		

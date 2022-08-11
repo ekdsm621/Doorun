@@ -54,5 +54,9 @@ public interface UserService {
 	
 	public int NicknameCheck(String nickname);
 	
+	public UserVO recordForGraph(UserVO vo);
+	
+	public UserVO dateForGraph(UserVO vo);
+	
 	
 }

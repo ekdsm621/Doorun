@@ -12,5 +12,11 @@ public interface ServerService {
 	public int getJourneyMaxId();
 	
 	public void insertLocation(RunVO vo);
+	
+	public void updateMemberRecord(RunVO vo);
+	
+	public String getIdFromEmail(String email);
+	
+	public String kakao_login(UserVO vo);
 
 }

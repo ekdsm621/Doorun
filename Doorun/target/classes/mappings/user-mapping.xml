@@ -87,6 +87,13 @@
 	  ]]>	
 	</select>
 	
+	<select id="getKakaoUserFromApp" resultType="int">
+	<![CDATA[	
+	  SELECT COUNT(*) FROM MEMBER
+	  WHERE EMAIL = #{email}
+	]]>	
+	</select>
+	
 	<select id="getUserWithEmail" resultType="String">
 	<![CDATA[	
 	  SELECT NICKNAME FROM MEMBER
@@ -153,7 +160,7 @@
 		]]>
 	</select>
 	
-			<select id="EmailCheck" resultType="int" parameterType="user">
+	<select id="EmailCheck" resultType="int" parameterType="user">
 	<![CDATA[
 		select count(*) from MEMBER where EMAIL = #{email} AND MEMBER_TYPE = 'EMAIL'
 	]]>
@@ -170,6 +177,40 @@
 		select count(*) from MEMBER where NICKNAME = #{nickname} 
 	]]>
 	</select>
+	
+	<select id="recordForGraph" resultType="user" parameterType="user">
+	<![CDATA[
+		SELECT (SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-6,'YYYY-MM-DD'))as firstDay, 
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-5,'YYYY-MM-DD'))as secondDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-4,'YYYY-MM-DD'))as thirdDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-3,'YYYY-MM-DD'))as fourthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-2,'YYYY-MM-DD'))as fifthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-1,'YYYY-MM-DD'))as sixthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE,'YYYY-MM-DD'))as seventhDay
+		FROM JOURNEY WHERE MEMBER_ID =#{id}  AND ROWNUM=1
+	]]>
+	</select>
+	
+	<select id="dateForGraph" resultType="user" parameterType="user">
+	<![CDATA[
+		SELECT TO_CHAR(SYSDATE-6,'MM-DD')as firstday_date,
+        TO_CHAR(SYSDATE-5,'MM-DD')as secondDay_date,
+        TO_CHAR(SYSDATE-4,'MM-DD')as thirdDay_date,
+        TO_CHAR(SYSDATE-3,'MM-DD')as fourthDay_date,
+        TO_CHAR(SYSDATE-2,'MM-DD')as fifthDay_date,
+        TO_CHAR(SYSDATE-1,'MM-DD')as sixthDay_date,
+        TO_CHAR(SYSDATE,'MM-DD')as seventhDay_date
+        FROM JOURNEY WHERE MEMBER_ID =#{id} AND ROWNUM=1
+	]]>
+	</select>
+	
+	<select id="getIdFromEmail" resultType="String" parameterType="String">
+	<![CDATA[
+		SELECT ID FROM MEMBER WHERE EMAIL = #{email}
+	]]>
+	</select>
+	
+	
 
 
 </mapper>
