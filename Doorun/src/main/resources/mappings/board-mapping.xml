@@ -35,6 +35,24 @@
 			WHERE BOARD_ID = #{board_id}
 		]]>
 	</select>
+	
+	<select id="countBoardT" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM BOARD
+			WHERE BOARD_ID = #{board_id}
+			AND TITLE LIKE '%'||#{searchKeyword}||'%'
+		]]>
+	</select>
+	
+	<select id="countBoardW" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM BOARD
+			WHERE BOARD_ID = #{board_id}
+			AND WRITER LIKE '%'||#{searchKeyword}||'%'
+		]]>
+	</select>
 
 	<!-- 페이징 처리 후 게시글 조회 -->
 	<select id="selectBoard" resultType="board">
@@ -44,6 +62,22 @@
 				FROM (SELECT * 
 						FROM BOARD 
 						WHERE BOARD_ID = #{board_id}
+						AND TITLE LIKE '%'||#{searchKeyword}||'%'
+						ORDER BY ID DESC
+						) A
+				)
+		WHERE RN BETWEEN #{start} AND #{end}
+		]]>
+	</select>
+	
+	<select id="selectBoardW" resultType="board">
+	<![CDATA[
+		SELECT * 
+		FROM (SELECT ROWNUM RN, A.* 
+				FROM (SELECT * 
+						FROM BOARD 
+						WHERE BOARD_ID = #{board_id}
+						AND WRITER LIKE '%'||#{searchKeyword}||'%'
 						ORDER BY ID DESC
 						) A
 				)

@@ -24,7 +24,13 @@ public interface BoardService {
 
 	void deleteReply(ReplyVO vo);
 	
-	public int countBoard(int board_id);
+	public int countBoard(PagingVO vo);
+	
+	public int countBoardT(PagingVO vo);
+	
+	public int countBoardW(PagingVO vo);
 
 	public List<BoardVO> selectBoard(PagingVO vo);
+	
+	public List<BoardVO> selectBoardW(PagingVO vo);
 }

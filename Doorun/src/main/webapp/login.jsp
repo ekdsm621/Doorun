@@ -6,39 +6,21 @@
 <%
 	String errMsg = (String)session.getAttribute("errMsg");
 	if (errMsg == null) errMsg = "";
-	
-	session.invalidate();
 
 %>
-
 
 <!DOCTYPE html>
 <html>
 <head>
-     <%@include file="/common_jsp/head_settings.jsp" %>
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  
-  
+	<%@include file="/common_jsp/head_settings.jsp" %>
+	<link href="/assets/css/crew_detail_css.css" rel="stylesheet">
 
 </head>
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.8; background-size: cover;">
-
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="logo d-flex align-items-center">
-        <img src="assets/img/3289577_fast_run_running_icon.png" alt="">
-        <span class="d-none d-lg-block"><a href="login.jsp">DORUN DORUN</a></span>
-      </div>
-    </div>
-
-  </header><!-- End Header -->
-
-
-
-
+<%@include file="/common_jsp/header.jsp" %>
   <main>
     <div class="container">
 

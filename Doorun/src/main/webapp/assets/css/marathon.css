@@ -35,15 +35,17 @@
     width:60%;
 }
 
+.main{
+    position:relative;
+    top:100px;
+}
+
 .dropdown:hover .dropdown-menu{
     display: block;
 }
 .dropdown-menu{
     margin-top: 0;
 }
-
-
-
 
 thead{
     padding:2%;

@@ -48,11 +48,23 @@ public class BoardDAO {
 		sst.delete("Board.deleteReply", vo);
 	}
 	
-	public int countBoard(int board_id) {
-		return sst.selectOne("Board.countBoard",board_id);
+	public int countBoard(PagingVO vo) {
+		return sst.selectOne("Board.countBoard",vo);
+	}
+	
+	public int countBoardT(PagingVO vo) {
+		return sst.selectOne("Board.countBoardT",vo);
+	}
+	
+	public int countBoardW(PagingVO vo) {
+		return sst.selectOne("Board.countBoardT",vo);
 	}
 
 	public List<BoardVO> selectBoard(PagingVO vo) {
 		return sst.selectList("Board.selectBoard",vo);
+	}
+	
+	public List<BoardVO> selectBoardW(PagingVO vo) {
+		return sst.selectList("Board.selectBoardW",vo);
 	}
 }

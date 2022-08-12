@@ -5,7 +5,6 @@
 <html >
 
 <head>
-  <%@include file="/common_jsp/head_settings.jsp" %>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="/assets/css/marathon.css" rel="stylesheet">
     <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -26,15 +25,12 @@
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <%@include file="/common_jsp/header.jsp" %>        
+<div class="container-fluid">
   <main id="main" class="main">
-
-
-   
     <section class="section profile">
-      <div   style="text-align: center;" >
-       
+      <div style="text-align: center;" >
 
-        <div class="col-xl-8" style="display: inline-block;">
+        <div class="col-xl-12" style="display: inline-block;">
 
           <div class="card">
             <div class="card-body pt-3">
@@ -164,10 +160,8 @@
     
     
   </main>
-  
+</div>
 <%@include file="/common_jsp/footer.jsp" %>   
-
-
 	
 	<!-- 주소 검색 -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

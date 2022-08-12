@@ -56,12 +56,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int countBoard(int board_id) {
-		return dao.countBoard(board_id);
+	public int countBoard(PagingVO vo) {
+		return dao.countBoard(vo);
+	}
+	
+	@Override
+	public int countBoardT(PagingVO vo) {
+		return dao.countBoardT(vo);
+	}
+	
+	@Override
+	public int countBoardW(PagingVO vo) {
+		return dao.countBoardT(vo);
 	}
 
 	@Override
 	public List<BoardVO> selectBoard(PagingVO vo) {
 		return dao.selectBoard(vo);
+	}
+	
+	@Override
+	public List<BoardVO> selectBoardW(PagingVO vo) {
+		return dao.selectBoardW(vo);
 	}
 }
