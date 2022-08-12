@@ -67,9 +67,6 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-					 
-                
-                
                 
                 	<%if(session.getAttribute("nickname") == null){%>
                 		<ul class="navbar-nav me-auto mb-2 mb-lg-0">

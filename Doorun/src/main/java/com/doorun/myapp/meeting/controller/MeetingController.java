@@ -44,7 +44,7 @@ public class MeetingController {
 		vo.setTitle("");
 		vo.setLocation("");
 		
-		// 참여한
+		// 李몄뿬�븳
 		Map<MeetingVO, List<UserVO>> joined_meetings = new LinkedHashMap<>();
 		for(MeetingVO meeting : service.selectJoinedMeeting(vo)) {
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
@@ -52,7 +52,7 @@ public class MeetingController {
 		}
 		model.addAttribute("joined_meeting", joined_meetings);
 		
-		//참여하지 않은
+		//李몄뿬�븯吏� �븡��
 		Map<MeetingVO, List<UserVO>> not_joined_meetings = new LinkedHashMap<>();
 		for(MeetingVO meeting : service.selectNotJoinedMeeting(vo)) {
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));
@@ -81,7 +81,7 @@ public class MeetingController {
 			vo.setLocation("");
 		}
 		
-		// 참여한
+		// 李몄뿬�븳
 		Map<MeetingVO, List<UserVO>> joined_meetings = new LinkedHashMap<>();
 		
 		for(MeetingVO meeting : service.selectJoinedMeeting(vo)) {
@@ -90,7 +90,7 @@ public class MeetingController {
 		}
 		model.addAttribute("joined_meeting", joined_meetings);
 		
-		//참여하지 않은
+		//李몄뿬�븯吏� �븡��
 		Map<MeetingVO, List<UserVO>> not_joined_meetings = new LinkedHashMap<>();
 		for(MeetingVO meeting : service.selectNotJoinedMeeting(vo)) {
 			meeting.setMeeting_date(meeting.getMeeting_date().substring(0, 16));

@@ -4,8 +4,8 @@
 
 	<insert id ="insertCrew">
 	  <![CDATA[
-	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, DESCRIBE, AREA)	  
-	  		VALUES ( (SELECT NVL(MAX(ID),0)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{describe},#{area})	
+	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, BACKGROUND_IMG, DESCRIBE, AREA)	  
+	  		VALUES ( (SELECT NVL(MAX(ID),0)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{background_img}, #{describe},#{area})	
 	  ]]>	
 	</insert>
 	
@@ -18,23 +18,25 @@
 	<insert id ="crew_Join">
 	  <![CDATA[
 			INSERT INTO CREW_JOIN 
-			VALUES (#{crew_ID},#{member_ID})
+			VALUES (#{crew_id},#{member_id})
 	  ]]>	
 	</insert>
 	
-
+	<select id="checkCrewJoin" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM CREW_JOIN
+			WHERE CREW_ID = #{crew_id}
+			AND MEMBER_ID = #{member_id}
+	  ]]>	
+	</select>
 	
 	<select id="getCrewList" resultType="Crew">
 		<![CDATA[
-			SELECT A.*,B.DISTANCE FROM CREW A , 
-			(
-			SELECT SUM(M.TOTAL_DISTANCE) DISTANCE,c.ID ID
-			FROM MEMBER M, CREW_JOIN J, CREW C
-			WHERE M.ID = J.MEMBER_ID AND J.CREW_ID = C.ID
-			GROUP BY C.ID
-			)B
-			WHERE A.ID=B.ID
-			ORDER BY B.DISTANCE DESC
+			SELECT * 
+			FROM CREW
+			WHERE NAME LIKE '%'||#{name}||'%'
+			AND AREA LIKE '%'||#{area}||'%'
 		]]>
 	</select>
 	
@@ -52,7 +54,7 @@
 	
 	<update id="plusCrewMember">
 		<![CDATA[
-			UPDATE CREW SET MEMBER = MEMBER +1 WHERE ID = #{id} 
+			UPDATE CREW SET MEMBER = MEMBER +1 WHERE ID = #{crew_id} 
 		]]>
 	
 	</update>

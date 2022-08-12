@@ -9,7 +9,7 @@ public class PagingVO {
 	
 	public PagingVO() {
 	}
-	public PagingVO(int total, int nowPage, int cntPerPage, int board_id) {
+	public PagingVO(int total, int nowPage, int cntPerPage, int board_id, String saerchField, String searchKeyword) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
@@ -17,12 +17,14 @@ public class PagingVO {
 		calcStartEndPage(getNowPage(), cntPage);
 		calcStartEnd(getNowPage(), getCntPerPage());
 		this.board_id = board_id;
+		this.searchField = saerchField;
+		this.searchKeyword = searchKeyword;
 	}
-	// 제일 마지막 페이지 계산
+	// �젣�씪 留덉�留� �럹�씠吏� 怨꾩궛
 	public void calcLastPage(int total, int cntPerPage) {
 		setLastPage((int) Math.ceil((double)total / (double)cntPerPage));
 	}
-	// 시작, 끝 페이지 계산
+	// �떆�옉, �걹 �럹�씠吏� 怨꾩궛
 	public void calcStartEndPage(int nowPage, int cntPage) {
 		setEndPage(((int)Math.ceil((double)nowPage / (double)cntPage)) * cntPage);
 		if (getLastPage() < getEndPage()) {
@@ -33,7 +35,7 @@ public class PagingVO {
 			setStartPage(1);
 		}
 	}
-	// DB 쿼리에서 사용할 start, end값 계산
+	// DB 荑쇰━�뿉�꽌 �궗�슜�븷 start, end媛� 怨꾩궛
 	public void calcStartEnd(int nowPage, int cntPerPage) {
 		setEnd(nowPage * cntPerPage);
 		setStart(getEnd() - cntPerPage + 1);

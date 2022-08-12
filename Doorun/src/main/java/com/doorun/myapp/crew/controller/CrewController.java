@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.doorun.myapp.board.dao.BoardDAO;
 import com.doorun.myapp.board.dao.BoardService;
 import com.doorun.myapp.crew.dao.CrewService;
+import com.doorun.myapp.crew.vo.CrewJoinVO;
 import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.PagingVO;
@@ -32,34 +34,64 @@ public class CrewController {
 	@RequestMapping("/insertCrew.do")
 	public String insertCrew(HttpSession session, CrewVO vo) throws Exception, IOException {
 		
+		// 지역
 		String area = vo.getTemp_area()+" "+vo.getTemp_area2();
-		
 		vo.setArea(area);
 		
-		
-		MultipartFile uploadFile = vo.getUploadFile();
+		// 설명 - 줄바꿈 처리
 		vo.setDescribe(vo.getDescribe().replace("\r\n", "<br>"));
 		
-		// 파일 업로드 처리
-		if(!uploadFile.isEmpty()) {
-			String fileName = uploadFile.getOriginalFilename();
-			// 파일 경로는 각자 경로에 맞게 수정해서 테스트!
-			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+fileName));
-			vo.setImage_file(fileName);
+		// 이미지 파일 처리
+		MultipartFile upload_file1 = vo.getUploadFile1();
+		
+		if(!upload_file1.isEmpty()) {
+			String fileName1 = upload_file1.getOriginalFilename();
+			upload_file1.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+fileName1));
+			vo.setImage_file(fileName1);
 		}else {
 			vo.setImage_file("");
 		}
+		
+		MultipartFile upload_file2 = vo.getUploadFile2();
+		
+		if(!upload_file2.isEmpty()) {
+			String fileName2 = upload_file2.getOriginalFilename();
+			upload_file2.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+fileName2));
+			vo.setBackground_img(fileName2);
+		}else {
+			vo.setBackground_img("");
+		}
+		
+		// 크루장 처리
 		vo.setMaster((String)session.getAttribute("id"));
+		
+		// insert
 		crewService.insertCrew(vo);
 		int crew_ID = crewService.getMaxCrewID();
-		crewService.crew_Join(crew_ID, vo.getMaster());
-		return "/getCrewList.do";
+		
+		CrewJoinVO joinVO = new CrewJoinVO();
+		joinVO.setCrew_id(crew_ID);
+		joinVO.setMember_id(vo.getMaster());
+		crewService.crew_Join(joinVO);
+		return "redirect:getCrewList.do";
 		
 	}
 	
 	@RequestMapping("/getCrewList.do")
-	public String getCrewList(CrewVO vo, Model model) {
+	public String getCrewList(HttpServletRequest request, CrewVO vo, Model model) {
+		if(vo.getName() == null) {
+			vo.setName("");
+		}
 		
+		if(request.getParameter("temp_area") != null) {
+			if(request.getParameter("temp_area2").equals("전체")) {
+				vo.setArea(request.getParameter("temp_area"));			
+			}else {
+				vo.setArea(request.getParameter("temp_area") + " " + request.getParameter("temp_area2"));			
+			}
+		}else {
+			vo.setArea("");
+		}
 		
 		model.addAttribute("crewList", crewService.getCrewList(vo));
 		
@@ -80,8 +112,9 @@ public class CrewController {
 		
 		model.addAttribute("getCrewRecentRecord",crewService.getCrewRecentRecord(vo));
 		
-		// 게시판
-		int total = boardService.countBoard(Integer.parseInt(id));
+		// 寃뚯떆�뙋
+		pagingVO.setBoard_id(Integer.parseInt(id));
+		int total = boardService.countBoard(pagingVO);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "10";
@@ -90,7 +123,7 @@ public class CrewController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "10";
 		}
-		pagingVO = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), Integer.parseInt(id));
+		pagingVO = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), Integer.parseInt(id),"title","");
 		model.addAttribute("paging", pagingVO);
 		model.addAttribute("viewAll", boardService.selectBoard(pagingVO));
 		
@@ -98,10 +131,14 @@ public class CrewController {
 	}
 	
 	@RequestMapping("/joinCrew.do")
-	public String joinCrew(CrewVO vo, HttpSession session) {
-		
-		crewService.crew_Join(vo.getId(), (String)session.getAttribute("id"));
-		crewService.plusCrewMember(vo);
+	public String joinCrew(CrewJoinVO vo) {
+		System.out.println("crew_id"+vo.getCrew_id());
+		System.out.println("member_id"+vo.getMember_id());
+		int check = crewService.crew_Join(vo);
+		if(check == 1) {
+			crewService.plusCrewMember(vo);
+		}else {
+		}
 		
 		return "/getCrewList.do";
 	}

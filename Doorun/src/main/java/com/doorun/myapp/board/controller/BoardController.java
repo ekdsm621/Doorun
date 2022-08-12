@@ -113,8 +113,34 @@ public class BoardController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = dao.countBoard(Integer.parseInt(id));
+		System.out.println("필드"+vo.getSearchField());
+		System.out.println("키워드"+vo.getSearchKeyword());
 		
+		
+		vo.setBoard_id(Integer.parseInt(id));
+		int total;
+		String searchField = "";
+		String searchKeyword = "";
+		
+		if(vo.getSearchKeyword() != null) {
+			if(vo.getSearchField().equals("title")) {
+				total = dao.countBoardT(vo);
+			}else {
+				total = dao.countBoardW(vo);
+			}
+			
+			searchField = vo.getSearchField();
+			searchKeyword = vo.getSearchKeyword();
+			
+		}else {
+			vo.setSearchField("TITLE");
+			vo.setSearchKeyword("");
+			total = dao.countBoard(vo);
+			
+			searchField = vo.getSearchField();
+			searchKeyword = vo.getSearchKeyword();
+		}
+			
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "10";
@@ -123,9 +149,16 @@ public class BoardController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "10";
 		}
-		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), Integer.parseInt(id));
+		
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), Integer.parseInt(id), searchField, searchKeyword);
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", dao.selectBoard(vo));
+		
+		if(vo.getSearchField().equals("TITLE")) {
+			model.addAttribute("viewAll", dao.selectBoard(vo));			
+		}else {
+			model.addAttribute("viewAll", dao.selectBoardW(vo));			
+		}
 		return "entire_board.jsp";
+			
 	}
 }

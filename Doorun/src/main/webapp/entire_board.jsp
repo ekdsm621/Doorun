@@ -43,14 +43,13 @@
 	  	</div>	  	
 	  	<div class="searchbox">
 			<div class="row">
-				<form method="post" name="search" action="/boardList.do">
+				<form method="post" name="search" action="/boardList.do?id=1">
 					<table class="pull-right mx-auto">
 						<tr>
 							<td>
 								<select class="form-select" name="searchField">
-									<option value="all">제목+작성자</option>
-									<option value="title">제목</option>
-									<option value="writer">작성자</option>
+									<option value="TITLE">제목</option>
+									<option value="WRITER">작성자</option>
 								</select>
 							</td>
 							<td><input type="text" class="form-control" placeholder="글 찾기" name="searchKeyword" maxlength="100"></td>

@@ -12,7 +12,8 @@ public class CrewVO {
 	private String describe;
 	private String distance;
 	private int member;
-	private MultipartFile uploadFile;
+	private MultipartFile uploadFile1;
+	private MultipartFile uploadFile2;
 	private String temp_area;
 	private String temp_area2;
 	private String area;
@@ -96,13 +97,23 @@ public class CrewVO {
 	}
 
 
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public MultipartFile getUploadFile1() {
+		return uploadFile1;
 	}
 
 
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setUploadFile1(MultipartFile uploadFile1) {
+		this.uploadFile1 = uploadFile1;
+	}
+
+
+	public MultipartFile getUploadFile2() {
+		return uploadFile2;
+	}
+
+
+	public void setUploadFile2(MultipartFile uploadFile2) {
+		this.uploadFile2 = uploadFile2;
 	}
 
 

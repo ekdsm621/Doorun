@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.doorun.myapp.crew.vo.CrewJoinVO;
 import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
@@ -31,8 +32,8 @@ public class CrewServiceImp implements CrewService {
 	}
 
 	@Override
-	public void crew_Join(int crew_ID, String member_ID) {
-		crewDAO.crew_Join(crew_ID, member_ID);
+	public int crew_Join(CrewJoinVO vo) {
+		return crewDAO.crew_Join(vo);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class CrewServiceImp implements CrewService {
 	}
 
 	@Override
-	public void plusCrewMember(CrewVO vo) {
+	public void plusCrewMember(CrewJoinVO vo) {
 		crewDAO.plusCrewMember(vo);
 	}
 
