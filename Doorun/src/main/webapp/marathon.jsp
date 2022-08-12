@@ -87,15 +87,17 @@
 			        			<th style="background-color: #fafafa; text-align: center;">대회명</th>
 			        			<th style="background-color: #fafafa; text-align: center;">위치</th>
 			        			<th style="background-color: #fafafa; text-align: center;">주최</th>
+			        			<th style="background-color: #fafafa; text-align: center;">홈페이지</th>
 			       			</tr>
 	     				</thead>
 			     		<tbody>
 			     		    <c:forEach items="${marathonlist }" var="marathon">
 			     			<tr>	     				
-			     				<td>${marathon.day}</td>
-			     				<td>${marathon.name}</td>			     				
-			     				<td>${marathon.place}</td>
-			     				<td>${marathon.address}</td>
+			     				<td>${marathon.marathon.day}</td>
+			     				<td>${marathon.marathon.name}</td>			     				
+			     				<td>${marathon.marathon.place}</td>
+			     				<td>${marathon.marathon.address}</td>
+			     				<td><button class="btn btn-dark team-making mb-3"><a href="http://${marathon.link.link}" target='_blank' >홈페이지</a></button></td>
 			     			</tr>
 			     			</c:forEach>
 			     		</tbody>

@@ -11,6 +11,8 @@
 		<typeAlias type="com.doorun.myapp.meeting.vo.MeetingVO" alias="meeting"></typeAlias>
 		<typeAlias type="com.doorun.myapp.crew.vo.CrewVO" alias="crew"></typeAlias>
 		<typeAlias type="com.doorun.myapp.marathon.vo.MarathonVO" alias="marathon"></typeAlias>
+		<typeAlias type="com.doorun.myapp.marathon.vo.LinkVO" alias="link"></typeAlias>
+		<typeAlias type="com.doorun.myapp.marathon.vo.MarathonLinkVO" alias="marathonlink"></typeAlias>
 	</typeAliases>
 	
 

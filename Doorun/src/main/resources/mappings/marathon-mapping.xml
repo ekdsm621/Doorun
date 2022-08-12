@@ -5,16 +5,29 @@
 
 
 	<resultMap type="marathon" id="marathonResult">
+	    <id property = "id" column="id"/> 
 		<result property = "day" column="day"/>
 		<result property = "name" column="name"/>
 		<result property = "place" column="place"/>
 		<result property = "address" column="address"/>
 	</resultMap>
+	
+	<resultMap type="link" id="linkResult">
+	    <id property = "id" column="id"/> 
+		<result property = "link" column="link"/>
+	</resultMap>
+	
+	<resultMap type="marathonlink" id="marathonlinkResult">
+		<collection property="marathon" resultMap="marathonResult" />
+		<collection property="link" resultMap="linkResult" />
+	</resultMap>
 
 
-	<select id="getmarathon" resultMap ="marathonResult">
+	<select id="getmarathon" resultMap ="marathonlinkResult">
 	<![CDATA[
-	  SELECT * FROM MARATHON
+	  select m.day , m.name , m.place , m.address , l.link ,l.id
+	  from marathon m , marathonlink l
+ 	  where m.id = l.id
 	]]>
 	</select>
 

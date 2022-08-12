@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.doorun.myapp.marathon.dao.MarathonService;
+import com.doorun.myapp.marathon.vo.MarathonLinkVO;
 import com.doorun.myapp.marathon.vo.MarathonVO;
 
 @Controller
@@ -20,7 +21,7 @@ public class MarathonController {
 	@RequestMapping("/getmarathon.do")
 	public String getMarathon( Model model) {
 		
-		List<MarathonVO> marathonlist = marathonService.getMarathon();
+		List<MarathonLinkVO> marathonlist = marathonService.getMarathon();
 		
 		model.addAttribute( "marathonlist",marathonlist);
 		
