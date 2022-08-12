@@ -1,13 +1,12 @@
 package com.doorun.myapp.crew.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.doorun.myapp.crew.vo.CrewJoinVO;
 import com.doorun.myapp.crew.vo.CrewVO;
 import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
@@ -37,15 +36,18 @@ public class CrewDAO {
 		return sst.selectOne("Crew.getMaxCrewID");
 	}
 	
-	public void crew_Join(int crew_ID, String member_ID) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("crew_ID", crew_ID);
-		map.put("member_ID", member_ID);
+	public int crew_Join(CrewJoinVO vo) {
+		int check = sst.selectOne("Crew.checkCrewJoin", vo);
 		
-		sst.insert("Crew.crew_Join",map);
+		if(check == 0) {
+			sst.insert("Crew.crew_Join",vo);
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
-	public void plusCrewMember(CrewVO vo) {
+	public void plusCrewMember(CrewJoinVO vo) {
 		sst.update("Crew.plusCrewMember", vo);
 	}
 	
