@@ -2,6 +2,7 @@ package com.doorun.myapp.marathon.vo;
 
 public class MarathonVO {
 	
+	private String id;
 	private String day;
 	private String name;
 	private String place;
@@ -32,6 +33,13 @@ public class MarathonVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	
 	
 
