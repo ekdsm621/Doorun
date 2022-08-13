@@ -7,6 +7,9 @@
 
 <head>
   <%@include file="/common_jsp/head_settings.jsp" %>
+      <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link href="/assets/css/crew_detail_css.css" rel="stylesheet">
   <title>DOORUN DOORUN</title>
   
 
@@ -15,16 +18,7 @@
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.9; background-size: cover;">
 
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="logo d-flex align-items-center">
-        <img src="assets/img/3289577_fast_run_running_icon.png" alt="">
-        <span class="d-none d-lg-block"><a href="login.jsp">DORUN DORUN</a></span>
-      </div>
-    </div>
-
-  </header><!-- End Header -->
+ <%@include file="/common_jsp/header.jsp" %>
 
 
 
@@ -47,6 +41,10 @@
               <div class="card mb-3">
 
                 <div class="card-body">
+                
+                  <div class="pt-4 pb-2">
+                    <p class="text-center small" >카카오로 가입</p>
+                  </div>
                   
 
                   <form action="/insertUser.do" method= "post" class="row g-3 needs-validation">
@@ -94,7 +92,7 @@
 
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">가입</button> <p></p>
+                      <button class="btn btn-dark w-100" type="submit">가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
                     </div>
                   </form>

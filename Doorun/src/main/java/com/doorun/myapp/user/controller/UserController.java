@@ -130,10 +130,10 @@ public class UserController {
 		
 		if(inputPassword.equals(savedPassword)) {
 			userService.updatePassword(vo);
-			return "updateUser.jsp";
+			return "UserSetting.do";
 		}else {
 			System.out.println("실패");
-			return "updateUser.jsp";
+			return "UserSetting.do";
 		}
 	}
 	
