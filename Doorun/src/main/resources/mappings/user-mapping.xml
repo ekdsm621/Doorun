@@ -76,14 +76,14 @@
 	<select id="getUserFromApp" resultType="int">
 	<![CDATA[	
 	  SELECT COUNT(*) FROM MEMBER
-	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password} AND MEMBER_TYPE = 'EMAIL'
 	]]>	
 	</select>
 	
 	<select id="getKakaoUser" resultType="user">
 	<![CDATA[	
 	  SELECT * FROM MEMBER
-	  WHERE EMAIL = #{email}
+	  WHERE EMAIL = #{email} AND MEMBER_TYPE = 'KAKAO'
 	  ]]>	
 	</select>
 	

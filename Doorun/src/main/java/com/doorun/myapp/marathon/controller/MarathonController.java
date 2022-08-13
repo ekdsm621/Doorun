@@ -18,7 +18,7 @@ public class MarathonController {
 	private MarathonService marathonService;
 	
 	
-	@RequestMapping("/getmarathon.do")
+	@RequestMapping("/marathon.do")
 	public String getMarathon( Model model) {
 		
 		List<MarathonLinkVO> marathonlist = marathonService.getMarathon();

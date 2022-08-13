@@ -5,22 +5,15 @@
 
 <head>
    <%@include file="/common_jsp/head_settings.jsp" %>
+         <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link href="/assets/css/crew_detail_css.css" rel="stylesheet">
   <title>DOORUN DOORUN</title>
 </head>
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.9; background-size: cover;">
 
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="logo d-flex align-items-center">
-        <img src="assets/img/3289577_fast_run_running_icon.png" alt="">
-        <span class="d-none d-lg-block"><a href="login.jsp">DORUN DORUN</a></span>
-      </div>
-    </div>
-
-  </header><!-- End Header -->
-
+<%@include file="/common_jsp/header.jsp" %>
 
 
 
@@ -58,7 +51,7 @@
 
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">찾기</button> <p></p>
+                      <button class="btn btn-dark w-100" type="submit">찾기</button> <p></p>
                       <p class="small mb-0">계정이 없으신가요? <a href="createAccount.jsp">회원가입</a></p>
                     </div>
                   </form>

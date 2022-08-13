@@ -38,11 +38,11 @@
 			   
               <div class="card mb-3">
                 <div class="card-body">
-                	<div class="text-center">
-                     <a id="kakao-login-btn"></a>
-                	</div>
+                   <div class="pt-4 pb-2">
+                    <p class="text-center small" ></p>
+                   </div>
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4" style="font-size: 5px;">이메일로 로그인</h5>
+                    	<h5 class="card-title text-center  fs-4" style="font-size: 5px;">이메일로 로그인</h5>
                   </div>
 
                   
@@ -63,17 +63,15 @@
                     </div>
                     
 
+                  
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">이메일 저장</label>
-                      </div>
+                      <button class="btn btn-dark w-100" type="submit">로그인</button>
                     </div>
+                      <div class="text-center">
+                     	<a id="kakao-login-btn" href="javascript:loginWithKakao()"><img src="assets/img/kakao_login_medium_wide.png"></a>
+                	  </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">로그인</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">계정이 없으신가요? <a href="createAccount.jsp">회원가입</a></p>
+                      <p class="small mb-0">계정이 없으신가요? <a href="createAccount.jsp" >회원가입</a></p>
                       <p class="small mb-0">비밀번호를 잊으셨나요? <a href="findPw.jsp">비밀번호 찾기</a></p>
                     </div>
                   </form>
@@ -109,7 +107,6 @@
   
    <!-- 카카오 로그인 -->
     <script type="text/javascript">
-      window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
       <!-- 
       function kakaoLogin() {
           // 로그인
@@ -131,8 +128,8 @@
           });
       }
       -->
-      Kakao.Auth.createLoginButton({
-    	    container: '#kakao-login-btn',
+      function loginWithKakao() {
+      Kakao.Auth.login({
     	    success: function(authObj) {
     	      Kakao.API.request({
     	        url: '/v2/user/me',
@@ -169,6 +166,7 @@
     	      alert('failed to login: ' + JSON.stringify(err))
     	    },
     	  })
+      }
       </script>
        
  

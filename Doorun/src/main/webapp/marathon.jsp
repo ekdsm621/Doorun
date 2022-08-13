@@ -18,69 +18,17 @@
             });
         });
     </script>
-    <title>크루 리스트</title>
+    <title>마라톤</title>
     
     
 </head>
 <body> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand">DooRun</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">개인</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        모임
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">모임 참여</a></li>
-                            <li><a class="dropdown-item" href="#">참여한 모임</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            크루
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">크루 가입</a></li>
-                            <li><a class="dropdown-item" href="#">가입한 크루</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/getmarathon.do">마라톤</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">전체게시판</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <img src="/assets/img/messages-2.jpg" style="border-radius: 50em; width:45px">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                아이디
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">개인 페이지 이동</a></li>
-                                <li><a class="dropdown-item" href="#">개인정보 수정</a></li>
-                                <li><a class="dropdown-item" href="#">로그아웃</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <%@include file="/common_jsp/header.jsp" %>
  	  <div class="container-fluid">
 	          	<div class="team-body" style="margin-top:100px">
 	          		<table class="table table-striped table-hover table-borderless" style=" border:#dddddd;">
+ 	  				<h2>마라톤</h2><p>
 	          			<thead>
 			        		<tr>	        				        			
 			        			<th style="background-color: #fafafa; text-align: center;">날짜</th>
@@ -93,11 +41,16 @@
 			     		<tbody>
 			     		    <c:forEach items="${marathonlist }" var="marathon">
 			     			<tr>	     				
-			     				<td>${marathon.marathon.day}</td>
-			     				<td>${marathon.marathon.name}</td>			     				
-			     				<td>${marathon.marathon.place}</td>
-			     				<td>${marathon.marathon.address}</td>
-			     				<td><button class="btn btn-dark team-making mb-3"><a href="http://${marathon.link.link}" target='_blank' >홈페이지</a></button></td>
+			     				<td style="font-weight:bold;">${marathon.marathon.day}</td>
+			     				<td style="font-weight:bold;">${marathon.marathon.name}</td>			     				
+			     				<td style="font-weight:bold;">${marathon.marathon.place}</td>
+			     				<td style="font-weight:bold;">${marathon.marathon.address}</td>
+			     				<td><button class="btn btn-secondary"  onclick="window.open('http://${marathon.link.link}')" >
+			     				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+  									<path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+ 								    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+								</svg></button>
+								</td>
 			     			</tr>
 			     			</c:forEach>
 			     		</tbody>
