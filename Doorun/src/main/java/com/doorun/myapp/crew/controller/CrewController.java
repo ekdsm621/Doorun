@@ -2,7 +2,10 @@ package com.doorun.myapp.crew.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +22,7 @@ import com.doorun.myapp.board.dao.BoardService;
 import com.doorun.myapp.crew.dao.CrewService;
 import com.doorun.myapp.crew.vo.CrewJoinVO;
 import com.doorun.myapp.crew.vo.CrewVO;
+import com.doorun.myapp.run.vo.RunVO;
 import com.doorun.myapp.user.vo.UserVO;
 import com.doorun.myapp.utils.PagingVO;
 
@@ -107,10 +111,99 @@ public class CrewController {
 		model.addAttribute("masterImage", crewService.getCrewMasterImage(vo));
 		
 		List<UserVO> crewMemberList = crewService.getCrewMember(vo);
+		List<String> total_durationList = new ArrayList<String>();
+		List<String> paceList = new ArrayList<String>();
+		for(UserVO run:crewMemberList) {
+			
+			// 2. 시간
+			double duration = run.getTotal_duration();
+			int totalHour = (int)(duration / 3600);
+			duration -= totalHour * 3600;
+			int totalMin = (int)(duration / 60);
+			duration -= totalMin * 60;
+			int totalSec = (int)(duration);
+			
+			String totalHour_str = Integer.toString(totalHour);
+			if(totalHour_str.length()==1) {
+				totalHour_str= "0"+totalHour_str;
+			}
+			String totalMin_str = Integer.toString(totalMin);
+			if(totalMin_str.length()==1) {
+				totalMin_str= "0"+totalMin_str;
+			}
+			String totalSec_str = Integer.toString(totalSec);
+			if(totalSec_str.length()==1) {
+				totalSec_str= "0"+totalSec_str;
+			}
+			
+			String total_druation = totalHour_str+":"+totalMin_str+":"+totalSec_str;
+			
+			total_durationList.add(total_druation);
+			
+			// 3. 페이스
+			double pace = run.getTotal_duration() / run.getTotal_distance();
+			int paceMin = (int)(pace / 60);
+			int paceSec = (int)(pace % 60);
+			
+			String paceSec_str = Integer.toString(paceSec);
+			if(paceSec_str.length()==1) {
+				paceSec_str= "0"+paceSec_str;
+			}
+			
+			String pace_str = paceMin+"'"+paceSec_str+"'";
+			paceList.add(pace_str);
+			
+		}
+		
+		List<RunVO> getCrewRecentRecord = crewService.getCrewRecentRecord(vo);
+		for(RunVO run:getCrewRecentRecord) {
+			// 시간
+			int runDuration = Integer.parseInt(run.getDuration());
+			
+			int tempDuration = runDuration;
+			int runHour = (int)(tempDuration / 3600);
+			tempDuration -= runHour * 3600;
+			int runMin = (int)(tempDuration / 60);
+			tempDuration -= runMin * 60;
+			
+			String runHour_str = Integer.toString(runHour);
+			if(runHour_str.length()==1) {
+				runHour_str= "0"+runHour_str;
+			}
+			String runMin_str = Integer.toString(runMin);
+			if(runMin_str.length()==1) {
+				runMin_str= "0"+runMin_str;
+			}
+			
+			String tempDuration_str = Integer.toString(tempDuration);
+			if(tempDuration_str.length()==1) {
+				tempDuration_str= "0"+tempDuration_str;
+			}
+			
+			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
+			run.setDuration(strDuration);
+			
+			// 페이스
+			double runDistance = Double.parseDouble(run.getDistance());
+			double runPace = runDuration / runDistance;
+			int runPaceMin = (int)(runPace / 60);
+			int runPaceSec = (int)(runPace % 60);
+			
+			String runPaceSec_str = Integer.toString(runPaceSec);
+			if(runPaceSec_str.length()==1) {
+				runPaceSec_str= "0"+runPaceSec_str;
+			}
+			
+			String strRunPace = runPaceMin + "'" + runPaceSec_str + "''";
+			run.setAvg_speed(strRunPace);
+		}
 		
 		model.addAttribute("crewMemberList", crewMemberList);
 		
-		model.addAttribute("getCrewRecentRecord",crewService.getCrewRecentRecord(vo));
+		model.addAttribute("total_durationList",total_durationList);
+		model.addAttribute("paceList", paceList);
+		
+		model.addAttribute("getCrewRecentRecord",getCrewRecentRecord);
 		
 		// 寃뚯떆�뙋
 		pagingVO.setBoard_id(Integer.parseInt(id));

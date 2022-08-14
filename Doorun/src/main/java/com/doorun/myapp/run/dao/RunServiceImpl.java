@@ -27,6 +27,13 @@ public class RunServiceImpl implements RunService {
 	public List<RunVO> getMap(RunVO vo) {
 		return runDAO.getMap(vo);
 	}
+
+	@Override
+	public double distance(double lat1, double lon1, double lat2, double lon2) {
+		return runDAO.distance(lat1, lon1, lat2, lon2);
+	}
+	
+	
 	
 	
 

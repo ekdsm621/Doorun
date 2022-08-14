@@ -66,7 +66,7 @@
                             <h2 class="top-rank-title">TOP 3</h2>
                             <table class="table align-middle top-rank">
                                 <tbody>
-                                <c:forEach items="${crewMemberList }" var="member">
+                                <c:forEach items="${crewMemberList }" var="member" varStatus="status">
                                 <c:set var="i" value ="${i+1 }"/>
                                     <tr>
                                         <th scope="row">${i }</th>
@@ -74,8 +74,8 @@
                                         <td>${member.name }</td>
                                         <td>${member.nickname }</td>
                                         <td>${member.total_distance }KM</td>
-                                        <td>${member.total_duration }</td>
-                                        <td>8'46''</td>
+                                        <td>${total_durationList[status.index] }</td>
+                                        <td>${paceList[status.index] }</td>
                                     </tr>
                                 </c:forEach>
 
@@ -95,7 +95,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${crewMemberList }" var="member">
+                                <c:forEach items="${crewMemberList }" var="member" varStatus="status">
                                 <c:set var="j" value ="${j+1 }"/>
                                     <tr>
                                         <th scope="row">${j }</th>
@@ -103,8 +103,8 @@
                                         <td>${member.name }</td>
                                         <td>${member.nickname }</td>
                                         <td>${member.total_distance }KM</td>
-                                        <td>${member.total_duration }</td>
-                                        <td>8'46''</td>
+                                        <td>${total_durationList[status.index] }</td>
+                                        <td>${paceList[status.index] }</td>
                                     </tr>
                                 </c:forEach>
 

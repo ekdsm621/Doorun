@@ -199,18 +199,37 @@ public class UserController {
 		int totalMin = (int)(duration / 60);
 		duration -= totalMin * 60;
 		int totalSec = (int)(duration);
-		model.addAttribute("totalHour",totalHour);
-		model.addAttribute("totalMin",totalMin);
-		model.addAttribute("totalSec",totalSec);
+		
+		String totalHour_str = Integer.toString(totalHour);
+		if(totalHour_str.length()==1) {
+			totalHour_str= "0"+totalHour_str;
+		}
+		String totalMin_str = Integer.toString(totalMin);
+		if(totalMin_str.length()==1) {
+			totalMin_str= "0"+totalMin_str;
+		}
+		String totalSec_str = Integer.toString(totalSec);
+		if(totalSec_str.length()==1) {
+			totalSec_str= "0"+totalSec_str;
+		}
+		
+		model.addAttribute("totalHour",totalHour_str);
+		model.addAttribute("totalMin",totalMin_str);
+		model.addAttribute("totalSec",totalSec_str);
 		
 		
 		// 3. 페이스
 		double pace = userDesc.getTotal_duration() / userDesc.getTotal_distance();
 		int paceMin = (int)(pace / 60);
 		int paceSec = (int)(pace % 60);
+		
+		String paceSec_str = Integer.toString(paceSec);
+		if(paceSec_str.length()==1) {
+			paceSec_str= "0"+paceSec_str;
+		}
 		model.addAttribute("userDesc",userDesc);
 		model.addAttribute("paceMin",paceMin);
-		model.addAttribute("paceSec",paceSec);
+		model.addAttribute("paceSec",paceSec_str);
 		
 		// 활동 기록
 		List<RunVO> userRecordList = userService.getUserRecordList(vo);
@@ -223,7 +242,22 @@ public class UserController {
 			tempDuration -= runHour * 3600;
 			int runMin = (int)(tempDuration / 60);
 			tempDuration -= runMin * 60;
-			String strDuration = runHour + ":" + runMin + ":" + tempDuration;
+			
+			String runHour_str = Integer.toString(runHour);
+			if(runHour_str.length()==1) {
+				runHour_str= "0"+runHour_str;
+			}
+			String runMin_str = Integer.toString(runMin);
+			if(runMin_str.length()==1) {
+				runMin_str= "0"+runMin_str;
+			}
+			
+			String tempDuration_str = Integer.toString(tempDuration);
+			if(tempDuration_str.length()==1) {
+				tempDuration_str= "0"+tempDuration_str;
+			}
+			
+			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
 			run.setDuration(strDuration);
 			
 			// 페이스
@@ -231,6 +265,12 @@ public class UserController {
 			double runPace = runDuration / runDistance;
 			int runPaceMin = (int)(runPace / 60);
 			int runPaceSec = (int)(runPace % 60);
+			
+			String runPaceSec_str = Integer.toString(runPaceSec);
+			if(runPaceSec_str.length()==1) {
+				runPaceSec_str= "0"+runPaceSec_str;
+			}
+			
 			String strRunPace = runPaceMin + "'" + runPaceSec + "''";
 			run.setAvg_speed(strRunPace);
 		}
@@ -241,16 +281,11 @@ public class UserController {
 		
 		//그래프 거리 
 		UserVO graph = userService.recordForGraph(vo);
-		
-
-		
 		model.addAttribute("graph",graph);
 		
 		//그래프 날짜값
 		UserVO date = userService.dateForGraph(vo);
 		model.addAttribute("date",date);
-		
-		
 		
 		return "user_detail.jsp";
 	}

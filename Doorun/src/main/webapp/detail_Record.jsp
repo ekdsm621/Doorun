@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.doorun.myapp.run.vo.RunVO"%>
 <%@page import="com.doorun.myapp.run.dao.RunDAO"%>
 <!DOCTYPE html>
@@ -10,25 +11,20 @@
 <title>기록 세부 페이지</title>
 </head>
 <%
-List<RunVO> list = (List<RunVO>)request.getAttribute("locationList");
+List<RunVO> locationList = (List<RunVO>)request.getAttribute("locationList");
+Map<String, Double> map= (Map<String, Double>)request.getAttribute("map");
+
+double startLat = map.get("startLat");
+double endLat = map.get("endLat");
+double startLong = map.get("startLong");
+double endLong = map.get("endLong");
+	
+double centerLat = map.get("centerLat");
+double centerLong = map.get("centerLong");
+
+double distance = map.get("distance");
 %>
 <body>
-<%
-double startLat = Double.parseDouble(list.get(0).getLatitude());
-double endLat = Double.parseDouble(list.get(list.size()-1).getLatitude());
-double startLong = Double.parseDouble(list.get(0).getLongitude());
-double endLong =Double.parseDouble(list.get(list.size()-1).getLongitude());
-	
-double centerLat = Double.sum(startLat, endLat)/2;
-double centerLong = Double.sum(startLong, endLong)/2;
-
-RunDAO a = new RunDAO();
-
-double num = a.distance(startLat, startLong, endLat, endLong,"meter");
-
-
-
-%>
 
 <div id="map" style="width:100%;height:300px;"></div>    
 
@@ -40,25 +36,25 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = { 
     center: new kakao.maps.LatLng(<%=centerLat%>, <%=centerLong%>), // 지도의 중심좌표
     level:
-	<%if(num<100){ %>
+	<%if(distance<100){ %>
 	2,
-	<% }else if(num>100 && num<800){ %>
+	<% }else if(distance>100 && distance<800){ %>
 	5,
-	<%}else if(num>800 && num<1500){ %>
+	<%}else if(distance>800 && distance<1500){ %>
 	6,
-	<%}else if(num>1500 && num<3000){ %>
+	<%}else if(distance>1500 && distance<3000){ %>
 	7,
-	<%}else if(num>3000 && num<5000){ %>
+	<%}else if(distance>3000 && distance<5000){ %>
 	8,
-	<%}else if(num>5000 && num<8000){ %>
+	<%}else if(distance>5000 && distance<8000){ %>
 	9,
-	<%}else if(num>8000 && num<25000){ %>
+	<%}else if(distance>8000 && distance<25000){ %>
 	10,
-	<%}else if(num>18000 && num<40000){ %>
+	<%}else if(distance>18000 && distance<40000){ %>
 	11,
-	<%}else if(num>40000 && num<100000){ %>
+	<%}else if(distance>40000 && distance<100000){ %>
 	12,
-	<%}else if(num>100000 && num<200000){ %>
+	<%}else if(distance>100000 && distance<200000){ %>
 	13,
 	<%}else{ %>
 	14,
@@ -72,8 +68,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
 
 var linePath = [
-<% for(int i=0; i<list.size(); i++){%>	
-	new kakao.maps.LatLng(<%=list.get(i).getLatitude()%>,<%=list.get(i).getLongitude()%>),
+<% for(int i=0; i<locationList.size(); i++){%>	
+	new kakao.maps.LatLng(<%=locationList.get(i).getLatitude()%>,<%=locationList.get(i).getLongitude()%>),
 <%}%>
 ];
 //지도에 표시할 선을 생성합니다

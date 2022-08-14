@@ -12,6 +12,8 @@ public interface RunService {
 	
 	public List<RunVO> getMap(RunVO vo);
 	
+    public double distance(double lat1, double lon1, double lat2, double lon2);
+	
 	
 
 }
