@@ -28,8 +28,7 @@ public class RunDAO {
 		return sst.selectList("run.getMap", vo);
 	}
 	
-    public double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
-    	
+    public double distance(double lat1, double lon1, double lat2, double lon2) {
     	
     	
         
@@ -40,11 +39,7 @@ public class RunDAO {
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
          
-        if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
-        }
+        dist = dist * 1609.344;
  
         return (dist);
     }
