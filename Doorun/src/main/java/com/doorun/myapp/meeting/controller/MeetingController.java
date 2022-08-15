@@ -101,15 +101,10 @@ public class MeetingController {
 		return "team_list.jsp";
 	}
 	
-	@RequestMapping(value="/joinMeeting.do", method=RequestMethod.POST)
-	@ResponseBody
-	public Object joinMeeting(MeetingJoinVO vo){
-//		PrintWriter out = response.getWriter();
-		if(service.joinMeeting(vo)) {
-			return "y";
-		}else {
-			return "n";
-		}
+	@RequestMapping(value="/joinMeeting.do")
+	public String joinMeeting(MeetingJoinVO vo){
+		service.joinMeeting(vo);
+		return "redirect:meeting.do";
 	}
 	
 	@RequestMapping(value="/joinedMeeting.do")

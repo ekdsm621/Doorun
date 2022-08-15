@@ -97,7 +97,7 @@
 	<select id="getUserWithEmail" resultType="String">
 	<![CDATA[	
 	  SELECT NICKNAME FROM MEMBER
-	  WHERE EMAIL = #{email} 
+	  WHERE EMAIL = #{email}  AND MEMBER_TYPE = 'EMAIL'
 	]]>	
 	</select>
 	
@@ -125,13 +125,13 @@
 	
 	<update id="findPw" >
 	<![CDATA[
-		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}   AND MEMBER_TYPE = 'EMAIL'
 	]]>
 	</update>
 
 	<select id="findPwCheck" resultType="int">
 	<![CDATA[
-		select count(*) from MEMBER where EMAIL = #{email}
+		select count(*) from MEMBER where EMAIL = #{email} AND MEMBER_TYPE = 'EMAIL'
 	]]>
 	</select>
 	
@@ -175,6 +175,12 @@
 	<select id="nicknameCheck" resultType="int" parameterType="user">
 	<![CDATA[
 		select count(*) from MEMBER where NICKNAME = #{nickname} 
+	]]>
+	</select>
+	
+	<select id="phoneCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where phone = #{phone} 
 	]]>
 	</select>
 	
