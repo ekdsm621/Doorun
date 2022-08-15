@@ -18,7 +18,7 @@
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.9; background-size: cover;">
 
- <%@include file="/common_jsp/header.jsp" %>
+ <%@include file="/common_jsp/header_login.jsp" %>
 
 
 
@@ -92,7 +92,7 @@
 
 
                     <div class="col-12">
-                      <button class="btn btn-dark w-100" type="submit">가입</button> <p></p>
+                      <button id="submit" class="btn btn-dark w-100" type="submit" disabled>가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
                     </div>
                   </form>
@@ -155,9 +155,19 @@
   				if(resp == 'n'){
   					 $('.id_already').css("display","inline-block");
                      $('.id_ok').css("display", "none");
+                     $('#submit').attr('disabled', 'disabled');
   				}else{
-  					$('.id_ok').css("display","inline-block"); 
+  					if($("#id").val() != ""){
+		  				$('.id_ok').css("display","inline-block"); 
+  					}else{
+  						 $('.id_ok').css("display", "none");
+  					}
                     $('.id_already').css("display", "none");
+                    if($('.nickname_already').css("display")=="inline-block" || $('.nickname_ok').css("display")=="none" || $("#nickname").val() == "" ){
+                    	$('#submit').attr('disabled', 'disabled');	
+                    }else{
+	                    $('#submit').removeAttr("disabled");
+                    }
   				}
   			},
 	  		  error: function (request, status,error){
@@ -177,11 +187,19 @@
 	  				if(resp == 'n'){
 	  					 $('.nickname_already').css("display","inline-block");
 	                     $('.nickname_ok').css("display", "none");
-	                  
-	                     
+	                     $('#submit').attr('disabled', 'disabled');
 	  				}else{
-	  					$('.nickname_ok').css("display","inline-block"); 
+	  					if($("#nickname").val() != ""){
+		  					$('.nickname_ok').css("display","inline-block"); 
+	  					}else{
+	  		                 $('.nickname_ok').css("display", "none");
+	  					}
 	                    $('.nickname_already').css("display", "none");
+	                    if($('.id_already').css("display")=="inline-block" || $('.id_ok').css("display")=="none" || $("#id").val() == "" ){
+	                    	$('#submit').attr('disabled', 'disabled');	
+	                    }else{
+		                    $('#submit').removeAttr("disabled");
+	                    }
 	  				}
 	  			},
 		  		  error: function (request, status,error){

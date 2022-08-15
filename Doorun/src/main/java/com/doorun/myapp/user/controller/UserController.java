@@ -52,7 +52,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "/index.jsp";  
 		} else
-			session.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			session.setAttribute("errMsg", "�븘�씠�뵒 �삉�뒗 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎.");
 			return "login.jsp";
 	}
 	
@@ -97,8 +97,8 @@ public class UserController {
             numStr+=ran;
         }
 
-        System.out.println("수신자 번호 : " + phoneNumber);
-        System.out.println("인증번호 : " + numStr);
+        System.out.println("�닔�떊�옄 踰덊샇 : " + phoneNumber);
+        System.out.println("�씤利앸쾲�샇 : " + numStr);
         userService.certifiedPhoneNumber(phoneNumber,numStr);
         return numStr;
     }
@@ -116,6 +116,7 @@ public class UserController {
 			String newFileName =now + ext;
 			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/profile_img/"+newFileName));
 			vo.setProfile_image(newFileName);
+			session.setAttribute("profile_image", vo.getProfile_image());
 			userService.update(vo);
 		}else {
 			userService.update2(vo);
@@ -137,7 +138,7 @@ public class UserController {
 			userService.updatePassword(vo);
 			return "UserSetting.do";
 		}else {
-			System.out.println("실패");
+			System.out.println("�떎�뙣");
 			return "UserSetting.do";
 		}
 	}
@@ -150,15 +151,15 @@ public class UserController {
 		vo.setNickname(nickename);
 		
 		if(userService.findPwCheck(vo)==0) {
-			System.out.println("아이디와 이메일를 확인해주세요");
-			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
+			System.out.println("�븘�씠�뵒�� �씠硫붿씪瑜� �솗�씤�빐二쇱꽭�슂");
+			model.addAttribute("msg1", "이메일을 다시 입력해주세요");
 			
 			return "findPw.jsp";
 		}else {
 			userService.sendEmail(vo,session);
 			model.addAttribute("member", vo.getEmail());
-		
-			return "updateUser.jsp";
+			model.addAttribute("msg2" ,"임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
+			return "/findPw.jsp";
 		}
 	}
 	
@@ -189,13 +190,13 @@ public class UserController {
 		
 
 		
-		// 프로필 + 요약
+		// �봽濡쒗븘 + �슂�빟
 		UserVO userDesc = userService.getUserDesc(vo);
 		
-		// 1. 거리
+		// 1. 嫄곕━
 		userDesc.setTotal_distance((double)Math.round(userDesc.getTotal_distance()*100)/100);
 		
-		// 2. 시간
+		// 2. �떆媛�
 		double duration = userDesc.getTotal_duration();
 		int totalHour = (int)(duration / 3600);
 		duration -= totalHour * 3600;
@@ -223,7 +224,7 @@ public class UserController {
 		double pace;
 		int paceMin;
 		int paceSec;
-		// 3. 페이스
+		// 3. �럹�씠�뒪
 		if(userDesc.getTotal_distance()==0) {
 			pace=0;
 			paceMin=0;
@@ -242,10 +243,10 @@ public class UserController {
 		model.addAttribute("paceMin",paceMin);
 		model.addAttribute("paceSec",paceSec_str);
 		
-		// 활동 기록
+		// �솢�룞 湲곕줉
 		List<RunVO> userRecordList = userService.getUserRecordList(vo);
 		for(RunVO run:userRecordList) {
-			// 시간
+			// �떆媛�
 			int runDuration = Integer.parseInt(run.getDuration());
 			
 			int tempDuration = runDuration;
@@ -271,17 +272,17 @@ public class UserController {
 			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
 			run.setDuration(strDuration);
 			
-			//소수점 버림
+			//�냼�닔�젏 踰꾨┝
 			String distance =String.format("%.2f", Double.parseDouble(run.getDistance()));
 			run.setDistance(distance);
 			
-			// 페이스
+			// �럹�씠�뒪
 			double runDistance = Double.parseDouble(run.getDistance());
 			
 			double runPace;
 			int runPaceMin;
 			int runPaceSec;
-			// 3. 페이스
+			// 3. �럹�씠�뒪
 			if(runDistance==0) {
 				runPace=0;
 				runPaceMin=0;
@@ -302,14 +303,14 @@ public class UserController {
 		}
 		model.addAttribute("userRecordList", userRecordList);
 		
-		// 가입한 크루
+		// 媛��엯�븳 �겕猷�
 		model.addAttribute("joinedCrewList", userService.getJoinedCrewList(vo));
 		
-		//그래프 거리 
+		//洹몃옒�봽 嫄곕━ 
 		UserVO graph = userService.recordForGraph(vo);
 		model.addAttribute("graph",graph);
 		
-		//그래프 날짜값
+		//洹몃옒�봽 �궇吏쒓컪
 		UserVO date = userService.dateForGraph(vo);
 		model.addAttribute("date",date);
 		
@@ -360,6 +361,39 @@ public class UserController {
 		
 		return check;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/passwordcheck.do" , method=RequestMethod.POST)
+	public String PasswordCheck(String password , HttpSession session) throws Exception {
+		System.out.println("asfasfasfasf");
+		String id = (String) session.getAttribute("id");
+		String savedPassword = userService.passwordCheck(id);
+		
+		String check = null;
+		
+		if (savedPassword.equals(password)) {
+			check = "y";
+		}else {
+			check = "n";
+		}
+		
+		return check;
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value = "/phonecheck.do" ,  method=RequestMethod.POST)
+		public String PhoneCheck(String phone) throws Exception {
+			String check = null;
+			int result = userService.PhoneCheck(phone);
+			if (result == 1) {
+				check = "n";
+			}else {
+				check = "y";
+			}
+		
+			return check;
+		}
+	
 	
 	
 

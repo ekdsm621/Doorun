@@ -141,6 +141,11 @@ public class UserServiceImp implements UserService {
 	public UserVO dateForGraph(UserVO vo) {
 		return userDAO.dateForGraph(vo);
 	}
+
+	@Override
+	public int PhoneCheck(String phone) {
+		return userDAO.PhoneCheck(phone);
+	}
 	
 	
 	
