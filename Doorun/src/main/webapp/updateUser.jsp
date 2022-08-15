@@ -194,35 +194,35 @@
 	  
 	  
 	  function passwordCheck(){
-    		$.ajax({
-    			url : "/passwordcheck.do" ,
-    			type : "POST",
-    			data : {"password" : $("#currentPassword").val()},
-    			success : function(resp){
-    				if(resp == 'n'){
-    					if($("#currentPassword").val() != ""){
-    						$('.pw_no').css("display","inline-block");	
-    					}else{
-    						$('.pw_no').css("display","none");
-    					}
-    		             $('.pw_ok').css("display", "none");
-    		             $('#submit').attr('disabled', 'disabled');
-    				}else{
-    					$('.pw_ok').css("display","inline-block"); 
-    		            $('.pw_no').css("display", "none");
-    		            if( $('.pw_check_no').css("display") == "inline-block"  || $("#currentPassword").val() == ""  || $("#password").val() =="" || $("#password_check").val() ==""){
-   			             $('#submit').attr('disabled', 'disabled');
-   		            }else{
-   		            	$('#submit').removeAttr("disabled");
-   		            }
-    				}
-    			},
-  	  		  error: function (request, status,error){
-  	  			alert(data);
-  	  	        alert(error+" " + request.status + " " + request.responseText);
-  	  	    }
-    		})
-    	}
+  		$.ajax({
+  			url : "/passwordcheck.do" ,
+  			type : "POST",
+  			data : {"password" : $("#currentPassword").val()},
+  			success : function(resp){
+  				if(resp == 'n'){
+  					if($("#currentPassword").val() != ""){
+  						$('.pw_no').css("display","inline-block");	
+  					}else{
+  						$('.pw_no').css("display","none");
+  					}
+  		             $('.pw_ok').css("display", "none");
+  		             $('#submit').attr('disabled', 'disabled');
+  				}else{
+  					$('.pw_ok').css("display","inline-block"); 
+  		            $('.pw_no').css("display", "none");
+  		            if( $('.pw_check_no').css("display") == "inline-block"  || $("#currentPassword").val() == ""  || $("#password").val() =="" || $("#password_check").val() ==""){
+ 			             $('#submit').attr('disabled', 'disabled');
+ 		            }else{
+ 		            	$('#submit').removeAttr("disabled");
+ 		            }
+  				}
+  			},
+	  		  error: function (request, status,error){
+	  			alert(data);
+	  	        alert(error+" " + request.status + " " + request.responseText);
+	  	    }
+  		})
+  	}
 	  
 	  
 	 	function newpasswordCheck() {
