@@ -13,7 +13,6 @@
 }
 
 body {
-  font-family: 'Do Hyeon','Open Sans', sans-serif;
   background: #ffffff;
   color: #444444;
 }
@@ -29,7 +28,6 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Do Hyeon','Open Sans', sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -225,7 +223,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 25px;
   font-weight: 500;
   color: #012970;
-  font-family: 'Do Hyeon','Open Sans', sans-serif;
 }
 .card-title span {
   color: #899bbd;
@@ -244,7 +241,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Alerts */
 .alert-heading {
   font-weight: 500;
-  font-family: 'Do Hyeon','Open Sans', sans-serif;
   font-size: 20px;
 }
 
@@ -289,7 +285,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Breadcrumbs */
 .breadcrumb {
   font-size: 14px;
-  font-family: 'Do Hyeon','Open Sans', sans-serif;
   color: #899bbd;
   font-weight: 600;
 }
