@@ -104,7 +104,7 @@ public class UserController {
     }
 	
 	@RequestMapping("/updateUser.do")
-	public String updateUser(UserVO vo) throws IllegalStateException, IOException {
+	public String updateUser(UserVO vo , HttpSession session) throws IllegalStateException, IOException {
 		
 		MultipartFile uploadFile = vo.getImageFile();
 		
