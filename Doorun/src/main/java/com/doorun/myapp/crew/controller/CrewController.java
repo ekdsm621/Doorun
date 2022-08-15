@@ -2,7 +2,9 @@ package com.doorun.myapp.crew.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +52,11 @@ public class CrewController {
 		
 		if(!upload_file1.isEmpty()) {
 			String fileName1 = upload_file1.getOriginalFilename();
-			upload_file1.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+fileName1));
-			vo.setImage_file(fileName1);
+			String now =new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
+			String ext = fileName1.substring(fileName1.lastIndexOf("."));
+			String newFileName =now + ext;
+			upload_file1.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+newFileName));
+			vo.setImage_file(newFileName);
 		}else {
 			vo.setImage_file("");
 		}
@@ -60,8 +65,11 @@ public class CrewController {
 		
 		if(!upload_file2.isEmpty()) {
 			String fileName2 = upload_file2.getOriginalFilename();
-			upload_file2.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+fileName2));
-			vo.setBackground_img(fileName2);
+			String now =new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
+			String ext = fileName2.substring(fileName2.lastIndexOf("."));
+			String newFileName =now + ext;
+			upload_file2.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+newFileName));
+			vo.setBackground_img(newFileName);
 		}else {
 			vo.setBackground_img("");
 		}
@@ -107,13 +115,19 @@ public class CrewController {
 			,@RequestParam(value="id", required=true)String id
 			,@RequestParam(value="nowPage", required=false)String nowPage
 			,@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		model.addAttribute("detailCrew", crewService.detailCrew(vo));
+		
+		CrewVO crew = crewService.detailCrew(vo);
+		crew.setMaster(crewService.getCrewMemberNickName(crew.getMaster()));
+		
+		model.addAttribute("detailCrew", crew);
 		model.addAttribute("masterImage", crewService.getCrewMasterImage(vo));
 		
 		List<UserVO> crewMemberList = crewService.getCrewMember(vo);
 		List<String> total_durationList = new ArrayList<String>();
 		List<String> paceList = new ArrayList<String>();
 		for(UserVO run:crewMemberList) {
+			
+			run.setTotal_distance((double)Math.round(run.getTotal_distance()*100)/100);
 			
 			// 2. 시간
 			double duration = run.getTotal_duration();
@@ -140,23 +154,40 @@ public class CrewController {
 			
 			total_durationList.add(total_druation);
 			
-			// 3. 페이스
-			double pace = run.getTotal_duration() / run.getTotal_distance();
-			int paceMin = (int)(pace / 60);
-			int paceSec = (int)(pace % 60);
 			
+			
+			double pace;
+			int paceMin;
+			int paceSec;
+			// 3. 페이스
+			if(run.getTotal_distance()==0) {
+				pace=0;
+				paceMin=0;
+				paceSec=0;
+			}else {
+				pace = run.getTotal_duration() / run.getTotal_distance();
+				paceMin = (int)(pace / 60);
+				paceSec = (int)(pace % 60);
+			}
+			
+
 			String paceSec_str = Integer.toString(paceSec);
 			if(paceSec_str.length()==1) {
 				paceSec_str= "0"+paceSec_str;
 			}
 			
-			String pace_str = paceMin+"'"+paceSec_str+"'";
+			String pace_str = paceMin+"'"+paceSec_str+"''";
 			paceList.add(pace_str);
 			
 		}
 		
 		List<RunVO> getCrewRecentRecord = crewService.getCrewRecentRecord(vo);
 		for(RunVO run:getCrewRecentRecord) {
+			
+			run.setMember_id((String)crewService.getCrewMemberNickName(run.getMember_id()));
+			
+			
+			
 			// 시간
 			int runDuration = Integer.parseInt(run.getDuration());
 			
@@ -183,11 +214,26 @@ public class CrewController {
 			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
 			run.setDuration(strDuration);
 			
+			//소수점 버림
+			String distance =String.format("%.2f", Double.parseDouble(run.getDistance()));
+			run.setDistance(distance);
+			
 			// 페이스
 			double runDistance = Double.parseDouble(run.getDistance());
-			double runPace = runDuration / runDistance;
-			int runPaceMin = (int)(runPace / 60);
-			int runPaceSec = (int)(runPace % 60);
+			double runPace;
+			int runPaceMin;
+			int runPaceSec;
+			// 3. 페이스
+			if(runDistance==0) {
+				runPace=0;
+				runPaceMin=0;
+				runPaceSec=0;
+			}else {
+				runPace = runDuration / runDistance;
+				runPaceMin = (int)(runPace / 60);
+				runPaceSec = (int)(runPace % 60);
+			}
+
 			
 			String runPaceSec_str = Integer.toString(runPaceSec);
 			if(runPaceSec_str.length()==1) {

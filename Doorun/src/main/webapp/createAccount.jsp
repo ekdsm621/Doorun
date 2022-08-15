@@ -201,6 +201,10 @@
                               'success'
                           )
                       document.getElementById('phone').value=phoneNumber ; 
+                	  $("#sendSMS").removeClass("in");
+                	  $(".modal-backdrop").remove();
+                	  $('body').removeClass('modal-open');
+                	  $('body').css('padding-right', '');
                       $('#sendSMS').modal('hide')
   
                   }else{

@@ -21,6 +21,7 @@ public interface CrewService {
 	public void minusCrewMember(CrewVO vo);
 	public List<RunVO> getCrewRecentRecord(CrewVO vo);
 	public String  getCrewMasterImage(CrewVO vo);
+	public String getCrewMemberNickName(String Member_id);
 	
 
 }

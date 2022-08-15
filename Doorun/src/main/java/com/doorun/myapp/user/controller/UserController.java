@@ -3,6 +3,8 @@ package com.doorun.myapp.user.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -82,12 +84,11 @@ public class UserController {
 		}
 		return "login.jsp";
 	}
+	
 	@ResponseBody
 	@RequestMapping("/sendSMS.do")
 	public String sendSMS(String phoneNumber) {
 		
-		
-		System.out.println("컨트롤러");
 
         Random rand  = new Random();
         String numStr = "";
@@ -107,10 +108,14 @@ public class UserController {
 		
 		MultipartFile uploadFile = vo.getImageFile();
 		
+		
 		if(!uploadFile.isEmpty()) {
 			String fileName = uploadFile.getOriginalFilename();
-			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/profile_img/"+fileName));
-			vo.setProfile_image(fileName);
+			String now =new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
+			String ext = fileName.substring(fileName.lastIndexOf("."));
+			String newFileName =now + ext;
+			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/profile_img/"+newFileName));
+			vo.setProfile_image(newFileName);
 			userService.update(vo);
 		}else {
 			userService.update2(vo);
@@ -144,18 +149,16 @@ public class UserController {
 		
 		vo.setNickname(nickename);
 		
-		System.out.println("1");
 		if(userService.findPwCheck(vo)==0) {
 			System.out.println("아이디와 이메일를 확인해주세요");
 			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
 			
-			return "";
+			return "findPw.jsp";
 		}else {
-			System.out.println("2");
 			userService.sendEmail(vo,session);
 			model.addAttribute("member", vo.getEmail());
 		
-		return"";
+			return "updateUser.jsp";
 		}
 	}
 	
@@ -217,11 +220,19 @@ public class UserController {
 		model.addAttribute("totalMin",totalMin_str);
 		model.addAttribute("totalSec",totalSec_str);
 		
-		
+		double pace;
+		int paceMin;
+		int paceSec;
 		// 3. 페이스
-		double pace = userDesc.getTotal_duration() / userDesc.getTotal_distance();
-		int paceMin = (int)(pace / 60);
-		int paceSec = (int)(pace % 60);
+		if(userDesc.getTotal_distance()==0) {
+			pace=0;
+			paceMin=0;
+			paceSec=0;
+		}else {
+			pace = userDesc.getTotal_duration() / userDesc.getTotal_distance();
+			paceMin = (int)(pace / 60);
+			paceSec = (int)(pace % 60);
+		}
 		
 		String paceSec_str = Integer.toString(paceSec);
 		if(paceSec_str.length()==1) {
@@ -260,18 +271,33 @@ public class UserController {
 			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
 			run.setDuration(strDuration);
 			
+			//소수점 버림
+			String distance =String.format("%.2f", Double.parseDouble(run.getDistance()));
+			run.setDistance(distance);
+			
 			// 페이스
 			double runDistance = Double.parseDouble(run.getDistance());
-			double runPace = runDuration / runDistance;
-			int runPaceMin = (int)(runPace / 60);
-			int runPaceSec = (int)(runPace % 60);
+			
+			double runPace;
+			int runPaceMin;
+			int runPaceSec;
+			// 3. 페이스
+			if(runDistance==0) {
+				runPace=0;
+				runPaceMin=0;
+				runPaceSec=0;
+			}else {
+				runPace = runDuration / runDistance;
+				runPaceMin = (int)(runPace / 60);
+				runPaceSec = (int)(runPace % 60);
+			}
 			
 			String runPaceSec_str = Integer.toString(runPaceSec);
 			if(runPaceSec_str.length()==1) {
 				runPaceSec_str= "0"+runPaceSec_str;
 			}
 			
-			String strRunPace = runPaceMin + "'" + runPaceSec + "''";
+			String strRunPace = runPaceMin + "'" + runPaceSec_str + "''";
 			run.setAvg_speed(strRunPace);
 		}
 		model.addAttribute("userRecordList", userRecordList);

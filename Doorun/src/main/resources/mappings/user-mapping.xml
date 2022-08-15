@@ -147,7 +147,7 @@
 	  <![CDATA[
 		  SELECT *
 		  FROM JOURNEY
-		  WHERE MEMBER_ID = #{id}
+		  WHERE MEMBER_ID = #{id} ORDER BY RUNNING_DATE DESC
 	  ]]>	
 	</select>
 	

@@ -2,6 +2,8 @@ package com.doorun.myapp.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,12 +34,15 @@ public class BoardController {
 		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
 		if(!uploadFile.isEmpty()) {
 			String fileName = uploadFile.getOriginalFilename();
-			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/free_board/"+fileName));
-			vo.setImage_file(fileName);
+			String now =new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
+			String ext = fileName.substring(fileName.lastIndexOf("."));
+			String newFileName =now + ext;
+			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/free_board/"+newFileName));
+			vo.setImage_file(newFileName);
 		}else {
 			vo.setImage_file("");
 		}
-		vo.setWriter((String)session.getAttribute("id"));
+		vo.setWriter((String)session.getAttribute("nickname"));
 		
 		dao.insertBaord(vo);
 		
@@ -113,8 +118,8 @@ public class BoardController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		System.out.println("ÇÊµå"+vo.getSearchField());
-		System.out.println("Å°¿öµå"+vo.getSearchKeyword());
+		System.out.println("ï¿½Êµï¿½"+vo.getSearchField());
+		System.out.println("Å°ï¿½ï¿½ï¿½ï¿½"+vo.getSearchKeyword());
 		
 		
 		vo.setBoard_id(Integer.parseInt(id));

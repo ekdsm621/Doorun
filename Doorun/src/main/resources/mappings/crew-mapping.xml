@@ -5,7 +5,7 @@
 	<insert id ="insertCrew">
 	  <![CDATA[
 	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, BACKGROUND_IMG, DESCRIBE, AREA)	  
-	  		VALUES ( (SELECT NVL(MAX(ID),0)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{background_img}, #{describe},#{area})	
+	  		VALUES ( (SELECT NVL(MAX(ID),1)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{background_img}, #{describe},#{area})	
 	  ]]>	
 	</insert>
 	
@@ -101,6 +101,14 @@
 		<![CDATA[
 			SELECT profile_image FROM MEMBER 
 			WHERE ID = (SELECT MASTER FROM CREW WHERE ID=#{id })
+		]]>
+	
+	</select>
+	
+	<select id="getCrewMemberNickName" resultType="String">
+		<![CDATA[
+			SELECT NICKNAME FROM MEMBER
+			WHERE ID = #{id}
 		]]>
 	
 	</select>

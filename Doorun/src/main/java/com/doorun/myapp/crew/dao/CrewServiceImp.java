@@ -76,6 +76,13 @@ public class CrewServiceImp implements CrewService {
 	public String getCrewMasterImage(CrewVO vo) {
 		return crewDAO.getCrewMasterImage(vo);
 	}
+
+	@Override
+	public String getCrewMemberNickName(String Member_id) {
+		return crewDAO.getCrewMemberNickName(Member_id);
+	}
+	
+	
 	
 	
 	
