@@ -97,14 +97,12 @@ public class UserController {
             numStr+=ran;
         }
 
-        System.out.println("�닔�떊�옄 踰덊샇 : " + phoneNumber);
-        System.out.println("�씤利앸쾲�샇 : " + numStr);
         userService.certifiedPhoneNumber(phoneNumber,numStr);
         return numStr;
     }
 	
 	@RequestMapping("/updateUser.do")
-	public String updateUser(UserVO vo) throws IllegalStateException, IOException {
+	public String updateUser(UserVO vo , HttpSession session) throws IllegalStateException, IOException {
 		
 		MultipartFile uploadFile = vo.getImageFile();
 		
@@ -138,7 +136,6 @@ public class UserController {
 			userService.updatePassword(vo);
 			return "UserSetting.do";
 		}else {
-			System.out.println("�떎�뙣");
 			return "UserSetting.do";
 		}
 	}
@@ -151,7 +148,6 @@ public class UserController {
 		vo.setNickname(nickename);
 		
 		if(userService.findPwCheck(vo)==0) {
-			System.out.println("�븘�씠�뵒�� �씠硫붿씪瑜� �솗�씤�빐二쇱꽭�슂");
 			model.addAttribute("msg1", "이메일을 다시 입력해주세요");
 			
 			return "findPw.jsp";
