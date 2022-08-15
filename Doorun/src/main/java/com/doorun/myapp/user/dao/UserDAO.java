@@ -81,7 +81,7 @@ public class UserDAO {
 		public int findPwCheck(UserVO vo)throws Exception{
 			return sst.selectOne("UserDAO.findPwCheck", vo);	
 		}
-
+		
 
 		public int findPw(String email,String password)throws Exception{
 			Map<String,Object> map = new HashMap<String, Object>();
@@ -165,6 +165,10 @@ public class UserDAO {
 		
 		public int NicknameCheck(String nickname) {
 			return sst.selectOne("UserDAO.nicknameCheck" , nickname);
+		}
+		
+		public int PhoneCheck(String phone) {
+			return sst.selectOne("UserDAO.phoneCheck" , phone);
 		}
 		
 		public UserVO recordForGraph(UserVO vo){

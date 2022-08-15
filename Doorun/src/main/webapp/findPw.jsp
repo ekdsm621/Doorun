@@ -13,7 +13,7 @@
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.9; background-size: cover;">
 
-<%@include file="/common_jsp/header.jsp" %>
+<%@include file="/common_jsp/header_login.jsp" %>
 
 
 
@@ -47,12 +47,15 @@
                         <input type="text" name="email" class="form-control" id="email" placeholder="이메일" required>
                         <div class="invalid-feedback">이메일을 입력해주세요</div>
                       </div>
+                       <span style="color:red;">${msg1}</span>
+                       <span style="color:green;">${msg2}</span>
                     </div>
 
 
                     <div class="col-12">
                       <button class="btn btn-dark w-100" type="submit">찾기</button> <p></p>
                       <p class="small mb-0">계정이 없으신가요? <a href="createAccount.jsp">회원가입</a></p>
+                      <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
                     </div>
                   </form>
 

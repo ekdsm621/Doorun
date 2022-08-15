@@ -28,7 +28,7 @@
  	  <div class="container-fluid">
 	          	<div class="team-body" style="margin-top:100px">
 	          		<table class="table table-striped table-hover table-borderless" style=" border:#dddddd;">
- 	  				<h2>마라톤</h2><p>
+ 	  				<h2 style="font-weight:bold;">마라톤</h2><p>
 	          			<thead>
 			        		<tr>	        				        			
 			        			<th style="background-color: #fafafa; text-align: center;">날짜</th>

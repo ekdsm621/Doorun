@@ -18,7 +18,7 @@
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.9; background-size: cover;">
 
- <%@include file="/common_jsp/header.jsp" %>
+ <%@include file="/common_jsp/header_login.jsp" %><p>
 
 
 
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="col-12">
-                      <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호" required>
+                      <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호" oninput="pwCheck()" required>
                       <div class="invalid-feedback">비밀번호를 입력해주세요</div>
                     </div>
                     
@@ -89,8 +89,10 @@
                       <div class="invalid-feedback">닉네임을 입력해주세요</div>
                     </div>
                     <div class="col-12">
-                      <input id="phone" type="text" name="phone" class="form-control" placeholder="휴대전화" readonly>
+                      <input id="phone" type="text" name="phone" class="form-control" placeholder="휴대전화"   readonly>
                       <div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
+                       <span class="phone_ok" style="display:none; color:green;">사용가능한 번호 입니다</span>
+					   <span class="phone_already" style="display:none; color:red;" >중복된 번호 입니다</span>
                     </div>
                     <div class="col-12" data-bs-toggle="modal" data-bs-target="#sendSMS" >
                         <button type="button" class="btn btn-dark w-100">휴대폰 본인인증</button>
@@ -132,8 +134,9 @@
 					
 
                     <div class="col-12">
-                      <button id="submit" class="btn btn-dark w-100" type="submit" >가입</button> <p></p>
+                      <button id="submit" class="btn btn-dark w-100" type="submit" disabled >가입</button> <p></p>
                       <p class="small mb-0">이미 회원이신가요? <a href="login.jsp">로그인</a></p>
+                      <p class="small mb-0">비밀번호를 잊으셨나요? <a href="findPw.jsp">비밀번호 찾기</a></p>
                     </div>
                   </form>
      
@@ -180,6 +183,7 @@
           }).open();
       });
   }
+ 
   
   <!-- 문자인증 -->
   $('#sendPhoneNumber').click(function(){
@@ -194,6 +198,38 @@
           },
           success: function(res){
               $('#checkBtn').click(function(){
+            	  $.ajax({
+            			url : "/phonecheck.do" ,
+            			type : "POST",
+            			data : {"phone" : $("#inputPhone").val()},
+            			success : function(resp){
+            				if(resp == 'n'){
+            				   $('.phone_already').css("display","inline-block");
+                               $('.phone_ok').css("display", "none");
+                               $('#submit').attr('disabled', 'disabled');
+                               
+            				}else{
+            				  $('.phone_ok').css("display","inline-block"); 
+                              $('.phone_already').css("display", "none");
+                              if($('.id_already').css("display")=="inline-block" || $('.nickname_already').css("display")=="inline-block" || $('.pw_no').css("display")=="inline-block" 
+  	                    		|| $('.phone_ok').css("display")=="none" || $('.id_ok').css("display")=="none" || $('.nickname_ok').css("display")=="none"
+  	                    		|| $('.pw_ok').css("display")=="none" || $('.email_ok').css("display")=="none" || $('.email_already').css("display")=="inline-block"
+  	                    		|| $("#email").val() == "" || $("#id").val() == "" || $("#nickname").val() == "" || $("#password").val() == "" ){
+  	                    			$('#submit').attr('disabled', 'disabled');	  
+  	                    	  }else{
+  		                    		$('#submit').removeAttr("disabled");
+  	                    	  }
+								                              
+                             
+            				}
+            			},
+          	  		  error: function (request, status,error){
+          	  			alert(data);
+          	  	        alert(error+" " + request.status + " " + request.responseText);
+          	  	    }
+            		})
+            	  
+            	  
                   if($.trim(res) ==$('#certifiedNumber').val()){
                       Swal.fire(
                               '인증성공!',
@@ -201,7 +237,11 @@
                               'success'
                           )
                       document.getElementById('phone').value=phoneNumber ; 
-                      $('#sendSMS').modal('hide')
+                      $("#sendSMS").removeClass("in");
+                      $(".modal-backdrop").remove();
+                      $('body').removeClass('modal-open');
+                      $('body').css('padding-right', '');
+                       $('#sendSMS').modal('hide')                      
   
                   }else{
                       Swal.fire({
@@ -216,9 +256,6 @@
           }
       })
   });
-  
-  
-  
   
   	<!-- 이메일 중복검사 -->
   	function emailCheck(){
@@ -235,14 +272,23 @@
 	  				if(resp == 'n'){
 	  					 $('.email_already').css("display","inline-block");
 	                     $('.email_ok').css("display", "none");
+	                     $('#submit').attr('disabled', 'disabled');
 	  				}else{
 	  					$('.email_ok').css("display","inline-block"); 
 	                    $('.email_already').css("display", "none");
+	                    if($('.id_already').css("display")=="inline-block" || $('.nickname_already').css("display")=="inline-block" || $('.pw_no').css("display")=="inline-block" 
+	                    		|| $('.phone_ok').css("display")=="none" || $('.id_ok').css("display")=="none" || $('.nickname_ok').css("display")=="none"
+	                    		|| $('.pw_ok').css("display")=="none"  || $("#id").val() == "" || $("#nickname").val() == "" || $("#password").val() == "" ){
+	                    	$('#submit').attr('disabled', 'disabled');	  
+	                    }else{
+		                    $('#submit').removeAttr("disabled");
+	                    }
 	  				}
   				}else{
   					$('.email_no').css("display","inline-block");
   					$('.email_ok').css("display", "none");
   					$('.email_already').css("display", "none");
+  					$('#submit').attr('disabled', 'disabled');
   				}
   			},
 	  		  error: function (request, status,error){
@@ -262,9 +308,21 @@
   				if(resp == 'n'){
   					 $('.id_already').css("display","inline-block");
                      $('.id_ok').css("display", "none");
+                     $('#submit').attr('disabled', 'disabled');
   				}else{
-  					$('.id_ok').css("display","inline-block"); 
+  					if($("#id").val() != ""){
+		  				$('.id_ok').css("display","inline-block"); 
+  					}else{
+  						 $('.id_ok').css("display", "none");
+  					}
                     $('.id_already').css("display", "none");
+                    if($('.email_already').css("display")=="inline-block" || $('.nickname_already').css("display")=="inline-block" || $('.pw_no').css("display")=="inline-block"  
+                    		|| $('.phone_ok').css("display")=="none" || $('.email_ok').css("display")=="none" || $('.nickname_ok').css("display")=="none"
+	                    	|| $('.pw_ok').css("display")=="none" || $("#email").val() == "" || $("#nickname").val() == "" || $("#password").val() == "" ){
+                    	$('#submit').attr('disabled', 'disabled');	
+                    }else{
+	                    $('#submit').removeAttr("disabled");
+                    }
   				}
   			},
 	  		  error: function (request, status,error){
@@ -284,11 +342,22 @@
 	  				if(resp == 'n'){
 	  					 $('.nickname_already').css("display","inline-block");
 	                     $('.nickname_ok').css("display", "none");
-	                  
+	                     $('#submit').attr('disabled', 'disabled');
 	                     
 	  				}else{
-	  					$('.nickname_ok').css("display","inline-block"); 
+	  					if($("#nickname").val() != ""){
+		  					$('.nickname_ok').css("display","inline-block"); 
+	  					}else{
+	  		                 $('.nickname_ok').css("display", "none");
+	  					}
 	                    $('.nickname_already').css("display", "none");
+	                    if($('.id_already').css("display")=="inline-block" || $('.email_already').css("display")=="inline-block" || $('.pw_no').css("display")=="inline-block"
+	                    	|| $('.phone_ok').css("display")=="none" || $('.id_ok').css("display")=="none" || $('.email_ok').css("display")=="none"
+	                    		|| $('.pw_ok').css("display")=="none" || $("#id").val() == "" || $("#email").val() == "" || $("#password").val() == "" ){
+	                    	$('#submit').attr('disabled', 'disabled');	
+	                    }else{
+		                    $('#submit').removeAttr("disabled");
+	                    }
 	  				}
 	  			},
 		  		  error: function (request, status,error){
@@ -305,14 +374,21 @@
   		if(p1 == p2){
   			$('.pw_ok').css("display","inline-block"); 
             $('.pw_no').css("display", "none");
+            if($('.id_already').css("display")=="inline-block" || $('.nickname_already').css("display")=="inline-block" || $('.email_already').css("display")=="inline-block"
+            	|| $('.phone_ok').css("display")=="none" || $('.id_ok').css("display")=="none" || $('.nickname_ok').css("display")=="none"
+            		|| $('.email_ok').css("display")=="none" || $("#id").val() == "" || $("#nickname").val() == "" || $("#email").val() == "" ){
+            	$('#submit').attr('disabled', 'disabled');	
+            }else{
+                $('#submit').removeAttr("disabled");
+            }
   		}else{
   			 $('.pw_no').css("display","inline-block");
              $('.pw_ok').css("display", "none");
+             $('#submit').attr('disabled', 'disabled');
   		}
 	}
   	
-  	
-  	
+  
   	
   </script>
   

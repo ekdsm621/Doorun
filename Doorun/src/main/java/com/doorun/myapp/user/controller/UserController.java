@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,7 +104,7 @@ public class UserController {
     }
 	
 	@RequestMapping("/updateUser.do")
-	public String updateUser(UserVO vo) throws IllegalStateException, IOException {
+	public String updateUser(UserVO vo , HttpSession session) throws IllegalStateException, IOException {
 		
 		MultipartFile uploadFile = vo.getImageFile();
 		
@@ -111,6 +112,7 @@ public class UserController {
 			String fileName = uploadFile.getOriginalFilename();
 			uploadFile.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/profile_img/"+fileName));
 			vo.setProfile_image(fileName);
+			session.setAttribute("profile_image", vo.getProfile_image());
 			userService.update(vo);
 		}else {
 			userService.update2(vo);
@@ -147,15 +149,16 @@ public class UserController {
 		System.out.println("1");
 		if(userService.findPwCheck(vo)==0) {
 			System.out.println("아이디와 이메일를 확인해주세요");
-			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
+			model.addAttribute("msg1", "이메일을 다시 입력해주세요");
 			
-			return "";
+			return "/findPw.jsp";
 		}else {
 			System.out.println("2");
 			userService.sendEmail(vo,session);
 			model.addAttribute("member", vo.getEmail());
+			model.addAttribute("msg2" ,"임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
 		
-		return"";
+		return "/findPw.jsp";
 		}
 	}
 	
@@ -334,6 +337,40 @@ public class UserController {
 		
 		return check;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/passwordcheck.do" , method=RequestMethod.POST)
+	public String PasswordCheck(String password , HttpSession session) throws Exception {
+		System.out.println("asfasfasfasf");
+		String id = (String) session.getAttribute("id");
+		String savedPassword = userService.passwordCheck(id);
+		
+		String check = null;
+		
+		if (savedPassword.equals(password)) {
+			check = "y";
+		}else {
+			check = "n";
+		}
+		
+		return check;
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value = "/phonecheck.do" ,  method=RequestMethod.POST)
+		public String PhoneCheck(String phone) throws Exception {
+			String check = null;
+			int result = userService.PhoneCheck(phone);
+			if (result == 1) {
+				check = "n";
+			}else {
+				check = "y";
+			}
+		
+			return check;
+		}
+	
+	
 	
 	
 
