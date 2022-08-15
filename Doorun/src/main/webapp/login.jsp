@@ -20,7 +20,7 @@
 </head>
 
 <body style="background-image: url(assets/img/pexels-pixabay-235922.jpg); opacity: 0.8; background-size: cover;">
-<%@include file="/common_jsp/header.jsp" %>
+<%@include file="/common_jsp/header_login.jsp" %>
   <main>
     <div class="container">
 
@@ -30,7 +30,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <div  class="logo d-flex align-items-center w-">
+                <div  class="logo d-flex align-items-center ">
                   <img src="assets/img/3289577_fast_run_running_icon.png" alt="">
                   <span class="d-none d-lg-block">DORUN DORUN</span>
                 </div>
