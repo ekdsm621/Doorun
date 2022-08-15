@@ -113,40 +113,15 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3 crew-join">
-                            <h3>친구 초대하기</h3>
-                            <p>친구와 함께 달리면 더 즐거워집니다.</p>
-                            <p>지금 바로 같이 크루 활동을 시작할 친구를 초대하세요!</p>
-                            <!-- 초대하기 modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#joinModal">
-                                초대하기
-                            </button>
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="joinModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="joinModalLabel">친구 초대하기</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit">Search</button>
-                                        </form>
-                                        <form>
-                                            <table class="table table-borderless align-middle">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><img src="/assets/img/messages-3.jpg" class="member-img"></td>
-                                                        <td>홍길동 <button class="btn btn-outline-danger">초대하기</button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                             <h3>크루 둘러보기</h3>
+                             <p>더 많은 크루에서 활동하고 싶으신가요?</p>
+                             <p>지금 바로 활동하고 싶은 크루를 찾아보세요!</p>
+                             <!-- 초대하기 modal -->
+                             <a href="/getCrewList.do">
+                             <button type="button" class="btn btn-danger">
+                                 크루 찾기로 이동
+                             </button>
+                             </a>
                         </div>
                     </div>
                 </div>
@@ -170,40 +145,15 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3 crew-join">
-                            <h3>친구 초대하기</h3>
-                            <p>친구와 함께 달리면 더 즐거워집니다.</p>
-                            <p>지금 바로 같이 크루 활동을 시작할 친구를 초대하세요!</p>
-                            <!-- 초대하기 modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#joinModal">
-                                초대하기
-                            </button>
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="joinModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="joinModalLabel">친구 초대하기</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit">Search</button>
-                                        </form>
-                                        <form>
-                                            <table class="table table-borderless align-middle">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><img src="/assets/img/messages-3.jpg" class="member-img"></td>
-                                                        <td>홍길동 <button class="btn btn-outline-danger">초대하기</button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                             <h3>크루 둘러보기</h3>
+                             <p>더 많은 크루에서 활동하고 싶으신가요?</p>
+                             <p>지금 바로 활동하고 싶은 크루를 찾아보세요!</p>
+                             <!-- 초대하기 modal -->
+                             <a href="/getCrewList.do">
+                             <button type="button" class="btn btn-danger">
+                                 크루 찾기로 이동
+                             </button>
+                             </a>
                         </div>
                     </div>
                 </div>
@@ -239,42 +189,16 @@
                             </div>
                             <div class="col-1"></div>
                             <div class="col-3 crew-join">
-                                <h3>친구 초대하기</h3>
-                                <p>친구와 함께 달리면 더 즐거워집니다.</p>
-                                <p>지금 바로 같이 크루 활동을 시작할 친구를 초대하세요!</p>
+                                <h3>크루 둘러보기</h3>
+                                <p>더 많은 크루에서 활동하고 싶으신가요?</p>
+                                <p>지금 바로 활동하고 싶은 크루를 찾아보세요!</p>
                                 <!-- 초대하기 modal -->
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#joinModal">
-                                    초대하기
+                                <a href="/getCrewList.do">
+                                <button type="button" class="btn btn-danger">
+                                    크루 찾기로 이동
                                 </button>
+                                </a>
                             </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="joinModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="joinModalLabel">친구 초대하기</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="d-flex">
-                                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                                <button class="btn btn-outline-success" type="submit">Search</button>
-                                            </form>
-                                            <form>
-                                                <table class="table table-borderless align-middle">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><img src="/assets/img/messages-3.jpg" class="member-img"></td>
-                                                            <td>홍길동 <button class="btn btn-outline-danger">초대하기</button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -327,40 +251,15 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3 crew-join">
-                            <h3>친구 초대하기</h3>
-                            <p>친구와 함께 달리면 더 즐거워집니다.</p>
-                            <p>지금 바로 같이 크루 활동을 시작할 친구를 초대하세요!</p>
-                            <!-- 초대하기 modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#joinModal">
-                                초대하기
-                            </button>
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="joinModal" tabindex="-1" aria-labelledby="joinModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="joinModalLabel">친구 초대하기</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit">Search</button>
-                                        </form>
-                                        <form>
-                                            <table class="table table-borderless align-middle">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><img src="/assets/img/messages-3.jpg" class="member-img"></td>
-                                                        <td>홍길동 <button class="btn btn-outline-danger">초대하기</button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                             <h3>크루 둘러보기</h3>
+                             <p>더 많은 크루에서 활동하고 싶으신가요?</p>
+                             <p>지금 바로 활동하고 싶은 크루를 찾아보세요!</p>
+                             <!-- 초대하기 modal -->
+                             <a href="/getCrewList.do">
+                             <button type="button" class="btn btn-danger">
+                                 크루 찾기로 이동
+                             </button>
+                             </a>
                         </div>
                     </div>
                 </div>
