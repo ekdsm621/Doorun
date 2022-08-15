@@ -128,6 +128,7 @@
           });
       }
       -->
+      window.Kakao.init('a86d3c36ccc01996ba44e0964be7fe82');
       function loginWithKakao() {
       Kakao.Auth.login({
     	    success: function(authObj) {
