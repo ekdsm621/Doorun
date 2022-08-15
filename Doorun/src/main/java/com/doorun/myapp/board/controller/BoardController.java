@@ -55,10 +55,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/reply.do")
-	public String insertReply(ReplyVO vo) {
+	public String insertReply(ReplyVO vo, HttpServletRequest request) {
 		vo.setContent(vo.getContent().replace("\r\n", "<br>"));
+		String board_id = request.getParameter("board_cate_id");
 		dao.insertReply(vo);
-		String returnDetail = "redirect:detailBoard.do?id="+vo.getBoard_id();
+		
+		String returnDetail = "redirect:detailBoard.do?id="+vo.getBoard_id()+"&board_id="+board_id;
 		return returnDetail;
 	}
 	
