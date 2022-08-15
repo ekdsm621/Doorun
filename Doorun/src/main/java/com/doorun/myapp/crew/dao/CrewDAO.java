@@ -71,8 +71,12 @@ public class CrewDAO {
 		return sst.selectList("Crew.getCrewRecentRecord",vo);
 	}
 	
-	public String  getCrewMasterImage(CrewVO vo) {
+	public String getCrewMasterImage(CrewVO vo) {
 		return sst.selectOne("Crew.getCrewMasterImage",vo);
+	}
+	
+	public String getCrewMemberNickName(String Member_id) {
+		return sst.selectOne("Crew.getCrewMemberNickName",Member_id);
 	}
 	
 	

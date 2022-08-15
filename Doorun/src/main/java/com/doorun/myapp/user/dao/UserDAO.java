@@ -88,16 +88,11 @@ public class UserDAO {
 			map.put("email", email);
 			map.put("password", password);
 			return sst.update("UserDAO.findPw", map);
-			
 		}
 		
 		public void sendEmail(UserVO vo, HttpSession session)throws Exception{
 			
-
-			
 			String memberKey = new TempKey().getKey(6,false);
-//			String memberPw = BCrypt.hashpw(memberKey,BCrypt.gensalt());
-			
 			
 			String email = vo.getEmail();
 			System.out.println(email);

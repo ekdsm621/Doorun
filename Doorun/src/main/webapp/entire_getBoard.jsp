@@ -74,7 +74,7 @@
 	            <!-- Horizontal Form -->
 	            <form action="/reply.do" method="post">
 	            	<input type="hidden" name="board_id" value="${board.id }">
-	            	<input type="hidden" name="writer" value="${id }">
+	            	<input type="hidden" name="writer" value=<%=session.getAttribute("nickname") %>>
 	                <div class="row mb-1 mx-auto" style="padding: 10px;">
 	                    <label class="col-sm-1 col-form-label">댓글 입력: </label>
 	                    <div class="col-sm-8">
