@@ -248,27 +248,9 @@
                                         </td>
                                         <td rowspan="4" class="align-middle pe-5" style="width: 15%;">
                                         	<!-- 참가하기 버튼 -->
-                                            <button type="button" class="btn btn-danger mb-1" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#teamJoinModal">
+                                            <button type="button" class="btn btn-danger mb-1" style="width: 100%;">
                                             	참가완료
                                             </button>
-                                            <div class="modal fade" id="teamJoinModal" tabindex="-1" aria-labelledby="teamJoinModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                    <div class="modal-content">
-                                                    
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="teamJoinModalLabel">모임 참가하기</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            모임에 참가하시겠습니까?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger">참가하기</button>
-                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">취소하기</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
     										
     										<!-- 상세정보 버튼 -->
                                             <button class="btn btn-outline-dark mt-1" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#detailteam${meet.id }" onclick="setTimeout(function(){ map${meet.id}.relayout();}, 200); setTimeout(function(){ map${meet.id}.setCenter(new kakao.maps.LatLng(${meet.latitude }, ${meet.longitude }));}, 250);">
@@ -369,7 +351,7 @@
                                                         <div class="modal-body">
                                                             모임에 참가하시겠습니까?
                                                         </div>
-                                                        <form action="joinMeeting.do" method="post">
+                                                        <form action="/joinMeeting.do" method="post">
 						                                    <div class="modal-footer">
 						                                    	<input type="hidden" name="meeting_id" value="${meet.id }">
 						                                    	<input type="hidden" name="member_id" value="${id }">
@@ -423,7 +405,7 @@
 			                                				<h6 class="card-subtitle mb-2 text-muted col-sm-12" style="padding: 0; text-align: left;"> 주최자: ${meet.master }</h6>
 			                                                <h6 style="text-align:left"><br>${meet.content }</h6>
 			                                            </div>
-			                                            <form action="joinMeeting.do" method="post">
+			                                            <form action="/joinMeeting.do" method="post">
 				                                            <div class="modal-footer">
 				                                            	<input type="hidden" name="meeting_id" value="${meet.id }">
 				                                    			<input type="hidden" name="member_id" value="${id }">
