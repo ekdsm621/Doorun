@@ -52,7 +52,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "/index.jsp";  
 		} else
-			session.setAttribute("errMsg", "�븘�씠�뵒 �삉�뒗 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎.");
+			session.setAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "login.jsp";
 	}
 	
@@ -97,8 +97,8 @@ public class UserController {
             numStr+=ran;
         }
 
-        System.out.println("�닔�떊�옄 踰덊샇 : " + phoneNumber);
-        System.out.println("�씤利앸쾲�샇 : " + numStr);
+        System.out.println("수신자 번호 : " + phoneNumber);
+        System.out.println("인증번호 : " + numStr);
         userService.certifiedPhoneNumber(phoneNumber,numStr);
         return numStr;
     }
@@ -138,7 +138,7 @@ public class UserController {
 			userService.updatePassword(vo);
 			return "UserSetting.do";
 		}else {
-			System.out.println("�떎�뙣");
+			System.out.println("실패");
 			return "UserSetting.do";
 		}
 	}
@@ -151,7 +151,7 @@ public class UserController {
 		vo.setNickname(nickename);
 		
 		if(userService.findPwCheck(vo)==0) {
-			System.out.println("�븘�씠�뵒�� �씠硫붿씪瑜� �솗�씤�빐二쇱꽭�슂");
+			System.out.println("아이디와 이메일를 확인해주세요");
 			model.addAttribute("msg1", "이메일을 다시 입력해주세요");
 			
 			return "findPw.jsp";
@@ -190,13 +190,13 @@ public class UserController {
 		
 
 		
-		// �봽濡쒗븘 + �슂�빟
+		// 프로필 + 요약
 		UserVO userDesc = userService.getUserDesc(vo);
 		
-		// 1. 嫄곕━
+		// 1. 거리
 		userDesc.setTotal_distance((double)Math.round(userDesc.getTotal_distance()*100)/100);
 		
-		// 2. �떆媛�
+		// 2. 시간
 		double duration = userDesc.getTotal_duration();
 		int totalHour = (int)(duration / 3600);
 		duration -= totalHour * 3600;
@@ -224,7 +224,7 @@ public class UserController {
 		double pace;
 		int paceMin;
 		int paceSec;
-		// 3. �럹�씠�뒪
+		// 3. 페이스
 		if(userDesc.getTotal_distance()==0) {
 			pace=0;
 			paceMin=0;
@@ -243,10 +243,10 @@ public class UserController {
 		model.addAttribute("paceMin",paceMin);
 		model.addAttribute("paceSec",paceSec_str);
 		
-		// �솢�룞 湲곕줉
+		// 활동 기록
 		List<RunVO> userRecordList = userService.getUserRecordList(vo);
 		for(RunVO run:userRecordList) {
-			// �떆媛�
+			// 시간
 			int runDuration = Integer.parseInt(run.getDuration());
 			
 			int tempDuration = runDuration;
@@ -272,17 +272,17 @@ public class UserController {
 			String strDuration = runHour_str + ":" + runMin_str + ":" + tempDuration_str;
 			run.setDuration(strDuration);
 			
-			//�냼�닔�젏 踰꾨┝
+			//소수점 버림
 			String distance =String.format("%.2f", Double.parseDouble(run.getDistance()));
 			run.setDistance(distance);
 			
-			// �럹�씠�뒪
+			// 페이스
 			double runDistance = Double.parseDouble(run.getDistance());
 			
 			double runPace;
 			int runPaceMin;
 			int runPaceSec;
-			// 3. �럹�씠�뒪
+			// 3.페이스
 			if(runDistance==0) {
 				runPace=0;
 				runPaceMin=0;
@@ -303,14 +303,14 @@ public class UserController {
 		}
 		model.addAttribute("userRecordList", userRecordList);
 		
-		// 媛��엯�븳 �겕猷�
+		// 가입한 크루
 		model.addAttribute("joinedCrewList", userService.getJoinedCrewList(vo));
 		
-		//洹몃옒�봽 嫄곕━ 
+		//그래프 거리 
 		UserVO graph = userService.recordForGraph(vo);
 		model.addAttribute("graph",graph);
 		
-		//洹몃옒�봽 �궇吏쒓컪
+		//그래프 날짜값
 		UserVO date = userService.dateForGraph(vo);
 		model.addAttribute("date",date);
 		

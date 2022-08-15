@@ -98,19 +98,19 @@ public class UserDAO {
 			System.out.println(email);
 			findPw(email,memberKey);
 			 
-			 MailUtils sendMail = new MailUtils(mailSender);
-				sendMail.setSubject("[DooRunDooRun 而ㅻ�ㅻ땲�떚 �엫�떆 鍮꾨�踰덊샇 �엯�땲�떎.]"); //硫붿씪�젣紐�
-				sendMail.setText(
-						"<h1>�엫�떆鍮꾨�踰덊샇 諛쒓툒</h1>" +
-								"<br/>"+vo.getNickname()+"�떂 "+
-								"<br/>鍮꾨�踰덊샇 李얘린瑜� �넻�븳 �엫�떆 鍮꾨�踰덊샇�엯�땲�떎."+
-								"<br/>�엫�떆鍮꾨�踰덊샇 :   <h2>"+memberKey+"</h2>"+
-								"<br/>濡쒓렇�씤 �썑 鍮꾨�踰덊샇 蹂�寃쎌쓣 �빐二쇱꽭�슂."+
-								"<a href='http://localhost:9292/login.jsp"+
-								">濡쒓렇�씤 �럹�씠吏�</a>");
-				sendMail.setFrom(email, "Doo Run Doo Run");
-				sendMail.setTo(email);
-				sendMail.send();
+			MailUtils sendMail = new MailUtils(mailSender);
+			sendMail.setSubject("[DooRunDooRun 커뮤니티 임시 비밀번호 입니다.]"); //메일제목
+			sendMail.setText(
+					"<h1>임시비밀번호 발급</h1>" +
+							"<br/>"+vo.getNickname()+"님 "+
+							"<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."+
+							"<br/>임시비밀번호 :   <h2>"+memberKey+"</h2>"+
+							"<br/>로그인 후 비밀번호 변경을 해주세요."+
+							"<a href='http://localhost:9292/login.jsp"+
+							">로그인 페이지</a>");
+			sendMail.setFrom(email, "Doo Run Doo Run");
+			sendMail.setTo(email);
+			sendMail.send();
 		}
 		
 
@@ -122,10 +122,10 @@ public class UserDAO {
 		        Message coolsms = new Message(api_key, api_secret);
 
 		        HashMap<String, String> params = new HashMap<String, String>();
-		        params.put("to", phoneNumber);    // �닔�떊�쟾�솕踰덊샇
-		        params.put("from", "01073025251");    // 諛쒖떊�쟾�솕踰덊샇. �뀒�뒪�듃�떆�뿉�뒗 諛쒖떊,�닔�떊 �몮�떎 蹂몄씤 踰덊샇濡� �븯硫� �맖
+		        params.put("to", phoneNumber);    // 수신전화번호
+		        params.put("from", "01073025251");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 		        params.put("type", "SMS");
-		        params.put("text", "DooRun DooRun �쑕���룿�씤利�\n�씤利앸쾲�샇�뒗" + "["+cerNum+"]" + "�엯�땲�떎.");
+		        params.put("text", "DooRun DooRun 휴대폰인증\n인증번호는" + "["+cerNum+"]" + "입니다.");
 		        params.put("app_version", "test app 1.2"); 
 
 		        try {
