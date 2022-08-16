@@ -36,7 +36,7 @@
 			SELECT * 
 			FROM CREW
 			WHERE NAME LIKE '%'||#{name}||'%'
-			AND AREA LIKE '%'||#{area}||'%'
+			AND AREA LIKE '%'||#{area}||'%' AND ID>1
 		]]>
 	</select>
 	
@@ -61,8 +61,8 @@
 	
 	<select id="getCrewMember" resultType="user">
 		<![CDATA[
-			SELECT M.* FROM MEMBER M , CREW_JOIN C
-			WHERE C.CREW_ID =#{id } AND M.ID = C.MEMBER_ID
+			SELECT M.* FROM MEMBER M  , CREW_JOIN C
+			WHERE C.CREW_ID =#{id } AND M.ID = C.MEMBER_ID ORDER BY TOTAL_DISTANCE DESC
 		]]>
 	
 	</select>

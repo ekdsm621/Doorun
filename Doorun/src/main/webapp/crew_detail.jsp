@@ -66,7 +66,7 @@
                             <h2 class="top-rank-title">TOP 3</h2>
                             <table class="table align-middle top-rank">
                                 <tbody>
-                                <c:forEach items="${crewMemberList }" var="member" varStatus="status">
+                                <c:forEach items="${crewMemberList }" var="member" varStatus="status" end="2">
                                 <c:set var="i" value ="${i+1 }"/>
                                     <tr>
                                         <th scope="row">${i }</th>

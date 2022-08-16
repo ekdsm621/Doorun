@@ -153,7 +153,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <input type="submit" class="btn btn-danger me-md-2" value="크루생성">
-                        <button class="btn btn-secondary" type="button">뒤로가기</button>
+                        <a href="javascript:history.back();"><button class="btn btn-secondary" type="button">뒤로가기</button></a>
                     </div>
                 </form>
             </div>

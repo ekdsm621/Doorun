@@ -40,6 +40,7 @@ public class CrewController {
 	@RequestMapping("/insertCrew.do")
 	public String insertCrew(HttpSession session, CrewVO vo) throws Exception, IOException {
 		
+		
 		// 지역
 		String area = vo.getTemp_area()+" "+vo.getTemp_area2();
 		vo.setArea(area);
@@ -58,7 +59,7 @@ public class CrewController {
 			upload_file1.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+newFileName));
 			vo.setImage_file(newFileName);
 		}else {
-			vo.setImage_file("");
+			vo.setImage_file("crew_img_default.jpg");
 		}
 		
 		MultipartFile upload_file2 = vo.getUploadFile2();
@@ -71,7 +72,7 @@ public class CrewController {
 			upload_file2.transferTo(new File("C:/git/Doorun/Doorun/src/main/webapp/upload_img/crew_img/"+newFileName));
 			vo.setBackground_img(newFileName);
 		}else {
-			vo.setBackground_img("");
+			vo.setBackground_img("crew_background_default.png");
 		}
 		
 		// 크루장 처리
