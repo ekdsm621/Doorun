@@ -41,7 +41,7 @@
 		  				</tr>
 		  			</tbody>
 		  		</table>	
-	  			<a href="/getBoardList.do" class="btn btn-dark mb-3 " style="width:80px; float:right">목록</a>
+	  			<a href="/boardList.do?id=<%=request.getParameter("id")%>" class="btn btn-dark mb-3 " style="width:80px; float:right">목록</a>
 	  			<input type="submit" class="btn btn-dark mb-3 mx-1" value="등록" style="width:80px; float:right">
 	  		</form>  		
 	  	</div>			

@@ -32,17 +32,17 @@
               <div class="d-flex justify-content-center py-4">
                 <div  class="logo d-flex align-items-center ">
                   <img src="assets/img/3289577_fast_run_running_icon.png" alt="">
-                  <span class="d-none d-lg-block">DORUN DORUN</span>
+                  <span class="d-none d-lg-block" style="margin-left:1.1em">DORUN DORUN</span>
                 </div>
               </div><!-- End Logo -->
 			   
               <div class="card mb-3">
                 <div class="card-body">
                    <div class="pt-4 pb-2">
-                    <p class="text-center small" ></p>
+                    <p class="text-center small"></p>
                    </div>
                   <div class="pt-4 pb-2">
-                    	<h5 class="card-title text-center  fs-4" style="font-size: 5px;">이메일로 로그인</h5>
+                    	<h5 class="card-title" style="margin-left:2.5em">이메일로 로그인</h5>
                   </div>
 
                   

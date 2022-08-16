@@ -34,7 +34,7 @@
 	  					<dt>작성일</dt>
 	  					<dd>${board.reg_date }</dd>
 	  				</dl>
-	  				<c:if test="${id eq board.writer }">
+	  				<c:if test="${nickname eq board.writer }">
 			             <a href="/deleteBoard.do?id=${board.id }&board_id=${param.board_id}"><button class="btn btn-outline-danger" style="float: right; margin-left: 5px;">삭제</button></a>
 			             <a href="/updateBoard.do?id=${board.id }&board_id=${param.board_id}"><button class="btn btn-outline-secondary" style="float: right;">수정</button></a>                        
 		            </c:if>	  			
@@ -60,7 +60,7 @@
 	                     	${re.content }
 	                     </span>
 	                 </div>
-	                 <c:if test="${id == re.writer }">
+	                 <c:if test="${nickname == re.writer }">
 			            <form action="/deleteReply.do" method="post">
 			            	<input type="hidden" name="id" value="${re.id }">
 			            	<input type="hidden" name="board_id" value="${re.board_id }">
@@ -73,6 +73,7 @@
 	            </c:forEach>
 	            <!-- Horizontal Form -->
 	            <form action="/reply.do" method="post">
+	            	<input type="hidden" name="board_cate_id" value="${board.board_id }">
 	            	<input type="hidden" name="board_id" value="${board.id }">
 	            	<input type="hidden" name="writer" value=<%=session.getAttribute("nickname") %>>
 	                <div class="row mb-1 mx-auto" style="padding: 10px;">
