@@ -1,0 +1,33 @@
+.navbar{
+    background-color: white;
+    z-index: 100;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color:rgb(245, 200, 133);
+}
+
+.navbar-light .navbar-brand{
+    color:rgb(245, 200, 133);
+    font-weight: bold;
+}
+
+.navbar-light .navbar-brand:hover{
+    color: blanchedalmond;
+    font-weight: bold;
+}
+
+.nav-item .nav-link{
+    color:gray;
+}
+.nav-item .nav-link.active{
+    color: orange;
+}

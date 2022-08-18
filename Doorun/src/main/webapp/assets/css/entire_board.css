@@ -1,0 +1,163 @@
+.navbar{
+    background-color: white;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color:rgb(245, 200, 133);
+}
+
+.navbar-light .navbar-brand{
+    color:rgb(245, 200, 133);
+    font-weight: bold;
+}
+
+.navbar-light .navbar-brand:hover{
+    color: blanchedalmond;
+    font-weight: bold;
+}
+
+.nav-item .nav-link{
+    color:gray;
+}
+.nav-item .nav-link.active{
+    color: orange;
+}
+
+.container-fluid{
+    width:60%;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}
+
+.main{
+    position:relative;
+    top:100px;
+}
+
+/* entire_board */
+
+.container-fluid h2{
+	padding :15px;
+	margin-top:90px;
+}
+
+.row thead th{
+	padding:10px;
+}
+
+.row tbody td{
+	padding:8px;
+}
+
+.search .col-4{
+	display: inline-block;
+	margin-left:-13px;
+	padding:5px;
+}
+
+.search .col-4:last-child{
+	margin-left:10px;
+}
+
+.board_view{
+	width:100%;
+	border-top: 2px solid #000;
+}
+
+.board_view .title{
+	padding : 20px 15px;
+	border-bottom: 1px solid #ddd;
+	font-size: 1.4rem;
+}
+
+.board_view .info{
+	border-bottom: 1px solid #999;
+	margin-top: 16px;
+}
+
+.board_view .info dl{
+	position: relative;
+	display: inline-block;
+	padding: 0 20px;
+	margin-left: 10px;
+}
+
+.board_view .info dl:first-child {
+	padding-left :0;	
+}
+
+.board_view .info dl::before{
+	content: "";
+	position: absolute;
+	top: 5px;
+	left: 0;
+	display: block;
+	width: 1px;
+	height: 13px;
+	background: #ddd;
+}
+
+.board_view .info dl:first-child::before{
+	display:none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd{
+	display: inline-block;
+}
+
+.board_view .info dl dt{
+	
+}
+
+.board_view .info dl dd{
+	margin-left: 10px;
+	color: #777777;
+}
+
+.board_view .content{
+	padding: 15px;
+	border-bottom: 1px solid #000;
+	line-height: 160%;
+	
+}
+
+.board_view_wrap a{
+	margin-top:10px;
+	width:80px;
+}
+
+
+.row form{
+	margin-left:-20px;
+}
+
+.searchbox input {
+	width:280px;
+}
+
+
+
+
+.table>:not(caption)>*>* {
+    padding: 0;
+}
+
+footer{
+    position: relative;
+    margin-top: 15em;
+    margin-bottom: 4em;
+}

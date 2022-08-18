@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="run">
+
+
+	<!--  
+	<select id ="getMap" resultType="run">
+	  <![CDATA[
+	  SELECT * FROM LOCATION WHERE ID = #{id} AND MEMBER_ID =#{member_id} ORDER BY LOCATION_ID
+	  ]]>	
+	</select>
+	-->
+	<select id ="getRecordList" resultType="run">
+	  <![CDATA[
+	  SELECT ID, DISTANCE, DURATION,AVG_SPEED,RUNNING_DATE FROM journey
+	  WHERE MEMBER_ID=#{member_id}
+
+	  ]]>	
+	</select>
+	<!--  
+	<select id ="detailRecord" resultType="run">
+	  <![CDATA[
+	  SELECT DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID = #{id}
+	  ]]>	
+	</select>
+	-->
+	
+	<select id ="getMap" resultType="run">
+	  <![CDATA[
+	  SELECT * FROM LOCATION WHERE ID = #{id} ORDER BY LOCATION_ID
+	  ]]>	
+	</select>
+	
+	<select id ="detailRecord" resultType="run">
+	  <![CDATA[
+	  SELECT DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM JOURNEY WHERE ID = #{id}
+	  ]]>	
+	</select>
+	
+	
+	<insert id ="insertRecord">
+	  <![CDATA[
+	  INSERT INTO journey(ID,DURATION,DISTANCE,RUNNING_DATE,AVG_SPEED,MEMBER_ID) 
+	  VALUES((SELECT NVL(MAX(ID),0)+1 FROM journey),TO_NUMBER(#{duration}),TO_BINARY_FLOAT(#{distance}),
+	  TO_CHAR(SYSDATE,'YYYY-MM-DD PM HH:MI:SS'),TO_BINARY_FLOAT(#{avg_speed}),#{member_id})
+	  ]]>	
+	</insert>
+	
+	<select id ="getJourneyMaxId" resultType="int">
+	  <![CDATA[
+	  SELECT MAX(ID) FROM JOURNEY
+	  ]]>	
+	</select>
+	
+	<insert id ="insertLocation">
+	  <![CDATA[
+	  INSERT INTO LOCATION(LOCATION_ID,ID,LONGITUDE,LATITUDE,MEMBER_ID)
+	  VALUES((SELECT NVL(MAX(location_id),0)+1 FROM location WHERE id =TO_NUMBER(#{id})),
+	  TO_NUMBER(#{id}),#{longitude},#{latitude},#{member_id})
+		
+	  ]]>	
+	</insert>
+	
+	
+	<update id ="updateMemberRecord">
+	  <![CDATA[
+		UPDATE MEMBER SET 
+		TOTAL_DURATION = TOTAL_DURATION + (SELECT DURATION FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID =(SELECT MAX(ID) FROM JOURNEY WHERE MEMBER_ID=#{member_id})),
+		TOTAL_DISTANCE = TOTAL_DISTANCE + (SELECT DISTANCE FROM JOURNEY WHERE MEMBER_ID =#{member_id} AND ID =(SELECT MAX(ID) FROM JOURNEY WHERE MEMBER_ID=#{member_id}))
+		WHERE ID =#{member_id}
+	  ]]>	
+	</update>
+	
+	
+	
+	
+
+</mapper>

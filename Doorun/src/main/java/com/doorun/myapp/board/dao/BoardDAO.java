@@ -6,15 +6,65 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.doorun.myapp.board.vo.PostVO;
+import com.doorun.myapp.board.vo.BoardVO;
+import com.doorun.myapp.board.vo.ReplyVO;
+import com.doorun.myapp.utils.PagingVO;
 
 @Repository
 public class BoardDAO {
+	
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public List<PostVO> getBoardList(PostVO vo){		
+	public void insertBaord(BoardVO vo) {
+		sst.insert("Board.insertBoard", vo);
+	}
+	
+	public void insertReply(ReplyVO vo) {
+		sst.insert("Board.insertReply", vo);
+	}
+	
+	public List<BoardVO> getBoardList(BoardVO vo){		
 		return sst.selectList("Board.getBoardList",vo);
 	}
+	
+	public List<ReplyVO> getReply(ReplyVO vo) {
+		return sst.selectList("Board.getReply",vo);
+	}
+	
+	public BoardVO detailBoard(BoardVO vo) {
+		return sst.selectOne("Board.detailBoard", vo);
+	}
 
+	public void updateBaord(BoardVO vo) {
+		sst.update("Board.updateBoard", vo);
+	}
+	
+	public void deleteBoard(BoardVO vo) {
+		sst.delete("Board.deleteBoard", vo);
+	}
+
+	public void deleteReply(ReplyVO vo) {
+		sst.delete("Board.deleteReply", vo);
+	}
+	
+	public int countBoard(PagingVO vo) {
+		return sst.selectOne("Board.countBoard",vo);
+	}
+	
+	public int countBoardT(PagingVO vo) {
+		return sst.selectOne("Board.countBoardT",vo);
+	}
+	
+	public int countBoardW(PagingVO vo) {
+		return sst.selectOne("Board.countBoardT",vo);
+	}
+
+	public List<BoardVO> selectBoard(PagingVO vo) {
+		return sst.selectList("Board.selectBoard",vo);
+	}
+	
+	public List<BoardVO> selectBoardW(PagingVO vo) {
+		return sst.selectList("Board.selectBoardW",vo);
+	}
 }

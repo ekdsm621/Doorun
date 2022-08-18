@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+
+	<resultMap type="user" id="userResult">
+		<id property ="id" column="ID"/>
+		<result property = "name" column="NAME"/>
+		<result property = "password" column="PASSWORD"/>
+		<result property = "email" column="EMAIL"/>
+		<result property = "total_distance" column="TOTALDISTANCE"/>
+		<result property = "total_duration" column="TOTALDURATION"/>
+		<result property = "profile_image" column="PROFILE_IMAGE"/>
+		<result property = "introduce" column="INTRODUCE"/>
+		<result property = "nickname" column="NICKNAME"/>
+		<result property = "postcode" column="POSTCODE"/>
+		<result property = "address_road" column="ADDRESS_ROAD"/>
+		<result property = "address_detail" column="ADDRESS_DETAIL"/>
+		<result property = "member_type" column="MEMBER_TYPE"/>
+	</resultMap>
+
+	<insert id ="insertUser">
+	  <![CDATA[
+	  	INSERT INTO MEMBER (ID , NAME , PASSWORD , EMAIL, PHONE, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL , MEMBER_TYPE)	  
+	  	VALUES ( #{id} , #{name} , #{password} , #{email}, #{phone}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} , 'EMAIL' )	
+	  ]]>	
+	</insert>
+	
+	<insert id ="kakaoInsertUser">
+	  <![CDATA[
+	  	INSERT INTO MEMBER (ID , NAME , EMAIL, NICKNAME , POSTCODE , ADDRESS_ROAD , ADDRESS_DETAIL , MEMBER_TYPE )	  
+	  	VALUES ( #{id} , #{name} , #{email}, #{nickname} , #{postcode} , #{address_road} , #{address_detail} , 'KAKAO' )	
+	  ]]>	
+	</insert>
+	
+	<update id="updateUser">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , 
+	  	POSTCODE = #{postcode} , ADDRESS_ROAD = #{address_road} , ADDRESS_DETAIL = #{address_detail} , PROFILE_IMAGE = #{profile_image}
+	  	WHERE  EMAIL = #{email}
+	  ]]>		
+	</update>
+	
+	
+	<update id="updateUser2">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET NAME = #{name} , INTRODUCE = #{introduce} , 
+	  	POSTCODE = #{postcode} , ADDRESS_ROAD = #{address_road} , ADDRESS_DETAIL = #{address_detail}
+	  	WHERE  EMAIL = #{email}
+	  ]]>		
+	</update>
+	
+	
+	<update id="updatePassword">
+	  <![CDATA[
+	  	UPDATE MEMBER
+	  	SET PASSWORD =#{password}
+	  ]]>		
+	</update>
+	
+	<delete id="deleteUser">
+	<![CDATA[
+	 
+	]]>	
+	</delete>
+	
+	<select id="getUser" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password}
+	]]>	
+	</select>
+	
+	<select id="getUserFromApp" resultType="int">
+	<![CDATA[	
+	  SELECT COUNT(*) FROM MEMBER
+	  WHERE ( ID = #{login} OR EMAIL = #{login} )  AND PASSWORD = #{password} AND MEMBER_TYPE = 'EMAIL'
+	]]>	
+	</select>
+	
+	<select id="getKakaoUser" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE EMAIL = #{email} AND MEMBER_TYPE = 'KAKAO'
+	  ]]>	
+	</select>
+	
+	<select id="getKakaoUserFromApp" resultType="int">
+	<![CDATA[	
+	  SELECT COUNT(*) FROM MEMBER
+	  WHERE EMAIL = #{email}
+	]]>	
+	</select>
+	
+	<select id="getUserWithEmail" resultType="String">
+	<![CDATA[	
+	  SELECT NICKNAME FROM MEMBER
+	  WHERE EMAIL = #{email}  AND MEMBER_TYPE = 'EMAIL'
+	]]>	
+	</select>
+	
+	<select id="getUserWithId" resultType="user">
+	<![CDATA[	
+	  SELECT * FROM MEMBER
+	  WHERE ID = #{id} 
+	]]>	
+	</select>
+	
+	<select id="passwordCheck" resultType="String">
+	<![CDATA[	
+	  SELECT PASSWORD FROM MEMBER
+	  WHERE ID = #{id}
+	  
+	]]>	
+	</select>
+	
+	<select id="getUserList" resultMap ="userResult">
+	<![CDATA[
+	  SELECT * FROM MEMBER
+	  ORDER BY ID DESC
+	]]>
+	</select>
+	
+	<update id="findPw" >
+	<![CDATA[
+		UPDATE MEMBER SET PASSWORD = #{password} WHERE EMAIL = #{email}   AND MEMBER_TYPE = 'EMAIL'
+	]]>
+	</update>
+
+	<select id="findPwCheck" resultType="int">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email} AND MEMBER_TYPE = 'EMAIL'
+	]]>
+	</select>
+	
+	<select id="getUserDesc" resultType="user">
+	<![CDATA[
+		SELECT * 
+		FROM MEMBER 
+		WHERE ID = #{id}
+	]]>
+	</select>
+	
+	<select id ="getUserRecordList" resultType="run">
+	  <![CDATA[
+		  SELECT *
+		  FROM JOURNEY
+		  WHERE MEMBER_ID = #{id} ORDER BY RUNNING_DATE DESC
+	  ]]>	
+	</select>
+	
+	<select id="getJoinedCrewList" resultType="crew">
+		<![CDATA[
+			SELECT C.*
+			FROM CREW C INNER JOIN CREW_JOIN J
+			ON C.ID = J.CREW_ID
+			WHERE J.MEMBER_ID = #{id}
+		]]>
+	</select>
+	
+	<select id="EmailCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where EMAIL = #{email} AND MEMBER_TYPE = 'EMAIL'
+	]]>
+	</select>
+	
+	<select id="IdCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where ID = #{id}  
+	]]>
+	</select>
+	
+	<select id="nicknameCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where NICKNAME = #{nickname} 
+	]]>
+	</select>
+	
+	<select id="phoneCheck" resultType="int" parameterType="user">
+	<![CDATA[
+		select count(*) from MEMBER where phone = #{phone} 
+	]]>
+	</select>
+	
+	<select id="recordForGraph" resultType="user" parameterType="user">
+	<![CDATA[
+		SELECT (SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-6,'YYYY-MM-DD'))as firstDay, 
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-5,'YYYY-MM-DD'))as secondDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-4,'YYYY-MM-DD'))as thirdDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-3,'YYYY-MM-DD'))as fourthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-2,'YYYY-MM-DD'))as fifthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE-1,'YYYY-MM-DD'))as sixthDay,
+		(SELECT NVL(SUM(DISTANCE),0) FROM JOURNEY WHERE SUBSTR(RUNNING_DATE,1,10) = TO_CHAR(SYSDATE,'YYYY-MM-DD'))as seventhDay
+		FROM JOURNEY WHERE MEMBER_ID =#{id}  AND ROWNUM=1
+	]]>
+	</select>
+	
+	<select id="dateForGraph" resultType="user" parameterType="user">
+	<![CDATA[
+		SELECT TO_CHAR(SYSDATE-6,'MM-DD')as firstday_date,
+        TO_CHAR(SYSDATE-5,'MM-DD')as secondDay_date,
+        TO_CHAR(SYSDATE-4,'MM-DD')as thirdDay_date,
+        TO_CHAR(SYSDATE-3,'MM-DD')as fourthDay_date,
+        TO_CHAR(SYSDATE-2,'MM-DD')as fifthDay_date,
+        TO_CHAR(SYSDATE-1,'MM-DD')as sixthDay_date,
+        TO_CHAR(SYSDATE,'MM-DD')as seventhDay_date
+        FROM JOURNEY WHERE MEMBER_ID =#{id} AND ROWNUM=1
+	]]>
+	</select>
+	
+	<select id="getIdFromEmail" resultType="String" parameterType="String">
+	<![CDATA[
+		SELECT ID FROM MEMBER WHERE EMAIL = #{email}
+	]]>
+	</select>
+	
+	
+
+
+</mapper>

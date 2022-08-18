@@ -1,0 +1,168 @@
+body{
+    background-color: #f8fbff;
+}
+
+.navbar{
+    background-color: white;
+    z-index: 100;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color:blanchedalmond;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color:rgb(245, 200, 133);
+}
+
+.navbar-light .navbar-brand{
+    color:rgb(245, 200, 133);
+    font-weight: bold;
+}
+
+.navbar-light .navbar-brand:hover{
+    color: blanchedalmond;
+    font-weight: bold;
+}
+
+.nav-item .nav-link{
+    color:gray;
+}
+.nav-item .nav-link.active{
+    color: orange;
+}
+
+.container-fluid{
+    width:70%;
+}
+
+.main{
+    position:relative;
+    top:150px;
+    z-index: 0;
+}
+
+.user{
+    color:rgb(64, 64, 64);
+    position: fixed;
+    width:15%;
+}
+
+.user-img{
+    border-radius: 50em;
+    width:40%;
+    position: relative;
+    left: 30%;
+    z-index:10;
+    box-shadow: rgb(211 211 211) 0px 0px 20px 2px;
+}
+
+.user-card{
+    width:100%;
+    position: absolute;
+    top:50%;
+    padding-top: 20%;
+    box-shadow: rgb(211 211 211) 0px 0px 20px 2px;
+    border:0;
+}
+
+.user-tbl{
+    width:100%;
+    text-align: center;
+}
+
+.user-tbl th{
+    padding-bottom: 3%;
+}
+
+.user-tbl td:first-child,td:nth-child(2){
+    border-right:1px solid lightgray;
+}
+
+.weekly-graph{
+    width:100%;
+    height:300px;
+    position: absolute;
+    top:250%;
+    box-shadow: rgb(211 211 211) 0px 0px 20px 2px;
+    border:0;
+    background-color: white;
+}
+
+.recent-img{
+    height:20em;
+}
+
+.card{
+    color:rgb(64, 64, 64);
+    border:0;
+    border-radius: 0;
+    box-shadow: rgb(211 211 211) 0px 0px 20px 2px;
+}
+
+.card-body{
+    padding: 4%
+}
+
+.card-body p{
+    margin:0;
+}
+
+.crew_header{
+    float:left;
+    margin:0;
+}
+
+.sub-menu{
+    position: fixed;
+    width:15%;
+    left:70%;
+}
+
+.sub-menu a{
+    text-decoration: none;
+}
+
+.crew-title{
+    color:rgb(64, 64, 64);
+    width:100%;
+    font-size:1.5em;
+}
+
+.crew-body{
+    float:left;
+    margin-top:0;
+    margin-bottom: 15%;
+}
+
+.crew-img {
+    float:left;
+    width:30%;
+    margin-bottom: 5%;
+    margin-right: 3%;
+
+}
+
+.sub-list{
+    margin-top:10%;
+    margin-bottom: 5%;
+}
+
+.sub-list .title{
+    color:orangered;
+}
+
+.sub-list .content{
+    color:rgb(64, 64, 64);
+    font-size:small;
+}
+
+footer{
+    position: relative;
+    margin-top: 15em;
+    margin-bottom: 4em;
+}
+
+#myChart{
+	margin-top: 20%;
+}

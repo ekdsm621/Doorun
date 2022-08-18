@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Crew">
+
+	<insert id ="insertCrew">
+	  <![CDATA[
+	  		INSERT INTO CREW (ID , NAME , MASTER , IMAGE_FILE, BACKGROUND_IMG, DESCRIBE, AREA)	  
+	  		VALUES ( (SELECT NVL(MAX(ID),1)+1 FROM CREW) , #{name} , #{master} , #{image_file}, #{background_img}, #{describe},#{area})	
+	  ]]>	
+	</insert>
+	
+	<select id ="getMaxCrewID" resultType="int">
+	  <![CDATA[
+			SELECT MAX(ID) FROM CREW
+	  ]]>	
+	</select>
+	
+	<insert id ="crew_Join">
+	  <![CDATA[
+			INSERT INTO CREW_JOIN 
+			VALUES (#{crew_id},#{member_id})
+	  ]]>	
+	</insert>
+	
+	<select id="checkCrewJoin" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM CREW_JOIN
+			WHERE CREW_ID = #{crew_id}
+			AND MEMBER_ID = #{member_id}
+	  ]]>	
+	</select>
+	
+	<select id="getCrewList" resultType="Crew">
+		<![CDATA[
+			SELECT * 
+			FROM CREW
+			WHERE NAME LIKE '%'||#{name}||'%'
+			AND AREA LIKE '%'||#{area}||'%' AND ID>1
+		]]>
+	</select>
+	
+	<select id="detailCrew" resultType="Crew">
+		<![CDATA[
+			SELECT (SELECT SUM(M.TOTAL_DISTANCE)
+			FROM MEMBER M, CREW_JOIN J, CREW C
+			WHERE M.ID = J.MEMBER_ID AND J.CREW_ID = C.ID
+			GROUP BY C.ID
+			HAVING C.ID = #{id}) as DISTANCE,NAME,IMAGE_FILE,BACKGROUND_IMG,DESCRIBE,MASTER,MEMBER
+			FROM CREW
+			WHERE ID =#{id}
+		]]>
+	</select>
+	
+	<update id="plusCrewMember">
+		<![CDATA[
+			UPDATE CREW SET MEMBER = MEMBER +1 WHERE ID = #{crew_id} 
+		]]>
+	
+	</update>
+	
+	<select id="getCrewMember" resultType="user">
+		<![CDATA[
+			SELECT M.* FROM MEMBER M  , CREW_JOIN C
+			WHERE C.CREW_ID =#{id } AND M.ID = C.MEMBER_ID ORDER BY TOTAL_DISTANCE DESC
+		]]>
+	
+	</select>
+	
+	<update id ="updateCrew">
+	  <![CDATA[
+	  		UPDATE CREW SET NAME = #{name} IMAGE_FILE= #{image_file} DESCRIBE=	#{describe}  
+	  		WHERE ID = #{id}	
+	  ]]>	
+	</update>
+	
+	<delete id ="quitCrew">
+	  <![CDATA[
+	  		DELETE FROM CREW_JOIN WHERE MEMBER_ID= #{id}
+	  ]]>	
+	</delete>
+	
+	<update id="minusCrewMember">
+		<![CDATA[
+			UPDATE CREW SET MEMBER = MEMBER -1 WHERE ID = #{id} 
+		]]>
+	
+	</update>
+	
+	<select id="getCrewRecentRecord" resultType="run">
+		<![CDATA[
+			SELECT B.ID, MEMBER_ID,DURATION,DISTANCE,AVG_SPEED,RUNNING_DATE FROM (SELECT M.* FROM MEMBER M , CREW_JOIN C
+			WHERE C.CREW_ID =#{id } AND M.ID = C.MEMBER_ID)A,(SELECT * FROM journey)B
+			WHERE A.ID= B.MEMBER_ID
+			ORDER BY RUNNING_DATE DESC
+		]]>
+	
+	</select>
+	
+	<select id="getCrewMasterImage" resultType="String">
+		<![CDATA[
+			SELECT profile_image FROM MEMBER 
+			WHERE ID = (SELECT MASTER FROM CREW WHERE ID=#{id })
+		]]>
+	
+	</select>
+	
+	<select id="getCrewMemberNickName" resultType="String">
+		<![CDATA[
+			SELECT NICKNAME FROM MEMBER
+			WHERE ID = #{id}
+		]]>
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
